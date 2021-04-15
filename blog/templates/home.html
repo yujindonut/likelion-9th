@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOG</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600&display=swap');
+        body{
+            text-align: center;
+            background-color: cornflowerblue;
+            font-family: 'Noto Serif KR', serif;
+            color: rgb(255, 246, 255);
+            /* background : url('dongdukLion.png') no-repeat; */
+        }
+        .blog{
+        /* 단의 최소 가로 크기 : 150px, 단의 최대수 : 5개 */
+            columns : 150px 5;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Blog Project</h1>
+    
+    <div class="blog">
+        {% for blog in blogInfo %}
+            <h2>{{blog.name}}</h2>
+            <h4>{{blog.drafter}}</h4>
+            <br>
+            {{blog.summary}} <a href="{% url 'detail' blog.id %}">...more</a>
+            <br>
+            <!-- {{blog.id}} -->
+            <br>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>

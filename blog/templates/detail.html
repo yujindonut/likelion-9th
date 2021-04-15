@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100&family=Noto+Serif+KR:wght@600&display=swap');
+        body{
+            text-align: center;
+            background-color: cornflowerblue;
+            font-family: 'Gothic A1', sans-serif;
+            font-family: 'Noto Serif KR', serif;
+            color: rgb(255, 246, 255);
+        }
+        p{
+            columns : 130px 7;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{blogInformation.name}}</h1>
+    <div>
+        <h2>작성자: {{blogInformation.drafter}}</h2>
+        <br>
+        <h4>날짜: {{blogInformation.date}}</h4>
+    </div>
+    <hr>
+    <p>{{blogInformation.textBody}}</p>
+</body>
+</html>
