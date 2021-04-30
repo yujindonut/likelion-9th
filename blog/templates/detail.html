@@ -1,0 +1,17 @@
+{% extends 'base.html' %}  
+
+{% block content %}
+    <h1>{{blogInformation.subject}}</h1>
+    <h2>작성자: {{blogInformation.drafter}}</h2>
+    <br>
+    <h4>날짜: {{blogInformation.date}}</h4>
+    <hr>
+    <div class="blog">
+        {{blogInformation.textBody}}
+    </div>
+    <br>
+    <!-- editMine url부분에 pathcoverter를 사용했기 때문에 id도 함께 보내줌. -->
+    <a href="{% url 'editMine' blogInformation.id %}">수정하기</a> 
+    <br><br>
+    <a href="{% url 'deleteMine' blogInformation.id %}">삭제하기</a>
+{% endblock %}
