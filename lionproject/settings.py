@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
+    'staticBlog',
+    'mediaformBlog',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +121,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'blog' , 'static')
+]
+#현재 static 파일들이 어디에 있는지
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#static 파일을 어디에 모을건지
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#이용자가 업로드한 파일을 모으는 곳
+MEDIA_URL = '/media/'
+#이용자에게 사진을 보여줄 때, url의 구성요소,media파일의 url을 설정한것과 같다

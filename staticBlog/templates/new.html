@@ -1,0 +1,14 @@
+{% extends 'base.html' %}  
+
+{% block content %}
+    <h1>Write New</h1>
+    <form action="{%url 'createMine'%}" method="post">
+        {%csrf_token%}
+    
+        <br>
+        <p>제목 : <input type = "text" name = "titleName"></p> 
+        <p>작성자 : <input type = "text" name = "writerName"></p> 
+        <p>본문 : <textarea name = "bodyContent" id = "" cols = "30" rows = "10"></textarea></p> <br>
+        <button type="submit" class="btn btn-outline-warning">submit</button>
+    </form>
+{% endblock %}

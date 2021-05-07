@@ -15,12 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from blog.views import homePage
+from staticBlog.views import homePage
+from mediaformBlog.views import home
+from django.conf import settings
+from django.conf.urls.static import static
+
 #blog안의 views.py안의 모든 함수를 가져온다는 것
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',homePage,name="homePage"),
-    path('blog/', include('blog.urls'))
-    #url이 blog/create 이런식으로 생기게 된다. 간결한 코드
-]
+    path('homemedia/',home,name="home"),
+    path('staticBlog/', include('staticBlog.urls')),
+    path('mediaformBlog/', include('mediaformBlog.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #이거를 통해 미디어를 url로 설정할 수 있다
+
