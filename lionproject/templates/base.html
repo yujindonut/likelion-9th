@@ -10,7 +10,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
         a{
             color:#475300;
         }
@@ -41,15 +41,25 @@
         }
         body{
             text-align: center;
-            font-family: 'Noto Serif KR', serif;
+            font-family: 'Black Han Sans', sans-serif;
             color: rgb(51, 46, 46);
-            background-color: #277ea0;
+            background-color: #50acac;
         }
         .blog{
         /* 단의 최소 가로 크기 : 150px, 단의 최대수 : 3개 */
             columns :  3;
             column-gap: 50px;
             column-rule: 2px solid rgb(220, 221, 175);
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-top: 1px solid #e4fd56;
+            border-collapse: collapse;
+        }
+        th, td {
+            border-bottom: 1px solid #e4fd56;
+            padding: 10px;
         }
         p{
             color: rgb(54, 54, 54);
@@ -58,22 +68,17 @@
         h1{
             color: rgb(54, 54, 54);
         }
-        table {
-            width: 100%;
-            border-top: 1px solid #9bb40b;
-            border-collapse: collapse;
-            text-align: center;
-        }
-        th, td {
-            border-bottom: 1px solid #9bb40b;
-            padding: 10px;
-            text-align: center;
-        }
         .mediaBlog{
-          color:rgb(202, 146, 41)
+          color:rgb(202, 146, 41);
+          margin-left: 18%;      
+          margin-right: 18%;
+          width: auto;
         }
         .staticBlog{
-          color:rgb(139, 175, 206)
+          color:rgb(139, 175, 206);
+          margin-left: 18%;      
+          margin-right: 18%;
+          width: auto;
         }
     </style>
 </head>
@@ -84,39 +89,31 @@
 
     <!-- navbar 부트스트랩 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <div class="container-fluid">
-            <!-- 사진을 넣는 부분 -->
-          <a class="navbar-brand" href="{%url 'homePage' %}">
-              <img src="{% static 'cute.jpg' %}" alt="" width="200" height="200">
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                  <!-- nav item에 href 부분에 html을 연결시켜준다 -->
-                <a class="nav-link active" aria-current="page" href="{% url 'homePage' %}">StaticBlog</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{%url 'new' %}">WriteStaticBlog</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{%url 'home'%}" >MediaFormBlog </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{%url 'newMedia' %}" >WriteMediaBlog </a>
-              </li>
-            </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{%url 'homePage' %}">
+          <img src="{% static 'cute.jpg' %}" alt="" width="50" height="50">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'homePage' %}">StaticBlog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{%url 'new' %}">WriteStaticBlog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{%url 'home'%}">MediaFormBlog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{%url 'newMedia' %}">WriteMediaBlog</a>
+            </li>
+          </ul>
         </div>
-      </nav>
-
+      </div>
+    </nav>
     <div class="container">
         {% block content %}
         {% endblock %}

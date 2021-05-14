@@ -28,5 +28,8 @@ urlpatterns = [
     path('homemedia/',home,name="home"),
     path('staticBlog/', include('staticBlog.urls')),
     path('mediaformBlog/', include('mediaformBlog.urls')),
+    #프로젝트 단위로 url을 관리하면 가독성이 떨어지고 유지보수가 함들다
+    #따라서 장고 url이 제공하는 include함수를 사용하여 앱 별로 url관리하는 게 좋다
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #이거를 통해 미디어를 url로 설정할 수 있다
 

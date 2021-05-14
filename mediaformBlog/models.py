@@ -1,4 +1,6 @@
 from django.db import models
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 class mediaformBlog(models.Model):
     subject = models.CharField(max_length = 200) 
@@ -6,6 +8,7 @@ class mediaformBlog(models.Model):
     date = models.DateTimeField() 
     textBody = models.TextField() 
     picture = models.ImageField(upload_to = "mediaformBlog/", blank = True, null = True) #image #사진을 안올릴 수도 있어서, blank와 nul을 모두 true처리
+    imageThumbnail = ImageSpecField(source = 'picture', processors=[ResizeToFill(120,100)])
     #upload_to는 업로드할 폴더를 지정하는 것 
     #settings.py에 MEDIA_URL로 지정해둔 media폴더 안에 mediaformBlog폴더를 만들어서 관리
     #blog/~이런식으로 url경로가 적힘 / 실제 사진이 저장되는 것이 아니라 사진이 있는 경로가 저장되는 것임
@@ -17,4 +20,3 @@ class mediaformBlog(models.Model):
 
     def summary(self):
         return self.textBody[:100] #100번째 index까지 문자열을 잘라줌
-

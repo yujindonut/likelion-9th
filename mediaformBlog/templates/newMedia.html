@@ -1,14 +1,19 @@
 {% extends 'base.html' %}  
 
+{% load crispy_forms_tags %}
+
 {% block content %}
     <h1>Write New</h1>
 
     <!-- 인코딩 타입을 추가해서 form-data의 형태로 사진을 서버에 넘겨줄 수 있게 된다 -->
-    <form action="{%url 'createMedia'%}" method="post" enctype="multipart/form-data">
-        <!-- 메소드 post를 사용할 때는 csrf토큰을 보내줌
-        csrf공격이 아니라는 것을 알려주는 token -->
+    <form action="{%url 'newMedia'%}" method="post" enctype="multipart/form-data">
         {%csrf_token%}
-            {{form.as_p}} <!--{{form.as_table}} : label태그로 감싸진걸 p로 감싸도록 한다-->
+        
+        <!-- django form함수로 생성한 객체들을 template에서 밑에처럼 사용하면 기본 스타일로 랜더링-->
+        <!-- form 객체를 다루기 용이하도록 도와주는 것 -
+            {%load static%} (base.html안에 씀) 뒤에 써줘야함-->
+            {{ form | crispy }}
+            <!-- {{form.as_p}}{{ form | crispy }}  -->
         <br>
         <button type="submit" class="btn btn-outline-warning">submit</button>
     </form>

@@ -11,33 +11,41 @@ def detailMedia(request,id):
     blogInformation = get_object_or_404(mediaformBlog, pk = id)
     return render(request, 'detailMedia.html', {'blogInformation' : blogInformation})
 
+#new, create함수 하나로 합치기
+#http 메소드 중 GET과 POST
+#GET은 파라미터 포함해서 보내고, POST는 파라미터 안보이게
+#긴글의 내용을 저장, 보이면 안되는 정보들은 POST
 def newMedia(request):
-    Myform = BlogForm()
-    return render(request,'newMedia.html', {'form': Myform})
+    if request.method == 'POST': #글을 작성한 후 저장 버튼을 눌렀을 때 = 파라미터로 받은게 있으면?
+        blogForm = BlogForm(request.POST, request.FILES)
+        if blogForm.is_valid():
+            myblog = blogForm.save(commit = False)#날짜까지 저장해줘야하니까 아직 저장할 것이 남았다
+            myblog.date = timezone.now() #날짜 생성
+            myblog.save()
+            return redirect('detailMedia', myblog.id)
+            #유효성검사에 성공해서 글을 저장했을 때
+        return redirect('home')
+        #유효성 검사에 실패했을 때는 home으로 가게
+    else:
+        blogForm = BlogForm() #글을 입력받기 위한 빈 form을 불러온다
+        return render(request,'newMedia.html', {'form': blogForm}) 
 
-def createMedia(request):
-    form = BlogForm(request.POST, request.FILES)
-    if form.is_valid():
-        newBlog = form.save(commit=False) #날짜까지 저장해줘야하니까 아직 다 저장못했어~
-        newBlog.date = timezone.now()#얘도 추가 저장
-        newBlog.save()
-        return redirect('detailMedia', newBlog.id)
-        #유효성검사에 성공해서 글을 저장했을 때
-    return redirect('home')
-    #유효성 검사에 실패했을 때는 home으로 가게
-
+#edit과 update 함수 하나로 합치기
 def editMedia(request, id):
-    editBlog = mediaformBlog.objects.get(id = id)
-    return render(request,'editMedia.html',{'blog':editBlog})
-    
-def updateMedia(request, id):
-    updateBlog = mediaformBlog.objects.get(id = id)
-    updateBlog.subject = request.POST['titleName']
-    updateBlog.drafter = request.POST['writerName']
-    updateBlog.textBody = request.POST['bodyContent']
-    updateBlog.date = timezone.now() 
-    updateBlog.save()
-    return redirect('detailMedia', updateBlog.id)
+    update_blog = get_object_or_404(mediaformBlog,pk=id)
+    if request.method == 'GET': 
+        blogForm = BlogForm(instance = update_blog)
+        return render(request,'editMedia.html', {'form': blogForm}) 
+    else: #update #글을 수정하고 수정버튼을 눌렀을 때
+        blogForm = BlogForm(request.POST, request.FILES, instance = update_blog)
+        #현재 post에 가져온 정보를 form에 담음
+        if blogForm.is_valid():
+            update_blog = blogForm.save(commit = False)
+            update_blog.date = timezone.now()
+            update_blog.save()
+            return redirect('/mediaformBlog/detail/' + str(id))
+            # return redirect('detailMedia', update_blog.id)
+        return redirect('home')
 
 def deleteMedia(request, id):
     deleteBlog = mediaformBlog.objects.get(id = id)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from staticBlog.views import *
+from .views import *
 
 urlpatterns = [
     path('<str:id>',detail,name="detail"),
