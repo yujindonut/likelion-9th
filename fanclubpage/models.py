@@ -16,3 +16,4 @@ class unnie_info(models.Model):
 
     def summary(self):
         return self.textBody[:100] #100번째 index까지 문자열을 잘라줌
+

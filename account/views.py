@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterForm
+
 # 인증폼(로그인) , (회원가입폼)
 
 def loginView(request):

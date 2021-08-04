@@ -50,7 +50,10 @@
 
       {% if user.is_authenticated %}
       <a class="navbar-brand" href="{%url 'home' %}">▶YeosuUnnie Community</a>
-      <a class="navbar-brand" href="{%url 'new'%}">▶WRITE</a>
+      <a class="navbar-brand" href="{%url 'new'%}">▶Write</a>
+      <a class="navbar-brand" href="{%url 'receive_message' %}">▶Received </a>
+      <a class="navbar-brand" href="{%url 'send_message' %}">▶Sent</a>
+      <a class="navbar-brand" href="{%url 'new_message' %}">▶Write Chat </a>
       <a class="navbar-brand" href="{%url 'logout' %}">▶Logout</a>
       <span class="navbar-text">
         {{user.username}} 님이 로그인 중
@@ -61,7 +64,7 @@
       <a class="navbar-brand" href="{%url 'login' %}">▶Login</a>
       <a class="navbar-brand" href="{%url 'signup' %}">▶signup </a>
       {% endif %}
-      <a class="navbar-brand" href="{%url 'sendmail' %}">sendmail </a>
+      <a class="navbar-brand" href="{%url 'sendmail' %}">Mail</a>
       <form class="d-flex" action="{% url 'search' %}" method="post">
         {% csrf_token %}
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"name="find" value="{{find}}">

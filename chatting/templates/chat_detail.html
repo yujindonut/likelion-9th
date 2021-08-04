@@ -1,0 +1,48 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Sans+KR:wght@700&family=Ultra&display=swap');
+  
+    .col{
+      color: rgb(0, 0, 0);
+    }
+    .detail {
+        font-size: 40px;
+        color:rgb(10, 25, 158);
+        text-shadow: 4px 4px 0px #1565C0, 8px 8px 0px #42A5F5, 12px 12px 0px #E3F2FD;
+    }
+    .subject{
+        font-size: 20px;
+    }
+    .message {
+      border-radius: 20px;
+      font-family: 'Alfa Slab One', 'Noto Sans KR', cursive, sans-serif;
+      position: relative;
+      margin: 3% 20%;
+      z-index: 2;
+      padding: 40px;
+      background-color: rgb(34, 158, 100);
+      color: rgb(65, 65, 65);
+    }
+  </style>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="message">
+    <div class="detail">
+        <p>쪽지</p>
+    </div>
+    <hr>
+    <br>
+    <p>보낸이 : {{chat.sender}}</p>
+    <br>
+    <p>받는이 : {{chat.receiver}}</p>
+    <br>
+    <p>내용 : {{chat.text}}</p>
+    <br>
+    <p>날짜 : {{chat.date}}</p>
+    <br>
+    <a href="{% url 'edit_message' chat.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
+        aria-disabled="true">Edit</a>
+    <a href="{% url 'delete_message' chat.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
+        aria-disabled="true">Delete</a>
+</div>
+{% endblock %}

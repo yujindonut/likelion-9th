@@ -25,4 +25,5 @@ urlpatterns = [
     path('fanclubpage/', include('fanclubpage.urls')),
     path('account/',include('account.urls')),
     path('send/', include('send.urls')),
+    path('chatting/', include('chatting.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

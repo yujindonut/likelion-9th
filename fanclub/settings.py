@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'fanclubpage.apps.FanclubpageConfig',
     'account.apps.AccountConfig',
     'send.apps.SendConfig',
+    'chatting.apps.ChattingConfig',
     'imagekit',
     'crispy_forms',
 
