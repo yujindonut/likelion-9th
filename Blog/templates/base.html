@@ -94,8 +94,8 @@
 <body>
     {% load static %}<br><br><br>
         <a  href="{% url 'home' %}">
-          <logo>정보처리기사 담소 </logo>
-        </a><br><br>
+          <logo>정보처리기사 담소  </logo>
+        </a><img src="{% static 'h.gif'%}" width="40px"><br><br>
 
             
    
@@ -135,5 +135,6 @@
     {%endif%}
   {% block content %}
   {% endblock %}
+ 
 </body>
 </html>
