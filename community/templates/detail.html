@@ -1,0 +1,32 @@
+{%extends 'base.html'%}
+
+{%block content%}
+   
+    {% load static %}
+    <style>
+        table,td,tr,th{
+            border:1px solid chocolate;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+        </style>
+        {%csrf_token%}
+        <br>
+        <table class="detailTable">
+            
+            <tr><td colspan="2">
+                {% if postContents.image %}
+                <img src= {{postContents.image.url}} alt='image' height="300px">
+                {% else %}
+              <br> 첨부사진없음<br><br>
+                {% endif %}
+            </td></tr>
+            <tr><th>제목</th><td> {{postContents.title}}</td></tr>
+            <tr><th>작성자</th> <td>  {{user.username}} </td></tr>
+            <tr><th>본문</th><td height="200px"> {{postContents.body}}</textarea></td></tr>
+        </table>    
+        {{postContents.pub_date}}<br>
+        <a class="toNext" href="{% url 'editPost' postContents.id%}">수정하기</a>
+        <a class="toNext" href="{% url 'deletePost' postContents.id%}">삭제하기</a>
+        <br> <br> <br> <br>
+        {%endblock%}

@@ -1,0 +1,18 @@
+{%extends 'base.html'%}
+
+{%block content%}
+   
+    {% load static %}
+        {%csrf_token%}
+        <br>
+        <a  href="{% url 'home'%}">Home</a>
+       <hr>
+        <table class="detailTable">
+            
+            <tr><th>받는이</th><td> {{message.to}}</td></tr>
+            <tr><th>보낸이</th> <td>  {{message.writer}} </td></tr>
+            <tr><th>내용</th><td height="400px"> {{message.body}}</textarea></td></tr>
+        </table>    
+        {{postContents.pub_date}}<br>
+        <br> <br> <br> <br>
+        {%endblock%}

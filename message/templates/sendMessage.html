@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+
+{%block content%}
+   
+    {% load static %}
+    <style>
+        #unit{
+            margin:auto;
+            border:1px solid  rgb(179, 108, 108);
+            width:400px;
+        }
+    </style>
+    내가 보낸 메세지 <hr>
+    {% for unit in message %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
+    <div id="unit">       
+        보낸이 | {{unit.writer}}<br>
+        받는이 | {{unit.to}}<br>
+        내용 |  {{unit.summary}} 
+        <a class="toNext" href="{% url 'detailMessage' unit.id%}">...더보기</a><br>
+        </div>
+    {% endfor %}
+    {%endblock%}

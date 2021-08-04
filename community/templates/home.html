@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+
+{%block content%}
+   
+    {% load static %}
+    <style>
+        #unit{
+            margin:auto;
+            margin-bottom: 70px;
+            margin-top: 30px;
+            border:1px solid  rgb(179, 108, 108);
+            width:400px;
+            height: 100px;
+            padding-top:40px;
+        }
+    </style>
+    
+    {% for unit in blogContents %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
+        
+    <div id=unit>
+        제목 | {{unit.title}}<br> 
+        작성자 | {{unit.writer}}<br>
+        글 |  {{unit.summary}} 
+        <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
+    </div>
+        {% endfor %}
+    {%endblock%}
