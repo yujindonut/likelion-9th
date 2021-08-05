@@ -3,10 +3,13 @@
 {%block content%}
    
     {% load static %}
+   
     <form  method="post" enctype="multipart/form-data">
         {%csrf_token%}
         <table>
-            {{form.as_table}}
+            <tr><th>받는사람</th><td > {{form.to}}</td></tr>
+            <tr><th>보내는 사람</th><td > {{user.username}}</td></tr>
+            <tr><th>내용</th><td colspan="2">{{form.body}}</td></tr>
         </table>
         <br><button type="submit">올리기</button>
     </form>

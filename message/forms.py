@@ -6,6 +6,11 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields =['to','body']
+
+class MessageToMeForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields =['body']       
 '''
 class ReplyForm(forms.ModelForm):
     body = forms.CharField(label='', max_length=1000, 

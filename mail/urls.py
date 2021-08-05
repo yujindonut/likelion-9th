@@ -5,5 +5,5 @@ from .views import *
 urlpatterns = [
     
    path('', mail,name='mail'),
-   path('sendmail/',sendmail,name='sendmail'),
+  # path('sendmail/',sendmail,name='sendmail'),
 ]

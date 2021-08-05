@@ -54,7 +54,7 @@
     .main > li { 
       position: relative; 
       float: left; 
-      width:350px; 
+      width:265px; 
       height: 30px;
       box-sizing: border-box; 
       line-height: 30px; 
@@ -74,7 +74,7 @@
         top: 30px; 
         left: 0; 
         z-index: 1; 
-        width: 310px; 
+        width: 225px; 
         background: #eee;
         opacity: 0.8; }
 
@@ -108,10 +108,14 @@
               <li><a href="#">쪽지</a>
                 <ul class="sub">
                   <li> <a href="{% url 'newMessage' %}">쪽지쓰기</a></li>
+                  <li> <a href="{% url 'newMessageToMe' %}">내게 쪽지쓰기</a></li>
                   <li> <a href="{% url 'messageReception' %}">받은 쪽지함</a></li>
+                  <li><a href="{% url 'sendToMe' %}">내게 쓴 쪽지함</a></li>
                   <li><a href="{% url 'sendMessage' %}">보낸 쪽지함</a></li>
                 </ul>
               </li>
+      
+               <li><a href="{% url 'mail'%}">메일</a></li>
               <li><a href="{% url 'logout'%}">로그아웃</a>  
               </li>
           </ul>
@@ -126,7 +130,6 @@
     {% if user.is_authenticated %}
     <div class="hi">
       {% if user.is_staff %}
-      <a href="{% url 'mail'%}">메일</a>
           <strong>{{user.username}}</strong> 관리자 계정입니다.
       {% else %}
           <strong>{{user.username}}</strong>님 안녕하세요!

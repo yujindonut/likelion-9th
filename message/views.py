@@ -1,20 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Message
-from .forms import MessageForm
+from .forms import *
 from django.utils import timezone
+from django.db.models import Q
 # Create your views here.
 
 def messageBox(request):
     return render(request,"messageBox.html")
 
-def messageReception(request):
-    message=Message.objects.filter( to = request.user)
+def messageReception(request):#쪽지 수신함
+    message=Message.objects.filter( to = request.user).filter( ~Q( writer = request.user))
     return render(request,"reception.html",{'message':message})
 
-def sendMessage(request):
-    message=Message.objects.filter( writer = request.user)
+def sendMessage(request):#쪽지 발신함
+    message=Message.objects.filter( writer = request.user ).filter(~Q(to = request.user))
     return render(request,"sendMessage.html",{'message':message})
 
+def sendToMe(request):#내게쓴쪽지
+    message=Message.objects.filter( to = request.user , writer  =   request.user )
+    return render(request,"sendToMe.html",{'message':message})
 
 def detailMessage(request, messageId): 
     message = get_object_or_404(Message, pk = messageId) 
@@ -27,13 +31,38 @@ def newMessage(request):
             message = form.save(commit=False)
             message.writer = request.user
             message.pub_date = timezone.now() 
+            message.CustomUser = request.user
             message.save()
             return redirect("detailMessage",message.id)
     else:
         form = MessageForm()
         return render(request, 'newMessage.html', {'form':form})
-'''
-def delete(request,messageId):
+
+def newMessageToMe(request):#내게 쪽지 쓰기
+    if request.method == 'POST':
+        form =MessageToMeForm(request.POST, request.FILES)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.to = request.user
+            message.writer = request.user
+            message.pub_date = timezone.now() 
+            message.CustomUser = request.user
+            message.save()
+            return redirect("detailMessage",message.id)
+    else:
+        form = MessageForm()
+        return render(request, 'newMessageToMe.html', {'form':form})
+
+''
+def deleteMessage(request,messageId):
    deletePost = get_object_or_404(Message,pk=messageId)
+   '''form =MessageToMeForm(instance = deletePost)
+   if form.writer == form.CustomUser and form.to ==form.CustomUser :  #내게 쓴 메세지 삭제
+        deletePost.delete() #삭제해주는 메소드
+        return redirect('sendToMe')
+   elif   deletePost.writer == deletePost.CustomUser : #받은 메세지 삭제
+       # deletePost.delete() #삭제해주는 메소드
+        return redirect('messageReception')
+   else:'''
    deletePost.delete() #삭제해주는 메소드
-   return redirect('home')'''
+   return redirect('messageReception')
