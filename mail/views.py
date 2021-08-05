@@ -19,12 +19,7 @@ def mail(request):
         body= '''
         New Mail :{}
         From : {}'''.format(data['body'],data['email'])
-
         send_mail(data['subject'],body,'',['eunmoong@gmail.com'])
-          
-
-
-
     return render(request,'mail.html')
 '''
 def sendmail(request):

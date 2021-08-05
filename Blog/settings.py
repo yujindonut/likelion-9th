@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
-    # provider 구글 페이스북 카톡 깃허브 (소셜 로그인 제공 업체)
+    # provider 구글. 페북.카톡.깃헙
     'allauth.socialaccount.providers.google',
 ]
 
@@ -131,6 +131,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'community','static')]

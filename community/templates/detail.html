@@ -26,7 +26,11 @@
             <tr><th>본문</th><td height="200px"> {{postContents.body}}</textarea></td></tr>
         </table>    
         {{postContents.pub_date}}<br>
-        <a class="toNext" href="{% url 'editPost' postContents.id%}">수정하기</a>
-        <a class="toNext" href="{% url 'deletePost' postContents.id%}">삭제하기</a>
+        {% if user.username == postContents.writer %}
+                    <a class="toNext" href="{% url 'editPost' postContents.id%}">수정하기</a>
+                    <a class="toNext" href="{% url 'deletePost' postContents.id%}">삭제하기</a>
+                    {% elif user.is_staff%}
+                    <a class="toNext" href="{% url 'deletePost' postContents.id%}">삭제하기</a>
+                    {%endif%}
         <br> <br> <br> <br>
         {%endblock%}
