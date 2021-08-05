@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail
+from django.core.mail import send_mail,EmailMessage
 def base(request):
     return render(request, 'base.html')
 def sendmail(request):
@@ -11,18 +11,20 @@ def sendmail(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
-        data = {
-            'name':name,
-            'email':email,
-            'subject':subject,
-            'message':message
-        }
-        message = '''
-        New message: {}
+        # data = {
+        #     'name':name,
+        #     'email':email,
+        #     'subject':subject,
+        #     'message':message
+        # }
+        # message = '''
+        # New message: {}
 
-        From: {}
-        '''.format(data['message'],data['email'])
-        send_mail(data['subject'], message,'', ['hyujin0825@gmail.com'])
-        print(data)
-    return render(request, 'index.html', {})
+        # From: {}
+        # '''.format(data['message'],data['email'])
+        mail = EmailMessage(subject, message, to=[email])
+        mail.send()
+        # send_mail(data['subject'], message,'', ['email'])
+        # print(data)
+    return render(request, 'index.html')
     # 보냈다는 것을 알기 위해 맨 처음 화면으로 가게끔 
