@@ -3,6 +3,7 @@ from .models import Message
 from .forms import *
 from django.utils import timezone
 from django.db.models import Q
+from django.contrib.auth.models import User
 # Create your views here.
 
 def messageBox(request):
@@ -39,6 +40,7 @@ def newMessage(request):
         return render(request, 'newMessage.html', {'form':form})
 
 def newMessageToMe(request):#내게 쪽지 쓰기
+    
     if request.method == 'POST':
         form =MessageToMeForm(request.POST, request.FILES)
         if form.is_valid():
@@ -53,16 +55,18 @@ def newMessageToMe(request):#내게 쪽지 쓰기
         form = MessageForm()
         return render(request, 'newMessageToMe.html', {'form':form})
 
-''
 def deleteMessage(request,messageId):
    deletePost = get_object_or_404(Message,pk=messageId)
-   '''form =MessageToMeForm(instance = deletePost)
-   if form.writer == form.CustomUser and form.to ==form.CustomUser :  #내게 쓴 메세지 삭제
+   # handle django 1.4 pickling bug
+   #print(deletePost+"1.삭제")
+   #print(deletePost.writer+"2.삭제")
+   #print(deletePost.CustomUser)
+   if deletePost.writer == str(deletePost.CustomUser) and deletePost.to ==str(deletePost.CustomUser) :  #내게 쓴 메세지 삭제
         deletePost.delete() #삭제해주는 메소드
         return redirect('sendToMe')
    elif   deletePost.writer == deletePost.CustomUser : #받은 메세지 삭제
-       # deletePost.delete() #삭제해주는 메소드
+        deletePost.delete() #삭제해주는 메소드
         return redirect('messageReception')
-   else:'''
-   deletePost.delete() #삭제해주는 메소드
-   return redirect('messageReception')
+   else:#보낸 메세지 삭제
+        deletePost.delete() #삭제해주는 메소드
+        return redirect('sendMessage')

@@ -27,7 +27,13 @@
       
         {{message.pub_date}}<br>
 
-        <a href="{% url 'deleteMessage' message.id%}">메세지 삭제</a> </div> 
+
+        <a  href="{% url 'deleteMessage' message.id%}"><button onclick="deleteM()">메세지 삭제</button></a> </div> 
+        <script>
+            function deleteM(){
+                 alert("상대가 받은/보낸 메세지 함에서도 삭제됩니다");
+            }
+            </script>
         <br> <br> <br> <br>
         {%endblock%}
 
