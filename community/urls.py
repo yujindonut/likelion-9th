@@ -10,7 +10,7 @@ urlpatterns = [
 
 #게시판 카테고리
 
-   path('home/', home,name="home"), #이거 전체 게시판임
+   path('allPost/', allPost,name="allPost"), #이거 전체 게시판임
    path('pre10/',pre10,name="pre10"),
    path('y10/',y10,name="y10"),
    path('y20/',y20,name="y20"),
@@ -29,13 +29,13 @@ urlpatterns = [
    path('update_review/<str:post_id>/<str:comment_id>', update_review, name="update_review"),
    path('create_comment/<str:postId>',create_comment,name="create_comment"),
    path('create_re_comment/<str:postId>/<str:comment_id>',create_re_comment,name="create_re_comment"),
-   path('deleteAll',deleteAll,name="deleteAll"),
+   
 
    #검색
    path('search/', SearchFormView.as_view(), name='search'),
 
 #홈페이지
-   path('index/', index, name='index'),
+   path('allPost/', allPost, name='allPost'),
 
    
 ]

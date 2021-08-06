@@ -15,7 +15,7 @@ class Blog(models.Model):
         return self.title
 
     def summary(self):
-        return self.body[:80] 
+        return self.body[:15] 
 
 
 class Comment(models.Model):

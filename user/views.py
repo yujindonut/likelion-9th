@@ -20,7 +20,7 @@ def login_view(request):
             if user is not None:
                 login(request,user)
 
-        return redirect("home")
+        return redirect("index")
     else:
         form = AuthenticationForm()
         return render(request,'login.html',{'form':form})
@@ -28,14 +28,14 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect("home")
+    return redirect("index")
 
 def register_view(request):
     if request.method =="POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()#얘는 commit없음
-        return  redirect('home')
+        return  redirect('index')
     else:
         form = SignUpForm()
         return render(request,'signUp.html',{'form':form})

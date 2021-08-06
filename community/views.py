@@ -17,54 +17,54 @@ def index(request):
     Posts = paginatorPost.get_page(page)
     News = paginatorNews.get_page(page)
     return render(request,"index.html",{'postList':Posts,'newsList':News})
-def home(request):
+def allPost(request):
     posts=Blog.objects.all().order_by('-id')
-    return render(request,"home.html",{'blogContents':posts})
+    return render(request,"allPost.html",{'blogContents':posts})
 #게시판 카테고리 10개
 def pre10(request):
     posts=Blog.objects.filter( category = ['0']).order_by('-id')
     age=0
-    return render(request,"home.html",{'blogContents':posts,'age':age})
+    return render(request,"allPost.html",{'blogContents':posts,'age':age})
 def y10(request):
     posts=Blog.objects.filter( category = ['1']).order_by('-id')
     age=1
-    return render(request,"home.html",{'blogContents':posts,'age':age})
+    return render(request,"allPost.html",{'blogContents':posts,'age':age})
 def y20(request):
     posts=Blog.objects.filter( category = ['2']).order_by('-id')
     age=2
-    return render(request,"home.html",{'blogContents':posts,'age':age})
+    return render(request,"allPost.html",{'blogContents':posts,'age':age})
 def y30_40(request):
     posts=Blog.objects.filter( category = ['3']).order_by('-id')
     age=3
-    return render(request,"home.html",{'blogContents':posts,'age':age})
+    return render(request,"allPost.html",{'blogContents':posts,'age':age})
 def y50_60(request):
     posts=Blog.objects.filter( category = ['4']).order_by('-id')
     age=4
-    return render(request,"home.html",{'blogContents':posts,'age':age})
+    return render(request,"allPost.html",{'blogContents':posts,'age':age})
 def over70(request):
     posts=Blog.objects.filter( category = ['5']).order_by('-id')
     age=5
-    return render(request,"home.html",{'blogContents':posts,'age':age})
+    return render(request,"allPost.html",{'blogContents':posts,'age':age})
 def moderna(request):
     posts=Blog.objects.filter( category = ['6']).order_by('-id')
     age=6
-    return render(request,"home.html",{'blogContents':posts,'age':age})
+    return render(request,"allPost.html",{'blogContents':posts,'age':age})
 def pfizer(request):#화이자백신 카테고리
     posts=Blog.objects.filter( category = ['7']).order_by('-id')
     age=7
-    return render(request,"home.html",{'blogContents':posts,'age':age})
+    return render(request,"allPost.html",{'blogContents':posts,'age':age})
 def az(request):
     posts=Blog.objects.filter( category = ['8']).order_by('-id')
     age=8
-    return render(request,"home.html",{'blogContents':posts,'age':age})
+    return render(request,"allPost.html",{'blogContents':posts,'age':age})
 def janssen(request): #얀센 백신 카테고리
     posts=Blog.objects.filter( category = ['9']).order_by('-id')
     age=9
-    return render(request,"home.html",{'blogContents':posts,'age':age})
+    return render(request,"allPost.html",{'blogContents':posts,'age':age})
 def free(request): #자유게시판
     posts=Blog.objects.filter( category = ['10']).order_by('-id')
     age=10
-    return render(request,"home.html",{'blogContents':posts,'age':age})
+    return render(request,"allPost.html",{'blogContents':posts,'age':age})
 #상세창
 def detail(request,postId):
     post = get_object_or_404(Blog,pk=postId) 
@@ -160,17 +160,17 @@ def update_review(request, post_id, comment_id):
 def delete(request,postId):
    deletePost = get_object_or_404(Blog,pk=postId)
    deletePost.delete() #삭제해주는 메소드
-   return redirect('home')
+   return redirect('allPost')
    #댓글삭제
 def deleteComment(request,postId,commentId):
    deleteComment = get_object_or_404(Comment,pk=commentId)
    deleteComment.delete() #삭제해주는 메소드
    return redirect("detailPage",postId)
-
+'''
 def deleteAll(request):#관리자일 경우만 전체 게시물 삭제가능하도록 하기
     deleteAll = Blog.objects.all()
     deleteAll.delete()
-    return redirect('home')
+    return redirect('allPost')'''
 #검색
 class SearchFormView(FormView):
     form_class = PostSearchForm
