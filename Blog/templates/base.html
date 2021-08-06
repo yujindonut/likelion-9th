@@ -20,12 +20,11 @@
         }
         a:hover{
             text-decoration: none;
-            color: olive;
+            color: olive ;
             font-weight: 900;
         }
         a:visited{
             text-decoration: none;
-            color:  rgb(179, 108, 108);
         }
         logo{
           font-weight: 900;
@@ -40,9 +39,8 @@
     .hi{
       text-align: right;
       position: relative;
-      top :-180px;
-
-    }/*BODY*/ 
+      right:30px;
+    } 
     
     li {
         list-style: none;
@@ -54,7 +52,7 @@
     .main > li { 
       position: relative; 
       float: left; 
-      width:265px; 
+      width:215px; 
       height: 30px;
       box-sizing: border-box; 
       line-height: 30px; 
@@ -74,7 +72,7 @@
         top: 30px; 
         left: 0; 
         z-index: 1; 
-        width: 225px; 
+        width: 175px; 
         background: #eee;
         opacity: 0.8; }
 
@@ -92,50 +90,102 @@
     </script>
 </head>
 <body>
-    {% load static %}<br><br><br>
-        <a  href="{% url 'home' %}">
-          <logo>정보처리기사 담소  </logo>
+    {% load static %}
+    <br><br>
+    <div class="hi">
+      
+      {% if user.is_authenticated %}
+        {% if user.is_staff %}
+            <strong>{{user.username}}</strong> 관리자 계정입니다.
+        {% else %}
+            <strong>{{user.username}}</strong>님 안녕하세요!
+            <br><a href=" {% url 'mypage'%}"> 마이페이지</a>
+        {%endif%} 
+        {%endif%}
+      <a href="{% url 'search' %}">검색하기</a>
+      {% if user.is_authenticated %}
+      <a href="{% url 'logout'%}">로그아웃</a> 
+       {% else %}
+        <a href=" {% url 'login'%}"> 로그인</a>  
+         {%endif%}
+   
+      
+    </div>
+    
+        <a  href="{% url 'index' %}">
+          <logo>코알라  </logo>
         </a><br><br>
 
             
    
-    
-    {% if user.is_authenticated %}
    
       <div id="nav">
           <ul class="main">
-              <li><a href="{% url 'newPost' %}">글 작성하기</a></li>
-              <li><a href="#">쪽지</a>
+            <li> <a href="{% url 'vaccine' %}">코로나 백신이란?</a></li>
+              <li><a href="#">게시판</a>
                 <ul class="sub">
-                  <li> <a href="{% url 'newMessage' %}">쪽지쓰기</a></li>
+                  {% if user.is_authenticated %}
+                    <li><a href="{% url 'newPost' %}">글 작성하기</a></li>
+                  {%else%}
+                    <li><a href=#  onclick="authPost()">글 작성하기</a></li>
+                  {%endif%}
+                  <li> <a href="{% url 'home' %}">전체게시판</a></li>
+                  <li> <a href="{% url 'pre10' %}">10살미만</a></li>
+                  <li> <a href="{% url 'y10' %}">10대</a></li>
+                  <li> <a href="{% url 'y20' %}">20대</a></li>
+                  <li><a href="{% url 'y30_40' %}">30-40대</a></li>
+                  <li> <a href="{% url 'y50_60' %}">50-60대</a></li>
+                  <li> <a href="{% url 'over70' %}">70세 이상</a></li>
+                  <li><a href="{% url 'moderna' %}">모더나</a></li>
+                  <li> <a href="{% url 'pfizer' %}">화이자</a></li>
+                  <li> <a href="{% url 'az' %}">아스트라제네카</a></li>
+                  <li><a href="{% url 'janssen' %}">얀센</a></li>
+                  <li><a href="{% url 'free' %}">자유게시판</a></li>
+                  
+                </ul>
+              </li>
+              <li>
+                <a href="#" >쪽지</a>
+                <script>
+                  function authMessage(){
+                       alert("쪽지는 로그인 하신 뒤 이용가능한 서비스 입니다");
+                  }
+                  function authPost(){
+                       alert("글쓰기는 로그인 하신 뒤 이용가능한 서비스 입니다");
+                  }
+                  </script>
+                <ul class="sub">
+                  {% if user.is_authenticated %}
+                  <li> <a href="{% url 'newMessage' %}" >쪽지쓰기</a></li>
                   <li> <a href="{% url 'newMessageToMe' %}">내게 쪽지쓰기</a></li>
                   <li> <a href="{% url 'messageReception' %}">받은 쪽지함</a></li>
                   <li><a href="{% url 'sendToMe' %}">내게 쓴 쪽지함</a></li>
                   <li><a href="{% url 'sendMessage' %}">보낸 쪽지함</a></li>
+                  {% else %}<!--로그인 안했는데 쪽지 누르면 경고창 뜸-->
+                  <li> <a href="#" onclick="authMessage()">쪽지쓰기</a></li>
+                  <li> <a href="#" onclick="authMessage()">내게 쪽지쓰기</a></li>
+                  <li> <a href="#" onclick="authMessage()">받은 쪽지함</a></li>
+                  <li><a href="#"onclick="authMessage()">내게 쓴 쪽지함</a></li>
+                  <li><a href="#" onclick="authMessage()">보낸 쪽지함</a></li>
+                  {%endif%}
+                  
                 </ul>
               </li>
       
-               <li><a href="{% url 'mail'%}">메일</a></li>
-              <li><a href="{% url 'logout'%}">로그아웃</a>  
-              </li>
+               <li><a href="{% url 'news'%}">뉴스</a></li>
+              
+               <li><a href="{% url 'address'%}">관련기관</a></li>
+                
+    
           </ul>
       </div>
-    {% else %}
+   <!-- 
     <div class="hi2">
           <a href="{% url 'signUp'%}">회원가입 </a>|
          <a href=" {% url 'login'%}"> 로그인</a>  
           
-  </div>
-    {%endif%}
-    {% if user.is_authenticated %}
-    <div class="hi">
-      {% if user.is_staff %}
-          <strong>{{user.username}}</strong> 관리자 계정입니다.
-      {% else %}
-          <strong>{{user.username}}</strong>님 안녕하세요!
-      {%endif%}
-    </div>
-    {%endif%}
+  </div>-->
+   
   {% block content %}
   {% endblock %}
  

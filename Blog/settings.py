@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'mail.apps.MailConfig',
     'message.apps.MessageConfig',
+    'crawling.apps.CrawlingConfig',
+    'vaccine.apps.VaccineConfig',
+    'address.apps.AddressConfig',
 
 
     # allauth

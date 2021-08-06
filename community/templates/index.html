@@ -1,0 +1,48 @@
+{%extends 'base.html'%}
+
+{%block content%}
+   
+    {% load static %}
+    <style>
+        .list{
+            border: 1px solid black;
+            width: 400px;
+            margin: auto;
+            position: relative;
+            left: 100px;
+        }
+        .introduce{
+            border: 1px solid black;
+            width: 400px;
+            height: 500px;
+            margin: auto;
+            float: left;
+            position: relative;
+            left: 100px;
+        }
+        small{
+            font-size: 6px;
+        }
+    </style>
+    <div class="introduce">
+        안녕하세요 코알라입니다 알라알라
+    </div>
+    <div class="newPost list">
+        새로올라온 글<hr>
+        {% for unit in postList %}
+            <div id="content">  
+                <a class="toNext" href="{% url 'detailPage' unit.id%}">
+                    제목:{{unit.title}}|글내용:{{unit.summary}}|<small>{{unit.pub_date}} </small>
+            </a><br>
+            </div>  
+        {% endfor %}
+    </div>
+    <div class="newNews list">
+        업데이트 뉴스<hr>
+        {% for unit in newsList %}
+        <div id="content">  
+            <a class="toNext" href="{{unit.link}}">{{unit.title}}</a>
+        </div>
+        {% endfor %}
+    </div>
+    {%endblock%}

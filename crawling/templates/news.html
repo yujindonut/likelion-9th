@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+
+{%block content%}
+   
+    {% load static %}
+    <style>
+        #unit{
+            margin:auto;
+            border:1px solid  rgb(179, 108, 108);
+            width:400px;
+        }
+    </style>
+    <br>  <br>
+    <h1>업데이트 된 기사</h1>
+    <div id=unit>
+    {% for unit in newsContents %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
+        
+    
+        <a href="{{unit.link}}">{{unit.title}}</a> <hr>
+   
+        {% endfor %}
+    </div>
+    {%endblock%}

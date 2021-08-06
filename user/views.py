@@ -1,6 +1,7 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
-
+from community.models import *
 # Create your views here.
 from django.shortcuts import redirect, render,get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
@@ -39,19 +40,10 @@ def register_view(request):
         form = SignUpForm()
         return render(request,'signUp.html',{'form':form})
 
-def editMyPage(request):
-    if request.method =="GET":
-        form = SignUpForm()
-        return render(request,'editMyPage.html',{'userform':form})
-    else:
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-        return  redirect('myPage')
-        
 
     
-def myPage(request):
-    if request.method == 'GET':
-        form = AuthenticationForm()
-        return render(request,'myPage.html',{'form':form})
+def mypage(request):
+    posts=Blog.objects.filter( writer = request.user).order_by('-id')
+    #posts=Blog.objects.all().order_by('-id')
+    return render(request,'mypage.html',{'posts':posts})
+    

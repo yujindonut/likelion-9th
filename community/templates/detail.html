@@ -9,9 +9,33 @@
             border-collapse: collapse;
             padding: 10px;
         }
+      /*  #left{
+            float: left;
+            width: 400px;
+        }
+        #comment{
+            width: 800px;
+        }*/
         </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#addReComment").click(function() {
+                $(".re_comment").slideToggle("slow");
+            });
+        });
+        function OnMouseIn(elem) 
+          {
+              elem.style.color = "olive";
+          }
+      function OnMouseOut(elem) 
+          {
+              elem.style.color= "rgb(179, 108, 108)";
+          }
+        </script>
         {%csrf_token%}
         <br>
+        <div id="left">
         <table class="detailTable">
             
             <tr><td colspan="2">
@@ -21,8 +45,16 @@
               <br> 첨부사진없음<br><br>
                 {% endif %}
             </td></tr>
+           <!-- <tr><th>카테고리</th><td> {{postContents.category}}</td></tr>-->
             <tr><th>제목</th><td> {{postContents.title}}</td></tr>
-            <tr><th>작성자</th> <td>  {{user.username}} </td></tr>
+            <tr><th>작성자</th> <td>  
+                {% if postContents.hideName == False %}
+                    {{postContents.writer}}
+                      <!--if unit.hideName == False and unit.writer == user.username and user.is_staff%}
+                    {{unit.writer}}(관리자)--> 
+                {% else %} 
+                      익명
+                {% endif %} </td></tr>
             <tr><th>본문</th><td height="200px"> {{postContents.body}}</textarea></td></tr>
         </table>    
         {{postContents.pub_date}}<br>
@@ -32,5 +64,86 @@
                     {% elif user.is_staff%}
                     <a class="toNext" href="{% url 'deletePost' postContents.id%}">삭제하기</a>
                     {%endif%}
-        <br> <br> <br> <br>
+        </div>
+                    <div id="comment"><br><br>
+                        <form method="POST" action="{%url 'create_comment' postContents.id  %}" enctype="multipart/form-data">
+                            {%csrf_token%}
+                        댓글 작성  {{commentForms}}
+                            <input type="submit">
+                        </form>
+                        
+                        <hr><h2>댓글</h2>
+                        <b id="addReComment" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">답글 숨기기</b><br><br>
+                    {% for comment in comments %}
+                        <br>
+                        <table id="cc">
+                            <tr>
+                                <td class="writer"><b>
+                                    
+                                {% if comment.hideName == True and postContents.writer == comment.writer%}
+                                    익명<who>(글쓴이)</who>
+                                {% elif comment.hideName == False and postContents.writer == comment.writer %}
+                                {{comment.writer}}<who>(글쓴이)</who>
+                                {% elif comment.hideName == False %}
+                                {{comment.writer}}
+                                
+                                {% else %} 
+                                    익명
+                                {% endif %}
+                                </b>| </td><td> {{comment.body}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"> <date> {{comment.pub_date}}</date> 
+                                   
+                                    {% if user.username == comment.writer %}
+                                        <a class="toNext" href="{% url 'update_review' postContents.id comment.id%}">수정하기</a>
+                                        <a class="toNext" href="{% url 'deleteComment' postContents.id comment.id%}">삭제하기</a>
+                                    {% elif user.is_staff%}
+                                        <a class="toNext" href="{% url 'deleteComment' postContents.id comment.id%}">삭제하기</a>
+                                    {%endif%}</td>
+                                    
+                            </tr>
+                        </table>
+                    <div class="re_comment">
+                        <form method="POST" action="{%url 'create_re_comment'  postContents.id comment.id %}" enctype="multipart/form-data">
+                            {%csrf_token%}
+                            <who>대댓글 작성</who> {{commentForms}}
+                            <input type="submit">
+                        </form>
+                                {% for re_comment in re_comments %}
+                                    {% if comment == re_comment.comment_id %}
+                                    <table id="recomment">
+                                        <tr>
+                                            <td class="writer"><b>
+                                                {% if re_comment.hideName ==  True and postContents.writer == re_comment.writer%}
+                                                    ㄴ익명<who>(글쓴이)</who>
+                                                {% elif re_comment.hideName == False and postContents.writer == re_comment.writer %}
+                                                    ㄴ{{re_comment.writer}}<who>(글쓴이)</who>
+                                                {% elif re_comment.hideName == False %}
+                                                ㄴ{{re_comment.writer}}
+                                                {% else %} 
+                                                    ㄴ익명
+                                                {% endif %}
+                                                
+                                                </b>| </td><td>{{re_comment.body}} </td>
+                                            
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"> <date> {{comment.pub_date}}</date> {% if user.username == re_comment.writer %}
+                                                    <a class="toNext" href="{% url 'update_review' postContents.id  re_comment.id%}">수정하기</a>
+                                                    <a class="toNext" href="{% url 'deleteComment' postContents.id  re_comment.id%}">삭제하기</a>
+                                                    {% elif user.is_staff%}
+                                                    <a class="toNext" href="{% url 'deleteComment' postContents.id  re_comment.id%}">삭제하기</a>
+                                                    {%endif%}</td>
+                                            </tr>
+                                        </table>
+                                    
+                                        <br>
+                                        {% endif %}
+                                    {% endfor %}</div>
+                            {% endfor %}
+                                    <br> <br>
+                    </div> 
+                </div>
+            </div>
         {%endblock%}

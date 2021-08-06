@@ -10,15 +10,15 @@ def messageBox(request):
     return render(request,"messageBox.html")
 
 def messageReception(request):#쪽지 수신함
-    message=Message.objects.filter( to = request.user).filter( ~Q( writer = request.user))
+    message=Message.objects.filter( to = request.user).filter( ~Q( writer = request.user)).order_by('-id')
     return render(request,"reception.html",{'message':message})
 
 def sendMessage(request):#쪽지 발신함
-    message=Message.objects.filter( writer = request.user ).filter(~Q(to = request.user))
+    message=Message.objects.filter( writer = request.user ).filter(~Q(to = request.user)).order_by('-id')
     return render(request,"sendMessage.html",{'message':message})
 
 def sendToMe(request):#내게쓴쪽지
-    message=Message.objects.filter( to = request.user , writer  =   request.user )
+    message=Message.objects.filter( to = request.user , writer  =   request.user ).order_by('-id')
     return render(request,"sendToMe.html",{'message':message})
 
 def detailMessage(request, messageId): 

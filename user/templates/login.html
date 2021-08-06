@@ -11,6 +11,15 @@
         margin: auto;
         border-radius: 10px;
     }
+    .signup{
+        font-size: 30px;
+    }
+    
+    a:hover{
+            text-decoration: none;
+            color: olive;
+            font-weight: 900;
+        }
     </style>
 <br><br><br><br><br>
 <form  action="{% url 'login'%} " method="post" >
@@ -28,5 +37,7 @@
         <img src="{% static '구글로고.png' %}" alt="소셜로그인" height="30">계정으로 로그인
     </a> 
     </div>
+    <br><br>
+    계정이 없다면 <span class="signup"><a href="{% url 'signUp'%}">회원가입 </a> </span>하세요!
 <br><br><br><br><br><br><br>
 {%endblock%}

@@ -1,0 +1,54 @@
+{%extends 'base.html'%}
+
+{%block content%}
+   
+    {% load static %}
+    <style>
+        #unit{
+            margin:auto;
+            border:1px solid  rgb(179, 108, 108);
+            width:400px;
+        }
+        .myPost{display:none;}
+    </style>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script>
+         $(document).ready(function() {
+             $("#myPost").click(function() {
+                 $(".myPost").slideToggle("slow");
+             });
+         });
+         function OnMouseIn(elem) 
+           {
+               elem.style.color = "olive";
+           }
+       function OnMouseOut(elem) 
+           {
+               elem.style.color= "rgb(179, 108, 108)";
+           }
+         </script>
+    <hr>
+   
+ 
+       <div id="unit">
+         <h2>  내 정보--</h2>
+        이름| {{user.username}}<br>
+        생일 | {{user.birthDay}}<br>
+        성별 | {{user.gender}}<br>
+        사는 곳 | {{user.location}}<br>
+        </div>
+<hr>
+         
+        <b id="myPost" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">--내가 쓴 글 보기</b><br><br>
+        {% for unit in posts %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
+
+    <div id="unit" class='myPost'>
+        제목 | {{unit.title}}<br> 
+        작성자 | {{unit.writer}}<br>
+        글 |  {{unit.summary}}<br>
+        <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
+    </div>
+        {% endfor %}
+<hr>
+        <a href="{% url 'mail'%}">관리자에게 문의메일 보내기</a><br><br><br><br><br><br>
+    {%endblock%}

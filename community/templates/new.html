@@ -7,7 +7,8 @@
     <form  method="post" enctype="multipart/form-data">
         {%csrf_token%}
         <table>
-            {{form.as_table}}
+            {{categoryform.as_table}}
+            {{postsform.as_table}}
         </table>
         <br><button type="submit">올리기</button>
     </form>
