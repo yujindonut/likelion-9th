@@ -3,24 +3,56 @@
 {%block content%}
    
     {% load static %}
-   
-    <form  method="post" enctype="multipart/form-data">
-        {%csrf_token%}
-        <table>
-            <tr><th>받는사람</th><td > {{form.to}}</td></tr>
-            <tr><th>보내는 사람</th><td > {{user.username}}</td></tr>
-            <tr><th>내용</th><td colspan="2">{{form.body}}</td></tr>
-        </table>
-        <br><button type="submit">올리기</button>
-    </form>
+    <style>
+        #userList{
+            display: none;
+            border: 1px solid black;
+            width : 100px;
+            height:200px;
+            overflow-y:scroll;
+            overflow-x:hidden;
+            position: relative;
+            left:350px;
+        }
+        .leftForm{float: left;}
+        button{
+            background-color: rgb(104, 104, 104);
+        }
+        </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+          $(document).ready(function() {
+              $("#showUserList").click(function() {
+                  $("#userList").slideToggle("slow");
+              });
+          });
+          function OnMouseIn(elem) 
+            {
+                elem.style.color = "olive";
+            }
+        function OnMouseOut(elem) 
+            {
+                elem.style.color= "rgb(179, 108, 108)";
+            }
+          </script>
+    <div class="leftForm">
+            <form  method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+                <table>
+                    <tr><th>받는사람</th><td > {{form.to}}</td></tr>
+                    <tr><th>보내는 사람</th><td > {{user.username}}</td></tr>
+                    <tr><th>내용</th><td colspan="2">{{form.body}}</td></tr>
+                </table>
+                <br><button type="submit">올리기</button>
+            </form>
+    </div>
+    <div class="right">
+        <h3><button id="showUserList" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">user목록 보기</button></h3>
 
-    <!-- 왜안돼,,,,,,
-    <span>user목록 보기</span>
-
-    <div id="userList">
-        {% for user in users %}
-         {{user.username}}
-         {{user.gender}}
-         {% endfor %}
-    </div>-->
+        <div id="userList">
+            {% for user in users %}
+                {{user.username}}<br>
+            {% endfor %}
+        </div>
+    </div>
     {%endblock%}
