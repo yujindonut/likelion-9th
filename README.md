@@ -11,7 +11,7 @@ python -m venv myvenv
 
 source myvenv/Scripts/activate
 
-cd Koala_a_som  #각자가 생성한 프로젝트 폴더명
+cd Koala_a_som 
 
 pip install django
 
@@ -32,8 +32,7 @@ python manage.py migrate
 #id : pom 
 #pw : aa112233)
 
-#뉴스 기사 크롤링한거 업데이트하는 
-python parser.py
+#뉴스 기사 크롤링한거 업데이트하는 python parser.py 이건 나중에 데이터 업데이트 할 때 
 
 python manage.py runserver
 
