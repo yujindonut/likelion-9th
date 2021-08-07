@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 # Create your views here.
 def index(request):
-    post_list = Blog.objects.all().order_by('-pub_date')
+    post_list = Blog.objects.all().order_by('-id')
     news_list=BlogData.objects.all().order_by('-id')
     paginatorPost = Paginator(post_list,5)
     paginatorNews = Paginator(news_list,5)
