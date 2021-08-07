@@ -32,8 +32,11 @@
           {
               elem.style.color= "rgb(179, 108, 108)";
           }
-        </script>
-        <script>
+
+        function authComment(){
+             alert("댓글/대댓글 작성은 로그인 하신 뒤 이용가능한 서비스 입니다");
+                  }
+
         function deletePost(){
              var ret = confirm("게시물을 삭제합니다.");
              return ret;
@@ -77,12 +80,20 @@
 
         </div>
                     <div id="comment"><br><br>
-                        <form method="POST" action="{%url 'create_comment' postContents.id  %}" enctype="multipart/form-data">
-                            {%csrf_token%}
-                        댓글 작성  {{commentForms}}
-                            <input type="submit">
-                        </form>
                         
+                        {% if user.is_authenticated %}
+                            <form method="POST"  action="{%url 'create_comment' postContents.id  %}" enctype="multipart/form-data">
+                                {%csrf_token%}
+                            댓글 작성  {{commentForms}}
+                                <input type="submit">
+                            </form>
+                        {%else%}
+                            <form method="POST" onclick="authComment()" action="{%url 'create_comment' postContents.id  %}" enctype="multipart/form-data">
+                                {%csrf_token%}
+                            댓글 작성  {{commentForms}}
+                                <input type="submit">
+                            </form>
+                        {%endif%}
                         <hr><h2>댓글</h2>
                         <b id="addReComment" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">답글 숨기기</b><br><br>
                     {% for comment in comments %}
@@ -116,11 +127,19 @@
                             </tr>
                         </table>
                     <div class="re_comment">
-                        <form method="POST" action="{%url 'create_re_comment'  postContents.id comment.id %}" enctype="multipart/form-data">
-                            {%csrf_token%}
-                            <who>대댓글 작성</who> {{commentForms}}
-                            <input type="submit">
-                        </form>
+                        {% if user.is_authenticated %}
+                            <form method="POST"  action="{%url 'create_re_comment'  postContents.id comment.id %}" enctype="multipart/form-data">
+                                {%csrf_token%}
+                                <who>대댓글 작성</who> {{commentForms}}
+                                <input type="submit">
+                            </form>
+                        {%else%}
+                            <form method="POST" onclick="authComment()" action="{%url 'create_re_comment'  postContents.id comment.id %}" enctype="multipart/form-data">
+                                {%csrf_token%}
+                                <who>대댓글 작성</who> {{commentForms}}
+                                <input type="submit">
+                            </form>
+                        {%endif%}
                                 {% for re_comment in re_comments %}
                                     {% if comment == re_comment.comment_id %}
                                     <table id="recomment">

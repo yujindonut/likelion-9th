@@ -97,6 +97,7 @@
       {% if user.is_authenticated %}
         {% if user.is_staff %}
             <strong>{{user.username}}</strong> 관리자 계정입니다.
+            <br><a href=" {% url 'mypage'%}"> 마이페이지</a>
         {% else %}
             <strong>{{user.username}}</strong>님 안녕하세요!
             <br><a href=" {% url 'mypage'%}"> 마이페이지</a>

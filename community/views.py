@@ -124,6 +124,7 @@ def create_re_comment(request, postId, comment_id):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.postId = Blog.objects.get(pk = postId)
+            comment.post_id = postId
             comment.writer = request.user
             comment.CustomUser = request.user
             comment.comment_id = Comment.objects.get(pk = comment_id)
