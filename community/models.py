@@ -19,10 +19,14 @@ class Blog(models.Model):
 
 
 class Comment(models.Model):
-    postId = models.ForeignKey("Blog",on_delete=models.CASCADE,db_column="blogId")
+    postId = models.ForeignKey("Blog",on_delete=models.CASCADE,db_column="postId")
+    post_id = models.CharField(max_length=50)
     comment_id = models.ForeignKey("self",on_delete=models.CASCADE,blank=True,null=True)
     hideName = models.BooleanField()
     writer = models.CharField(max_length=50)
     body = models.TextField('댓글')
     pub_date=models.DateTimeField()
     CustomUser = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, null=False)
+
+    def __str__(self):
+        return self.body

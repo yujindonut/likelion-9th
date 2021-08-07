@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Blog
+from .models import *
 from crawling.models import BlogData
 from django.utils import timezone
 from .forms import  *
@@ -11,12 +11,15 @@ from django.core.paginator import Paginator
 def index(request):
     post_list = Blog.objects.all().order_by('-id')
     news_list=BlogData.objects.all().order_by('-id')
+    comment_list = Comment.objects.all().order_by('-id')
     paginatorPost = Paginator(post_list,5)
     paginatorNews = Paginator(news_list,5)
+    paginatorComment = Paginator( comment_list,5)
     page = request.GET.get('page')
     Posts = paginatorPost.get_page(page)
     News = paginatorNews.get_page(page)
-    return render(request,"index.html",{'postList':Posts,'newsList':News})
+    Comments = paginatorComment.get_page(page)
+    return render(request,"index.html",{'postList':Posts,'newsList':News,'commentList':Comments})
 def allPost(request):
     posts=Blog.objects.all().order_by('-id')
     return render(request,"allPost.html",{'blogContents':posts})
@@ -104,7 +107,11 @@ def create_comment(request, postId):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            #이부분왜 id할당이 아니라 제목이 할당되지
             comment.postId = Blog.objects.get(pk = postId)
+            #
+            comment.post_id = postId
+            #
             comment.CustomUser = request.user
             comment.writer = request.user
             comment.pub_date = timezone.now()

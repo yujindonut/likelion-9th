@@ -44,6 +44,8 @@ def register_view(request):
     
 def mypage(request):
     posts=Blog.objects.filter( writer = request.user).order_by('-id')
+    comments=Comment.objects.filter( writer = request.user).order_by('-id')
+
     #posts=Blog.objects.all().order_by('-id')
-    return render(request,'mypage.html',{'posts':posts})
+    return render(request,'mypage.html',{'posts':posts,'comments':comments})
     

@@ -1,6 +1,9 @@
+
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Message
 from .forms import *
+from user.models import CustomUser
+from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -27,6 +30,7 @@ def detailMessage(request, messageId):
 
 def newMessage(request):
     if request.method == 'POST':
+        #users=AbstractUser.objects.all()
         form = MessageForm(request.POST, request.FILES)
         if form.is_valid():
             message = form.save(commit=False)
@@ -35,6 +39,7 @@ def newMessage(request):
             message.CustomUser = request.user
             message.save()
             return redirect("detailMessage",message.id)
+            #,{'users':users})
     else:
         form = MessageForm()
         return render(request, 'newMessage.html', {'form':form})

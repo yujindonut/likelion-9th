@@ -18,6 +18,11 @@
                  $(".myPost").slideToggle("slow");
              });
          });
+         $(document).ready(function() {
+             $("#myComment").click(function() {
+                 $(".myComment").slideToggle("slow");
+             });
+         });
          function OnMouseIn(elem) 
            {
                elem.style.color = "olive";
@@ -37,9 +42,9 @@
         성별 | {{user.gender}}<br>
         사는 곳 | {{user.location}}<br>
         </div>
-<hr>
+    <hr>
          
-        <b id="myPost" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">--내가 쓴 글 보기</b><br><br>
+    <b id="myPost" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">--내가 쓴 글 보기</b><br><br>
         {% for unit in posts %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
 
     <div id="unit" class='myPost'>
@@ -47,8 +52,18 @@
         작성자 | {{unit.writer}}<br>
         글 |  {{unit.summary}}<br>
         <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
-    </div>
         {% endfor %}
-<hr>
+    </div>
+    <hr>
+             
+    <b id="myComment" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">--내가 쓴 댓글/대댓글 보기</b><br><br>
+        {% for unit in comments %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
+
+    <div id="unit" class='myComment'>
+        댓글내용:{{unit.body}}|작성자:{{unit.writer}}|<small>{{unit.pub_date}}
+        <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
+        {% endfor %}
+    </div>
+    <hr>
         <a href="{% url 'mail'%}">관리자에게 문의메일 보내기</a><br><br><br><br><br><br>
     {%endblock%}
