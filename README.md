@@ -1,7 +1,7 @@
 # ll20210731
 
 
-#git clone source https://github.com/moongpom/Koala_a_som.git
+#git clone https://github.com/moongpom/Koala_a_som.git
 
 #git clone 한 뒤에 순서대로 입력하기
 
@@ -11,7 +11,7 @@
 
 #source myvenv/Scripts/activate
 
-#cd Koala_a_som
+#cd Koala_a_som  #각자가 생성한 프로젝트 폴더명
 
 #pip install django
 
