@@ -33,7 +33,7 @@
     + 만약 소개 사진 두장 정도 만들어주시면 자바스크립트로 슬라이드형식 만들게요
 
     </div>
-    
+
     <div class="newPost list">
         새로 올라온 글<hr>
         {% for unit in postList %}
@@ -58,7 +58,16 @@
         {% for unit in commentList %}
         <div id="content"> 
             <a class="toNext" href="{% url 'detailPage' unit.post_id%}">글 제목--{{unit.postId}}--
-                댓글내용:{{unit.body}}|작성자:{{unit.writer}}|<small>{{unit.pub_date}} </small>
+                댓글내용:{{unit.body}}|
+                작성자 :
+                {% if unit.hideName == False %}
+                {{unit.writer}}
+                  <!--if unit.hideName == False and unit.writer == user.username and user.is_staff%}
+                {{unit.writer}}(관리자)--> 
+                {% else %} 
+                  익명
+                {% endif %}|
+                <small>{{unit.pub_date}} </small>
             </a>
         </div>
         {% endfor %}

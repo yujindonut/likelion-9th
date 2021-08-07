@@ -33,6 +33,16 @@
               elem.style.color= "rgb(179, 108, 108)";
           }
         </script>
+        <script>
+        function deletePost(){
+             var ret = confirm("게시물을 삭제합니다.");
+             return ret;
+        }
+        function deleteComment(){
+             var ret = confirm("댓글/대댓글을 삭제합니다.");
+             return ret;
+        }
+        </script>
         {%csrf_token%}
         <br>
         <div id="left">
@@ -59,11 +69,12 @@
         </table>    
         {{postContents.pub_date}}<br>
         {% if user.username == postContents.writer %}
-                    <a class="toNext" href="{% url 'editPost' postContents.id%}">수정하기</a>
-                    <a class="toNext" href="{% url 'deletePost' postContents.id%}">삭제하기</a>
+                    <a class="toNext" href="{% url 'editPost' postContents.id%}" onclick="return deletePost()">수정하기</a>
+                    <a class="toNext" href="{% url 'deletePost' postContents.id%}"  onclick="return deletePost()">삭제하기</a>
                     {% elif user.is_staff%}
-                    <a class="toNext" href="{% url 'deletePost' postContents.id%}">삭제하기</a>
+                    <a class="toNext" href="{% url 'deletePost' postContents.id%}"  onclick="return deletePost()">삭제하기</a>
                     {%endif%}
+
         </div>
                     <div id="comment"><br><br>
                         <form method="POST" action="{%url 'create_comment' postContents.id  %}" enctype="multipart/form-data">
@@ -97,9 +108,9 @@
                                    
                                     {% if user.username == comment.writer %}
                                         <a class="toNext" href="{% url 'update_review' postContents.id comment.id%}">수정하기</a>
-                                        <a class="toNext" href="{% url 'deleteComment' postContents.id comment.id%}">삭제하기</a>
+                                        <a class="toNext" href="{% url 'deleteComment' postContents.id comment.id%}" onclick="return deleteComment()">삭제하기</a>
                                     {% elif user.is_staff%}
-                                        <a class="toNext" href="{% url 'deleteComment' postContents.id comment.id%}">삭제하기</a>
+                                        <a class="toNext" href="{% url 'deleteComment' postContents.id comment.id%}" onclick="return deleteComment()">삭제하기</a>
                                     {%endif%}</td>
                                     
                             </tr>
@@ -131,9 +142,9 @@
                                             <tr>
                                                 <td colspan="2"> <date> {{comment.pub_date}}</date> {% if user.username == re_comment.writer %}
                                                     <a class="toNext" href="{% url 'update_review' postContents.id  re_comment.id%}">수정하기</a>
-                                                    <a class="toNext" href="{% url 'deleteComment' postContents.id  re_comment.id%}">삭제하기</a>
+                                                    <a class="toNext" href="{% url 'deleteComment' postContents.id  re_comment.id%}" onclick="return deleteComment()">삭제하기</a>
                                                     {% elif user.is_staff%}
-                                                    <a class="toNext" href="{% url 'deleteComment' postContents.id  re_comment.id%}">삭제하기</a>
+                                                    <a class="toNext" href="{% url 'deleteComment' postContents.id  re_comment.id%}" onclick="return deleteComment()">삭제하기</a>
                                                     {%endif%}</td>
                                             </tr>
                                         </table>

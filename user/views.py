@@ -2,11 +2,12 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from community.models import *
+from django.contrib.auth import get_user_model
 # Create your views here.
 from django.shortcuts import redirect, render,get_object_or_404
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm,UserChangeForm
 from django.contrib.auth import authenticate, login, logout
-from .forms import SignUpForm
+from .forms import *
 
 def login_view(request):
     if request.method == 'POST':
@@ -49,3 +50,23 @@ def mypage(request):
     #posts=Blog.objects.all().order_by('-id')
     return render(request,'mypage.html',{'posts':posts,'comments':comments})
     
+
+
+def editMypage(request):
+
+    if request.method == "POST":
+    	# updating
+        user_change_form = CustomUserChangeForm(data=request.POST, instance=request.user)
+        
+        if user_change_form.is_valid() :
+            user = user_change_form.save()
+            return render(request,'mypage.html')
+    else:
+        # editting
+        user_change_form = CustomUserChangeForm(instance=request.user)
+
+        context = {
+            'user_change_form': user_change_form,
+        }
+        
+        return render(request, 'editMypage.html', context)
