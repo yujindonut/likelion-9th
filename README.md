@@ -32,5 +32,8 @@ python manage.py migrate
 #id : pom 
 #pw : aa112233)
 
+#뉴스 기사 크롤링한거 업데이트하는 
+python parser.py
+
 python manage.py runserver
 
