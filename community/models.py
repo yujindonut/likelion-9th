@@ -4,12 +4,12 @@ from django.db import models
 class Blog(models.Model):
     title = models.CharField(max_length=200)
     category = models.CharField(max_length=200)
-    writer=models.CharField(max_length=100)
+    writer=models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, null=False)
     hideName = models.BooleanField()
     pub_date=models.DateTimeField()
     body=models.TextField()
     image = models.ImageField(upload_to="mediaForm/",blank=True,null=True)
-    CustomUser = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, null=False)
+    
     
     def __str__(self):
         return self.title
@@ -23,10 +23,10 @@ class Comment(models.Model):
     post_id = models.CharField(max_length=50)
     comment_id = models.ForeignKey("self",on_delete=models.CASCADE,blank=True,null=True)
     hideName = models.BooleanField()
-    writer = models.CharField(max_length=50)
+    writer = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, null=False)
     body = models.TextField('댓글')
     pub_date=models.DateTimeField()
-    CustomUser = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, null=False)
+   
 
     def __str__(self):
         return self.body

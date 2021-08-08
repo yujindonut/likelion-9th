@@ -90,7 +90,6 @@ def new(request):
             post = post_form.save(commit = False)#임시저장 해주는 이유는 model에 있는 필드 중 new date를 안 담았음 (commit=False)
             post.category = categoryform.cleaned_data.get("category_field")
             #print(post.category)
-            post.CustomUser = request.user
             post.writer = request.user
             post.pub_date = timezone.now() 
             post.save()
@@ -112,7 +111,6 @@ def create_comment(request, postId):
             #
             comment.post_id = postId
             #
-            comment.CustomUser = request.user
             comment.writer = request.user
             comment.pub_date = timezone.now()
             comment.save()
@@ -126,7 +124,6 @@ def create_re_comment(request, postId, comment_id):
             comment.postId = Blog.objects.get(pk = postId)
             comment.post_id = postId
             comment.writer = request.user
-            comment.CustomUser = request.user
             comment.comment_id = Comment.objects.get(pk = comment_id)
             comment.pub_date = timezone.now()
             comment.save()
