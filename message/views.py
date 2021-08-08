@@ -39,7 +39,6 @@ def newMessage(request):
             message = form.save(commit=False)
             message.writer = request.user
             message.pub_date = timezone.now() 
-            message.CustomUser = request.user
             message.save()
             return redirect("detailMessage",message.id)
     else:
@@ -47,6 +46,7 @@ def newMessage(request):
         users =get_user_model().objects.all().order_by('-username')
         print(users)
         return render(request, 'newMessage.html', {'form':form,'users':users})
+
 
 def newMessageToMe(request):#내게 쪽지 쓰기
     
@@ -57,7 +57,6 @@ def newMessageToMe(request):#내게 쪽지 쓰기
             message.to = request.user
             message.writer = request.user
             message.pub_date = timezone.now() 
-            message.CustomUser = request.user
             message.save()
             return redirect("detailMessage",message.id)
     else:

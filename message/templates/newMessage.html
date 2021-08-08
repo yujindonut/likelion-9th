@@ -5,16 +5,25 @@
     {% load static %}
     <style>
         #userList{
-            display: none;
+            /*display: none;*/
             border: 1px solid black;
             width : 100px;
             height:200px;
             overflow-y:scroll;
             overflow-x:hidden;
-            position: relative;
-            left:350px;
+            position: absolute;
+            left:550px;
         }
-        .leftForm{float: left;}
+        .user{
+            position: relative;
+            left: 320px;
+            top:100px;
+        }
+        .leftForm{
+            position: relative;
+            margin-top: 100px;
+            margin-bottom: 500x;
+        }
         button{
             background-color: rgb(104, 104, 104);
         }
@@ -35,6 +44,16 @@
                 elem.style.color= "rgb(179, 108, 108)";
             }
           </script>
+          
+    <div class="user">
+        <h3><button id="showUserList" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">user목록 보기</button></h3>
+
+        <div id="userList">
+            {% for user in users %}
+                {{user.username}}<br>
+            {% endfor %}
+        </div>
+    </div>
     <div class="leftForm">
             <form  method="post" enctype="multipart/form-data">
                 {%csrf_token%}
@@ -45,14 +64,5 @@
                 </table>
                 <br><button type="submit">올리기</button>
             </form>
-    </div>
-    <div class="right">
-        <h3><button id="showUserList" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">user목록 보기</button></h3>
-
-        <div id="userList">
-            {% for user in users %}
-                {{user.username}}<br>
-            {% endfor %}
-        </div>
     </div>
     {%endblock%}
