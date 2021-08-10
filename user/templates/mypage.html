@@ -5,9 +5,19 @@
     {% load static %}
     <style>
         #unit{
-            margin:auto;
-            border:1px solid  rgb(179, 108, 108);
-            width:400px;
+            text-align: center;
+            border: 1px solid rgb(219, 219, 219);
+            box-shadow: 2px 2px 2px rgb(219, 219, 219);
+            border-radius: 20px;
+            width: 50%;
+            padding: 20px;
+            margin: 20px auto;
+            background-color: white;
+        }
+
+        .container {
+            text-align: left;
+            margin-left: 255px;
         }
         .myPost{display:none;}
         .myComment{display:none;}
@@ -36,19 +46,20 @@
     <hr>
    
  
-       <div id="unit">
-         <h2>  내 정보--</h2>
-        이름| {{user.username}}<br>
-        생일 | {{user.birthDay}}<br>
-        성별 | {{user.gender}}<br>
-        사는 곳 | {{user.location}}<br><br>
-        <a class="toNext" href="{% url 'editMypage' %}">회원정보수정하기</a><br><br>
-        </div>
+    <div id="unit">
+            <h2>내 정보</h2>
+            <div class="container">
+            이름| {{user.username}}<br>
+            생일 | {{user.birthDay}}<br>
+            성별 | {{user.gender}}<br>
+            사는 곳 | {{user.location}}<br><br>
+            </div>  
+            <a class="toNext" href="{% url 'editMypage' %}">회원정보수정하기</a><br><br>
+    </div>
     <hr>
-         
-    <b id="myPost" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">--내가 쓴 글 보기</b><br><br>
+    <br>
+    <b id="myPost" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">내가 쓴 글 보기</b><br><br>
         {% for unit in posts %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
-
             <div id="unit" class='myPost'>
                 제목 | {{unit.title}}<br> 
                 작성자 | {{unit.writer}}<br>
@@ -57,15 +68,20 @@
             </div>
         {% endfor %}
     <hr>
-             
-    <b id="myComment" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">--내가 쓴 댓글/대댓글 보기</b><br><br>
+    <br>
+    <b id="myComment" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">내가 쓴 댓글/대댓글 보기</b><br><br>
         {% for unit in comments %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
-
             <div id="unit" class='myComment'>
-                댓글내용:{{unit.body}}|작성자:{{unit.writer}}|<small>{{unit.pub_date}}</small>
+                댓글내용: {{unit.body}}
+                <br>
+                작성자: {{unit.writer}}
+                <br>
+                <small>{{unit.pub_date}}</small>
                 <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
             </div>
         {% endfor %}
     <hr>
-        <a href="{% url 'mail'%}">관리자에게 문의메일 보내기</a><br><br><br><br><br><br>
+        <br>
+        <a href="{% url 'mail'%}">관리자에게 문의메일 보내기</a>
+        <br>
     {%endblock%}

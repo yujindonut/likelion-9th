@@ -6,10 +6,14 @@
 {% providers_media_js %}
 <style>
     #socialLogin{
-        border: black 1px solid;
-        width : 250px;
-        margin: auto;
-        border-radius: 10px;
+        text-align: center;
+        border: 1px solid rgb(219, 219, 219);
+        box-shadow: 2px 2px 2px rgb(219, 219, 219);
+        border-radius: 20px;
+        width: 20%;
+        padding: 20px;
+        margin: 20px auto;
+        background-color: white;
     }
     .signup{
         font-size: 30px;
@@ -17,27 +21,44 @@
     
     a:hover{
             text-decoration: none;
-            color: olive;
+            color: rgb(0, 60, 128);
             font-weight: 900;
         }
-    </style>
-<br><br><br><br><br>
-<form  action="{% url 'login'%} " method="post" >
-    <br>
-    <h1 >Login</h1><br>
-    {%csrf_token%}
-    <table>
-    {{form.as_table}}
-    </table>
-    <button  type="submit">로그인</button>
+
+    .container {
+        text-align: center;
+        border: 1px solid rgb(219, 219, 219);
+        box-shadow: 2px 2px 2px rgb(219, 219, 219);
+        border-radius: 20px;
+        width: 50%;
+        padding: 20px;
+        margin: 20px auto;
+        background-color: white;
+    }
     
-</form><br><br><br>
-<div id="socialLogin">
-    <a href="{% provider_login_url 'google' %}"> 
-        <img src="{% static '구글로고.png' %}" alt="소셜로그인" height="30">계정으로 로그인
-    </a> 
+    </style>
+
+    <form  action="{% url 'login'%} " method="post" >
+        <h1 >Login</h1>
+        <div class="container">
+        {%csrf_token%}
+        <table>
+        {{form.as_table}}
+        </table>
+        <br>
+        <button  type="submit">로그인</button>
+        </div>
+    </form>
+
+    <div id="socialLogin">
+        <a href="{% provider_login_url 'google' %}"> 
+            <img src="{% static '구글로고.png' %}" alt="소셜로그인" height="30"> 계정으로 로그인
+        </a> 
     </div>
-    <br><br>
-    계정이 없다면 <span class="signup"><a href="{% url 'signUp'%}">회원가입 </a> </span>하세요!
-<br><br><br><br><br><br><br>
+    <br>
+    계정이 없다면 
+    <span class="signup">
+        <a href="{% url 'signUp'%}">회원가입 </a> 
+    </span>
+    하세요!
 {%endblock%}

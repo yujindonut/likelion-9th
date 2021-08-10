@@ -135,8 +135,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 SITE_ID = 1
+
 LOGIN_REDIRECT_URL = '/'
+
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'community','static')]
 #static파일을 어디에 모을건지
