@@ -10,7 +10,7 @@
         width : 1200px;
         margin: auto;
         text-align: center;
-        background-color: rgb(255, 255, 255);
+        background-color: #fafafa;
       }
       
       a{
@@ -18,24 +18,30 @@
             color: rgb(179, 108, 108);
             font-weight: 900;
         }
+
         a:hover{
             text-decoration: none;
             color: olive ;
             font-weight: 900;
         }
+
         a:visited{
             text-decoration: none;
         }
+
         logo{
           font-weight: 900;
           font-size: 50px;
         }
+
         table{
         margin: auto;
-    }
+        }
+
     button{
         background-color:  rgb(179, 108, 108);
     }
+
     .hi{
       text-align: right;
       position: relative;
@@ -47,9 +53,15 @@
     }
     #nav:after { content: ""; display: block; clear: both; }
 
-    .main { margin: 30px; }
+    .main { 
+      margin: 30px; 
+      border: 1px solid rgb(219, 219, 219);
+      box-shadow: 2px 2px 2px rgb(219, 219, 219);
+      border-radius: 20px;
+    }
    
     .main > li { 
+      padding: 10px;
       position: relative; 
       float: left; 
       width:215px; 
@@ -57,14 +69,19 @@
       box-sizing: border-box; 
       line-height: 30px; 
       text-align: center; 
-      background: #ccc; } 
+      background: white; 
+    } 
+
       .main > li a { 
         display: block; 
         transition: all 0.3s; 
       } 
+
       .main > li a:hover { 
-        background: #009688;
-        color: #fff; } 
+        background: rgb(219, 219, 219);
+        color: #fff; 
+      } 
+
       .sub { 
         display: none; 
         position: absolute; 
@@ -84,11 +101,12 @@
     <script>
       $(document).ready(function() { 
         $(".main>li").mouseover(function() { 
-          $(this).children(".sub").stop().slideDown(); });
-           $(".main>li").mouseleave(function() { 
-             $(this).children(".sub").stop().slideUp(); 
-          });
+          $(this).children(".sub").stop().slideDown(); 
         });
+        $(".main>li").mouseleave(function() { 
+             $(this).children(".sub").stop().slideUp(); 
+        });
+      });
 
     </script>
 </head>
@@ -137,14 +155,14 @@
                   <li> <a href="{% url 'pre10' %}">10살미만</a></li>
                   <li> <a href="{% url 'y10' %}">10대</a></li>
                   <li> <a href="{% url 'y20' %}">20대</a></li>
-                  <li><a href="{% url 'y30_40' %}">30-40대</a></li>
+                  <li> <a href="{% url 'y30_40' %}">30-40대</a></li>
                   <li> <a href="{% url 'y50_60' %}">50-60대</a></li>
                   <li> <a href="{% url 'over70' %}">70세 이상</a></li>
-                  <li><a href="{% url 'moderna' %}">모더나</a></li>
+                  <li> <a href="{% url 'moderna' %}">모더나</a></li>
                   <li> <a href="{% url 'pfizer' %}">화이자</a></li>
                   <li> <a href="{% url 'az' %}">아스트라제네카</a></li>
-                  <li><a href="{% url 'janssen' %}">얀센</a></li>
-                  <li><a href="{% url 'free' %}">자유게시판</a></li>
+                  <li> <a href="{% url 'janssen' %}">얀센</a></li>
+                  <li> <a href="{% url 'free' %}">자유게시판</a></li>
                   
                 </ul>
               </li>

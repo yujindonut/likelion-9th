@@ -4,6 +4,7 @@
    
     {% load static %}
     <style>
+
         .list{
             border: 1px solid black;
             width: 400px;
@@ -12,18 +13,36 @@
             left: 100px;
         }
         .introduce{
-            border: 1px solid black;
-            width: 400px;
-            height: 500px;
+            border: 1px solid rgb(219, 219, 219);
+            box-shadow: 2px 2px 2px rgb(219, 219, 219);
+            border-radius: 20px;
+            width: 30%;
+            height: 73vh;
             margin: auto;
             float: left;
             position: relative;
-            left: 100px;
+            left: 50px;
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
         }
+        
+        .newPost_list, .newNews_list, .newNews_list {
+            border: 1px solid rgb(219, 219, 219);
+            box-shadow: 2px 2px 2px rgb(219, 219, 219);
+            border-radius: 20px;
+            width: 50%;
+            float: right;
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+        }
+
         small{
             font-size: 6px;
         }
     </style>
+
     <div class="introduce">
         안녕하세요 코알라입니다 알라알라
         <br>
@@ -34,7 +53,7 @@
 
     </div>
 
-    <div class="newPost list">
+    <div class="newPost_list">
         새로 올라온 글<hr>
         {% for unit in postList %}
             <div id="content">  
@@ -44,7 +63,8 @@
             </div>  
         {% endfor %}
     </div>
-    <div class="newNews list">
+
+    <div class="newNews_list">
         업데이트 뉴스<hr>
         {% for unit in newsList %}
         <div id="content">  
@@ -53,7 +73,7 @@
         {% endfor %}
     </div>
 
-    <div class="newNews list">
+    <div class="newNews_list">
         새로 달린 댓글<hr>
         {% for unit in commentList %}
         <div id="content"> 
@@ -72,4 +92,7 @@
         </div>
         {% endfor %}
     </div>
+
+
+
     {%endblock%}
