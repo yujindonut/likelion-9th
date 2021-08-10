@@ -14,14 +14,14 @@
       }
       
       a{
-            text-decoration: none;
-            color: rgb(179, 108, 108);
-            font-weight: 900;
+          text-decoration: none;
+          color: rgb(70, 70, 70);
+          font-weight: 500;
         }
 
         a:hover{
             text-decoration: none;
-            color: olive ;
+            color: rgb(0, 87, 128) ;
             font-weight: 900;
         }
 
@@ -39,7 +39,7 @@
         }
 
     button{
-        background-color:  rgb(179, 108, 108);
+        background-color:  rgb(219, 219, 219);
     }
 
     .hi{
@@ -54,10 +54,16 @@
     #nav:after { content: ""; display: block; clear: both; }
 
     .main { 
-      margin: 30px; 
+      margin: 0px; 
+    }
+
+    #nav {
       border: 1px solid rgb(219, 219, 219);
       box-shadow: 2px 2px 2px rgb(219, 219, 219);
       border-radius: 20px;
+      height: 50px;
+      background-color: white;
+
     }
    
     .main > li { 
@@ -86,15 +92,19 @@
         display: none; 
         position: absolute; 
         text-align: center;
-        top: 30px; 
+        top: 40px; 
         left: 0; 
         z-index: 1; 
         width: 175px; 
         background: #eee;
         opacity: 0.8; }
+        
         footer{
           clear: both;
+        }
 
+        .logo_image {
+          margin-left: 0px;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -114,32 +124,29 @@
     {% load static %}
     <br><br>
     <div class="hi">
-      
       {% if user.is_authenticated %}
         {% if user.is_staff %}
             <strong>{{user.username}}</strong> 관리자 계정입니다.
             <br><a href=" {% url 'mypage'%}"> 마이페이지</a>
         {% else %}
             <strong>{{user.username}}</strong>님 안녕하세요!
-            <br><a href=" {% url 'mypage'%}"> 마이페이지</a>
+            <br>
+            <a href=" {% url 'mypage'%}"> 마이페이지 |</a>
         {%endif%} 
         {%endif%}
-      <a href="{% url 'search' %}">검색하기</a>
+      <a href="{% url 'search' %}">검색하기 |</a>
       {% if user.is_authenticated %}
       <a href="{% url 'logout'%}">로그아웃</a> 
        {% else %}
         <a href=" {% url 'login'%}"> 로그인</a>  
          {%endif%}
-   
-      
+
     </div>
     
-        <a  href="{% url 'index' %}">
-          <logo>코알라  </logo>
-        </a><br><br>
-
-            
-   
+      <a href="{% url 'index' %}">
+        <img class="logo_image" src="{% static 'logo1.png' %}" alt="Koala logo" width="200" >
+        <!--<logo>코알라</logo>-->
+      </a><br><br>
    
       <div id="nav">
           <ul class="main">
@@ -163,7 +170,6 @@
                   <li> <a href="{% url 'az' %}">아스트라제네카</a></li>
                   <li> <a href="{% url 'janssen' %}">얀센</a></li>
                   <li> <a href="{% url 'free' %}">자유게시판</a></li>
-                  
                 </ul>
               </li>
               <li>
@@ -197,18 +203,16 @@
                <li><a href="{% url 'news'%}">뉴스</a></li>
               
                <li><a href="{% url 'address'%}">관련기관</a></li>
-                
-    
           </ul>
       </div>
    
-   
   {% block content %}
   {% endblock %}
-  <br><br>
   <footer>
+    <br>
     <hr>
-    <strong>코알라</strong>  동덕여대 멋쟁이 사자 9기 전혜인 정연림 정은영 한유진
+    <br>
+    <strong>코알라</strong>  동덕여대 멋쟁이 사자처럼 9기 전혜인 정연림 정은영 한유진
   </footer>
   <br>
   <br>

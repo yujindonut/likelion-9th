@@ -2,8 +2,21 @@
 
 {%block content%}
    <style>
-       </style>
-    <h1>Send email - SMTP</h1>
+    .container{
+        text-align: center;
+        border: 1px solid rgb(219, 219, 219);
+        box-shadow: 2px 2px 2px rgb(219, 219, 219);
+        border-radius: 20px;
+        width: 50%;
+        padding: 20px;
+        margin: 20px auto;
+        background-color: white;
+    }
+    .form-control {
+        padding: 10px;
+    }
+    </style>
+    <h2>관리자에게 문의메일 보내기</h2>
 <!--
     <a href="sendmail/">
         메일보내기
@@ -22,7 +35,7 @@
             <div class="tag"> 제목 <input type="text" name="subject"></button></div>
         </div>
         <div class="form-control">
-            <div class="tag"> 메일 내용 <textarea name="body" cols="30" row="10"></textarea></div>
+            <div class="tag"> 메일 내용 <textarea name="body" cols="50" row="50"></textarea></div>
         </div>
         <div class="form-control">
          <input type="Submit" class="btn submit-btn" value="Send Mail">

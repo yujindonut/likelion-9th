@@ -16,15 +16,16 @@
             border: 1px solid rgb(219, 219, 219);
             box-shadow: 2px 2px 2px rgb(219, 219, 219);
             border-radius: 20px;
-            width: 30%;
-            height: 73vh;
+            width: 35%;
+            height: 100%;
             margin: auto;
             float: left;
             position: relative;
-            left: 50px;
+            left: 10px;
             padding: 20px;
             margin: 20px;
             background-color: white;
+            margin-bottom: 70px;
         }
         
         .newPost_list, .newNews_list, .newNews_list {
@@ -37,9 +38,18 @@
             margin: 20px;
             background-color: white;
         }
+        
+        #content {
+            padding: 5px;
+            float: left;
+        }
 
         small{
             font-size: 6px;
+        }
+
+        .title {
+            margin: 0px;
         }
     </style>
 
@@ -48,24 +58,28 @@
         <br>
         <h1>웹서비스 소개(만든 이유, 대상 사용자)랑--이거위주로 <br>
         +개발자 소개도 넣어주세요!!!!!
-    <br>이건 css로 안하고 따로 포토샵이나 일ㄹ러스트로 제작해서 넣어도 귀여울듯 </h1>
+    <br>이건 css로 안하고 따로 포토샵이나 일러스트로 제작해서 넣어도 귀여울듯 </h1>
     + 만약 소개 사진 두장 정도 만들어주시면 자바스크립트로 슬라이드형식 만들게요
 
     </div>
 
     <div class="newPost_list">
-        새로 올라온 글<hr>
+        <h3 class="title">새로 올라온 글</h3>
+        <hr>
         {% for unit in postList %}
             <div id="content">  
                 <a class="toNext" href="{% url 'detailPage' unit.id%}">
-                    제목:{{unit.title}}|글내용:{{unit.summary}}|<small>{{unit.pub_date}} </small>
+                    제목:{{unit.title}} |
+                    글내용:{{unit.summary}} |
+                    <small>{{unit.pub_date}} </small>
             </a><br>
             </div>  
         {% endfor %}
     </div>
 
     <div class="newNews_list">
-        업데이트 뉴스<hr>
+        <h3 class="title">업데이트 뉴스</h3>
+        <hr>
         {% for unit in newsList %}
         <div id="content">  
             <a class="toNext" href="{{unit.link}}">{{unit.title}}</a>
@@ -74,20 +88,22 @@
     </div>
 
     <div class="newNews_list">
-        새로 달린 댓글<hr>
+        <h3 class="title">새로 달린 댓글</h3>
+        <hr>
         {% for unit in commentList %}
         <div id="content"> 
-            <a class="toNext" href="{% url 'detailPage' unit.post_id%}">글 제목--{{unit.postId}}--
-                댓글내용:{{unit.body}}|
-                작성자 :
+            <a class="toNext" href="{% url 'detailPage' unit.post_id%}">
+                제목: {{unit.postId}} |
+                댓글: {{unit.body}} |
+                작성자: 
                 {% if unit.hideName == False %}
                 {{unit.writer}}
                   <!--if unit.hideName == False and unit.writer == user.username and user.is_staff%}
                 {{unit.writer}}(관리자)--> 
                 {% else %} 
                   익명
-                {% endif %}|
-                <small>{{unit.pub_date}} </small>
+                {% endif %} |
+                <small>{{unit.pub_date}}</small>
             </a>
         </div>
         {% endfor %}
