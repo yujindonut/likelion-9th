@@ -71,7 +71,7 @@
             <tr><th>본문</th><td height="200px"> {{postContents.body}}</textarea></td></tr>
         </table>    
         {{postContents.pub_date}}<br>
-        {% if user.username == postContents.writer %}
+        {% if user == postContents.writer %}
                     <a class="toNext" href="{% url 'editPost' postContents.id%}" onclick="return deletePost()">수정하기</a>
                     <a class="toNext" href="{% url 'deletePost' postContents.id%}"  onclick="return deletePost()">삭제하기</a>
                     {% elif user.is_staff%}
@@ -117,7 +117,7 @@
                             <tr>
                                 <td colspan="2"> <date> {{comment.pub_date}}</date> 
                                    
-                                    {% if user.username == comment.writer %}
+                                    {% if user == comment.writer %}
                                         <a class="toNext" href="{% url 'update_review' postContents.id comment.id%}">수정하기</a>
                                         <a class="toNext" href="{% url 'deleteComment' postContents.id comment.id%}" onclick="return deleteComment()">삭제하기</a>
                                     {% elif user.is_staff%}
@@ -159,7 +159,7 @@
                                             
                                             </tr>
                                             <tr>
-                                                <td colspan="2"> <date> {{comment.pub_date}}</date> {% if user.username == re_comment.writer %}
+                                                <td colspan="2"> <date> {{comment.pub_date}}</date> {% if user == re_comment.writer %}
                                                     <a class="toNext" href="{% url 'update_review' postContents.id  re_comment.id%}">수정하기</a>
                                                     <a class="toNext" href="{% url 'deleteComment' postContents.id  re_comment.id%}" onclick="return deleteComment()">삭제하기</a>
                                                     {% elif user.is_staff%}

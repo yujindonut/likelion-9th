@@ -69,11 +69,12 @@ def deleteMessage(request,messageId):
    #print(deletePost+"1.삭제")
    #print(deletePost.writer+"2.삭제")
    #print(deletePost.CustomUser)
-   if deletePost.writer == str(deletePost.CustomUser) and deletePost.to ==str(deletePost.CustomUser) :  #내게 쓴 메세지 삭제
+   if str(deletePost.writer) == str(deletePost.to)  :  #내게 쓴 메세지 삭제
         deletePost.delete() #삭제해주는 메소드
         return redirect('sendToMe')
-   elif   deletePost.writer == deletePost.CustomUser : #받은 메세지 삭제
+   elif   deletePost.writer != request.user and deletePost.to == request.user: #받은 메세지 삭제
         deletePost.delete() #삭제해주는 메소드
+        
         return redirect('messageReception')
    else:#보낸 메세지 삭제
         deletePost.delete() #삭제해주는 메소드
