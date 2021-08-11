@@ -1,23 +1,66 @@
 {%extends 'base.html'%}
 
 {%block content%}
-   
-    {% load static %}
-    <style>
-        #unit{
-            margin:auto;
-            border:1px solid  rgb(179, 108, 108);
-            width:400px;
-        }
-    </style>
-    <br>  <br>
-    <h1>업데이트 된 기사</h1>
-    <div id=unit>
-    {% for unit in newsContents %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
-        
-    
-        <a href="{{unit.link}}">{{unit.title}}</a> <hr>
-   
-        {% endfor %}
+
+{% load static %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Noto+Sans+KR&display=swap');
+
+    #unit {
+        margin: 3% 15%;
+        padding: 2% 5%;
+        border: 3px solid rgb(61, 106, 148);
+        border-radius: 30px;
+    }
+
+    h1, .page {
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    h3 {
+        color: rgb(211, 59, 59);
+    }
+
+    #link {
+        font-family: 'Nanum Gothic Coding', monospace;
+        color: rgb(49, 50, 53);
+        font-size: 18px;
+        padding: 2%;
+
+    }
+
+    .title {
+        font-weight: bolder;
+    }
+
+ 
+</style>
+<br> <br>
+<h1>🆕업데이트 된 기사📰</h1>
+<h3>※글자 클릭 시 관련 기사 페이지로 이동합니다※</h3>
+<div id="unit">
+    {% for unit in posts %}
+    <div id="link">
+        <a href="{{unit.link}}" class="title">📢{{unit.title}}</a>
     </div>
-    {%endblock%}
+    <hr>
+    {% endfor %}
+</div>
+
+<div class="page">
+    {% if posts.has_previous %}
+    <a href="?page=1">1</a>
+    <a href="?page={{posts.previous_page_number}}">◀ </a>
+    {% endif %}
+
+    <span>{{posts.number}}</span>
+    <span>of</span>
+    <span>{{posts.paginator.num_pages}}</span>
+
+    {%if posts.has_next%}
+    <a href="?page={{posts.next_page_number}}"> ▶</a>
+    <a href="?page={{posts.paginator.num_pages}}">{{posts.paginator.num_pages}}</a>
+    {% endif %}
+</div>
+
+{%endblock%}
