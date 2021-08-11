@@ -24,7 +24,7 @@
             left: 10px;
             padding: 20px;
             margin: 20px;
-            background-color: white;
+            background-color: #FFFFDC;
             margin-bottom: 70px;
         }
         
@@ -54,13 +54,7 @@
     </style>
 
     <div class="introduce">
-        안녕하세요 코알라입니다 알라알라
-        <br>
-        <h1>웹서비스 소개(만든 이유, 대상 사용자)랑--이거위주로 <br>
-        +개발자 소개도 넣어주세요!!!!!
-    <br>이건 css로 안하고 따로 포토샵이나 일러스트로 제작해서 넣어도 귀여울듯 </h1>
-    + 만약 소개 사진 두장 정도 만들어주시면 자바스크립트로 슬라이드형식 만들게요
-
+        <img class="koala_main" src="{% static 'koala_main.png' %}" alt="Koala main" width="400" >
     </div>
 
     <div class="newPost_list">
@@ -69,8 +63,8 @@
         {% for unit in postList %}
             <div id="content">  
                 <a class="toNext" href="{% url 'detailPage' unit.id%}">
-                    제목:{{unit.title}} |
-                    글내용:{{unit.summary}} |
+                    제목: {{unit.title}} |
+                    글내용: {{unit.summary}} |
                     <small>{{unit.pub_date}} </small>
             </a><br>
             </div>  
