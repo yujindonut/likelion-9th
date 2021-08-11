@@ -9,4 +9,4 @@ class Message(models.Model):
     body=models.TextField("쪽지")
     
     def summary(self):
-        return self.body[:80]
+        return self.body[:20]
