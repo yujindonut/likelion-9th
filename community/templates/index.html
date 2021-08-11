@@ -51,12 +51,74 @@
         .title {
             margin: 0px;
         }
+        .slider_item{
+            height: 200px;
+        }
     </style>
 
     <div class="introduce">
-        <img class="koala_main" src="{% static 'koala_main.png' %}" alt="Koala main" width="400" >
+        <img class="koala_main" src="{% static 'koala_main.png' %}" alt="Koala main" width="400px"  >
+        <br>
+        <div id="container">
+            <div class="slider">
+                <div class="slider_item"><a href="http://kdca.go.kr/gallery.es?mid=a20503010000&bid=0002"><img src="{% static '백신사전예약.png' %}"  ></a></div>
+                <div class="slider_item"><a href="http://kdca.go.kr/gallery.es?mid=a20503010000&bid=0002"><img src="{% static '백신심근염심낭염로고.png' %}"  ></a></div>
+                <div class="slider_item"><a href="http://kdca.go.kr/gallery.es?mid=a20503010000&bid=0002"><img src="{% static '혈전증.png' %}"  ></a></div>
+            </div>
+        </div> 
+    
     </div>
+    <script>
+        const showing_class = "showing";
+        const firstSlide = document.querySelector(".slider_item:first-child");
+        function slide(){
+            const currentSlide = document.querySelector(`.${showing_class}`); 
+            if(!currentSlide)
+            { 
+                firstSlide.classList.add(showing_class); 
+            }
+            else
+            {
+                currentSlide.classList.remove(showing_class);
+                const nextSlide = currentSlide.nextElementSibling;
+                if (nextSlide){
+                    nextSlide.classList.add(showing_class);
+                } 
+                else {
+                    firstSlide.classList.add(showing_class);
+                }
+            } 
+        }
+        slide();
+        setInterval(slide, 2500); 
 
+    </script>
+    <style>
+    .slider{
+        width: 100%;
+        position: relative;
+    }
+    .slider_item{
+        width: 450px;
+        height: 200px;
+        overflow: hidden;
+        position: absolute;
+        top: 30px;
+        left:-30px;
+        margin: 20px;
+        opacity: 0;
+        transition: all .5s ease-in-out;
+    }
+    .slider_item img{
+        width: 450px;
+        height: 200px;
+    }
+    .showing{
+        opacity: 1;
+        z-index: 1;
+        transform: none;
+    }
+</style>
     <div class="newPost_list">
         <h3 class="title">새로 올라온 글</h3>
         <hr>
