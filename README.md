@@ -23,6 +23,8 @@ pip install bs4
 
 pip install requests
 
+pip install django-crispy-forms
+
 python manage.py makemigrations
 
 python manage.py migrate
