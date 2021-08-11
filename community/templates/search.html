@@ -4,58 +4,81 @@
 
 {% load static %}
 <style>
-    
-     #contents{
-        overflow-y:scroll;
-        overflow-x:hidden;
-        }
-    #content{
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Noto+Sans+KR&display=swap');
+
+    #contents {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    #content {
         width: 500px;
-        margin:auto;
-        padding-top: 30px;
-        padding-bottom: 30px;
-        margin-bottom: 10px;
-        background-color: rgb(247, 247, 247);
-       }    
-    form{
         margin: auto;
-        background-color: rgb(247, 247, 247);
-        width: 500px;;
+        padding: 4% 0;
+        margin-bottom: 10px;
+        font-family: 'Nanum Gothic Coding', monospace;
+        border: 2px solid rgb(71, 71, 71);
+        border-radius: 30px;
+        font-weight: bold;
+        font-size:17px;
+
+    }
+
+    form {
+        margin: auto;
+        width: 500px;
         padding-top: 20px;
         padding-bottom: 20px;
     }
-    
+
+    input {
+        border-radius: 30px;
+        margin: 3% 0%;
+        padding: 15px 30px;
+        border: 3px solid rgb(71, 71, 71);
+    }
+
+    #submit {
+        background-color: rgb(151, 223, 233);
+        font-size: 18px;
+        font-weight: bold;
+        border: 3px solid rgb(71, 71, 71);
+        font-family: 'Nanum Gothic Coding', monospace;
+    }
 </style>
 
 
 <div class="postlist">
-<div id="contents">
-    
-        <br><br>
-       
-        <form action="." method="post"> {% csrf_token %}
-            <h1>제목/ 내용 검색</h1>
-                {{ form.as_table }} <!-- form을 테이블 형식으로 표시, 여기서 form은 views에서 넘겨준 PostSearchForm 객체임-->
-                <input type="submit" value="Submit" class="btn btn-primary btn-sm">
-                <hr width="300px">
-            </form>
+    <div id="contents">
 
-       
-        
-            <br><br>
-             {% if object_list %}
-                {% for unit in object_list %}
-                <div id="content">  
-                    제목 | {{unit.title}}<br> 
-                    작성자 | {{unit.writer}}<br>
-                    설명 |  {{unit.summary}} 
-                    <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
+        <br><br>
+
+        <form action="." method="post"> {% csrf_token %}
+            <h1>제목/내용 검색🔎</h1>
+            <div class="search">{{ form.as_table }}
+                <!-- form을 테이블 형식으로 표시, 여기서 form은 views에서 넘겨준 PostSearchForm 객체임-->
+                <input id="submit" type="submit" value="SUBMIT" class="btn btn-primary btn-sm">
             </div>
-            <br>
-            {% endfor %}
-            <br>
-        {% elif search_term %}<!-- 검색란이 공란인지 확인-->
-            <b><i>Search Word({{ search_term }}) Not Found</i></b>
+            <hr width="300px">
+        </form>
+
+
+
+        <br><br>
+        {% if object_list %}
+        {% for unit in object_list %}
+        <div id="content">
+            제목 | {{unit.title}}<br>
+            작성자 | {{unit.writer}}<br>
+            설명 | {{unit.summary}}<br><br>
+            <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
+        </div>
+        <br>
+        {% endfor %}
+        <br>
+        {% elif search_term %}
+        <!-- 검색란이 공란인지 확인-->
+        <b><i>Search Word({{ search_term }}) Not Found</i></b>
         {% endif %}
     </div>
 </div>
