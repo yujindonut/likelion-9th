@@ -21,6 +21,15 @@
         }
         .myPost{display:none;}
         .myComment{display:none;}
+        .scroll{
+            position: relative;
+            left:100px;
+            width : 1000px;
+            height: 450px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+        hr{width:800px;}
     </style>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
      <script>
@@ -43,7 +52,7 @@
                elem.style.color= "rgb(179, 108, 108)";
            }
          </script>
-    <hr>
+   
    
  
     <div id="unit">
@@ -58,28 +67,34 @@
     </div>
     <hr>
     <br>
+    
     <b id="myPost" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">내가 쓴 글 보기</b><br><br>
-        {% for unit in posts %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
-            <div id="unit" class='myPost'>
-                제목 | {{unit.title}}<br> 
-                작성자 | {{unit.writer}}<br>
-                글 |  {{unit.summary}}<br>
-                <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
-            </div>
-        {% endfor %}
+        <div class="scroll myPost">
+            {% for unit in posts %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
+                <div id="unit" class='myPost'>
+                    제목 | {{unit.title}}<br> 
+                    작성자 | {{unit.writer}}<br>
+                    글 |  {{unit.summary}}<br>
+                    <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
+                </div>
+            {% endfor %}
+    </div>
     <hr>
     <br>
+   
     <b id="myComment" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">내가 쓴 댓글/대댓글 보기</b><br><br>
-        {% for unit in comments %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
-            <div id="unit" class='myComment'>
-                댓글내용: {{unit.body}}
-                <br>
-                작성자: {{unit.writer}}
-                <br>
-                <small>{{unit.pub_date}}</small>
-                <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
-            </div>
-        {% endfor %}
+        <div class="scroll myComment"> 
+            {% for unit in comments %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
+                <div id="unit" class='myComment'>
+                    댓글내용: {{unit.body}}
+                    <br>
+                    작성자: {{unit.writer}}
+                    <br>
+                    <small>{{unit.pub_date}}</small>
+                    <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
+                </div>
+            {% endfor %}
+        </div>
     <hr>
         <br>
         <a href="{% url 'mail'%}">관리자에게 문의메일 보내기</a>
