@@ -120,7 +120,7 @@
     }
 </style>
     <div class="newPost_list">
-        <h3 class="title">새로 올라온 글</h3>
+        <h3 class="title">🔔새로 올라온 글🖌🔔</h3>
         <hr>
         {% for unit in postList %}
             <div id="content">  
@@ -134,7 +134,7 @@
     </div>
 
     <div class="newNews_list">
-        <h3 class="title">업데이트 뉴스</h3>
+        <h3 class="title">🆕업데이트 된 기사📰</h3>
         <hr>
         {% for unit in newsList %}
         <div id="content">  
@@ -144,12 +144,12 @@
     </div>
 
     <div class="newNews_list">
-        <h3 class="title">새로 달린 댓글</h3>
+        <h3 class="title">👩‍👧‍👦새로 달린 댓글🖌👨‍👧‍👧</h3>
         <hr>
         {% for unit in commentList %}
         <div id="content"> 
             <a class="toNext" href="{% url 'detailPage' unit.post_id%}">
-                제목: {{unit.postId}} |
+                본글: {{unit.postId}} |
                 댓글: {{unit.body}} |
                 작성자: 
                 {% if unit.hideName == False %}
