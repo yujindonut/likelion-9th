@@ -1,50 +1,82 @@
 {%extends 'base.html'%}
 
 {%block content%}
-   
-    {% load static %}
-    <style>
-        #unit{
-            margin:auto;
-            margin-bottom: 70px;
-            margin-top: 30px;
-            border:1px solid  rgb(179, 108, 108);
-            width:400px;
-            height: 100px;
-            padding-top:40px;
-        }
-    </style>
-   <!--로그인 한 사람만 글작성하기 뜨도록-->
-   
-    
 
-    {% if age == 0%}<h1>10세 미만 게시판</h1>
-    {% elif age == 1%}<h1>10대 게시판</h1>
-    {% elif age == 2%}<h1>20대 게시판</h1>
-    {% elif age == 3%}<h1>3-40대 게시판</h1>
-    {% elif age == 4%}<h1>5-60대 게시판</h1>
-    {% elif age == 5%}<h1>70세 이상 게시판</h1>
-    {% elif age == 6%}<h1>모더나 게시판</h1>
-    {% elif age == 7%}<h1>화이자 게시판</h1>
-    {% elif age == 8%}<h1>AZ게시판</h1>
-    {% elif age == 9%}<h1>얀센 게시판</h1>
-    {% elif age == 10%}<h1>자유 게시판</h1>
-    {% else %} <h1>전체게시판</h1>
-    {%endif%}
-    {% for unit in blogContents %}<!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
-        
-    <div id=unit>
-        제목 | {{unit.title}}<br> 
-        
-        {% if unit.hideName == False %}
-        {{unit.writer}}
-          <!--if unit.hideName == False and unit.writer == user.username and user.is_staff%}
-        {{unit.writer}}(관리자)--> 
-        {% else %} 
-          익명
-        {% endif %}
-        글 |  {{unit.summary}} 
-        <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
+{% load static %}
+<style>
+   @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Noto+Sans+KR&display=swap');
+
+   .body{
+    font-family: 'Noto Sans KR', sans-serif;
+   }
+    #unit {
+        font-family: 'Noto Sans KR', sans-serif;
+        border: 1px solid rgb(219, 219, 219);
+        box-shadow: 2px 2px 2px rgb(219, 219, 219);
+        border-radius: 20px;
+        width: 50%;
+        padding: 20px;
+        margin: 20px;
+        background-color: white;
+    }
+</style>
+<!--로그인 한 사람만 글작성하기 뜨도록-->
+
+<div class ="body">
+
+    <div class="title">
+    
+        {% if age == 0%}<h1>10세 미만 게시판</h1>
+        {% elif age == 1%}<h1>10대 게시판</h1>
+        {% elif age == 2%}<h1>20대 게시판</h1>
+        {% elif age == 3%}<h1>3-40대 게시판</h1>
+        {% elif age == 4%}<h1>5-60대 게시판</h1>
+        {% elif age == 5%}<h1>70세 이상 게시판</h1>
+        {% elif age == 6%}<h1>모더나 게시판</h1>
+        {% elif age == 7%}<h1>화이자 게시판</h1>
+        {% elif age == 8%}<h1>AZ게시판</h1>
+        {% elif age == 9%}<h1>얀센 게시판</h1>
+        {% elif age == 10%}<h1>자유 게시판</h1>
+        {% else %} <h1>전체게시판</h1>
+        {%endif%}
     </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    
+        {% for unit in blogContents %}
+        <!--근데 여기서는 항목별로 보이게 하려고 for문 써줌-->
+    
+        <div class="card border-success mb-3" style="max-width: 18rem;">
+            <div class="card-header bg-transparent border-success">
+                {% if unit.hideName == False %}
+                {{unit.writer}}
+                {% else %}
+                익명
+                {% endif %}
+            </div>
+            <div class="card-body text-success">
+                <h5 class="card-title">제목 | {{unit.title}}</h5>
+                <p class="card-text">글 | {{unit.summary}}</p>
+                <p class="card-text"><small class="text-muted" href="{% url 'detailPage' unit.id%}">...더보기</small></p>
+            </div>
+        </div>
         {% endfor %}
-    {%endblock%}
+    </div>
+    <br><br>
+    {% if posts.has_previous %}
+    <!--이전페이지가 있다면-->
+    <a href="?page=1">1</a> <!-- url을 그냥 써주면 됨-->
+    <a href="?page={{posts.previous_page_number}}">◀</a>
+    {% endif %}
+    
+    <span>{{posts.number}}</span>
+    <span>of</span>
+    <span>{{posts.paginator.num_pages}}</span>
+    
+    {% if posts.has_next %}
+    <!--다음페이지가 있다면-->
+    <a href="?page={{posts.next_page_number}}">▶</a>
+    <a href="?page={{posts.paginator.num_pages}}">{{posts.paginator.num_pages}}</a>
+    {% endif %}
+</div>
+
+{%endblock%}

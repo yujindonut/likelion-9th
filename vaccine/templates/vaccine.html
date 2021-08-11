@@ -1,21 +1,289 @@
 {%extends 'base.html'%}
-
 {%block content%}
-   
-    {% load static %}
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOG</title>
     <style>
-        #unit{
-            margin:auto;
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Noto+Sans+KR&display=swap');
+
+        #unit {
+            margin: auto;
             margin-bottom: 70px;
             margin-top: 30px;
-            border:1px solid  rgb(179, 108, 108);
-            width:400px;
+            border: 1px solid rgb(179, 108, 108);
+            width: 400px;
             height: 100px;
-            padding-top:40px;
+            padding-top: 40px;
+        }
+
+        body {
+            text-align: center;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: rgb(0, 0, 0);
+            background-color: white;
+        }
+
+        .col {
+            color: rgb(0, 0, 0);
+        }
+
+        .title {
+            border-radius: 15px 15px 15px 15px;
+            border: 3px solid #cfcfcf;
+            padding: 0.5em 0.6em;
+            color: #2e3028;
+            font-weight: bold;
+        }
+
+        .text {
+            border-radius: 2em;
+            padding: 0.5em;
+            background: #eeeeee;
+            font-size: 18px;
+        }
+
+        .bold {
+            color: red;
+            font-weight: bold;
+
+        }
+
+        th {
+            color: rgb(0, 83, 151);
+            font-weight: bold;
+        }
+
+        .fact,
+        .type {
+            width: 90%;
+            border: 1px solid rgb(0, 189, 72);
+            border-radius: 2em;
+            text-align: center;
+            margin: auto;
+        }
+
+        .table {
+            width: 80%;
+            border: 1px solid rgb(251, 255, 0);
+            border-radius: 2em;
+            text-align: center;
+            margin: auto;
         }
     </style>
-    <h1>
-     백신에 대해 내용 넣어주세요~~ vaccine앱엔 아직 모델도 안만들었어요 <br>
-     자유롭게 ㄱㄱ 모델 만들어서 내용 넣어도 되고 <br>
-     그냥  html꾸미듯 아무거나 그림이든 캡쳐든 카드뉴스든 넣어도 되고</h1>
-    {%endblock%}
+</head>
+
+<body>
+
+    {% load static %}
+    <h1 class="title">💡코로나 백신, 어떻게 우리 몸을 보호하나요?💡</h1>
+    <div class="text">
+        <h2>📍코로나19 백신 팩트체크📍</h2>
+        <h3 class="bold">예방접종 꼭 맞아야하나요❔</h3>
+        <div class="fact">
+            <p>
+                🎇예방접종은 인체의 면역 체계를 훈련시켜 코로나19 바이러스를 인식하고 제거합니다🎇
+                <br>🎇예방접종은 우리 몸이 코로나19에 걸리지 않고 면역을 획득할 수 있는 안전한 방법입니다.🎇<br>
+                🎇예방접종을 완료 후 면역이 형성된 이후 코로나바이러스에 노출되면,<br>
+                우리 몸은 더 빠르고 더 나은 반응을 일으켜 코로나바이러스감염증-19로부터 우리몸을 보호합니다.🎇<br>
+
+            </p>
+        </div>
+        <br>
+
+        <h2>📍코로나 백신 종류📍</h2>
+        <div class="type">
+            <h3 class="bold">🧬mRNA백신(핵산백신)🧬</h3>
+            <table>
+                <th>
+                    💉설명
+                </th>
+                <tr>
+                    <td>
+                        ◽특이 스파이크 단백질을 만드는 유전자를 RNA형태로 만들어 투여하는 백신.<br>
+                        ◽인체에 주입된 mRNA는 코로나바이러스 특이 스파이크 단백질을 만듬.<br>
+                    </td>
+                </tr>
+                <th>
+                    💉백신 반응
+                </th>
+                <tr>
+                    <td>
+                        ◽만들어진 스파이크 단백질을 이물질로 인식해서 면역반응을 일으켜, 코로나19 바이러스에 대항하는 면역을 획득<br>
+                        ◽주입한 mRNA 백신의 유전물질은 분해되므로, 인체의 DNA와 상호작용하지 않는다
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+            <h3 class="bold">🧬재조합백신🧬</h3>
+            <table>
+                <th>
+                    💉설명
+                </th>
+                <tr>
+                    <td>
+                        ◽코로나19 바이러스의 무해한 단백질 항원(주로 스파이크 단백질)을 포함<br>
+                        ◽인체에 주입된 mRNA는 코로나바이러스 특이 스파이크 단백질을 만듬.<br>
+                    </td>
+                </tr>
+                <th>
+                    💉백신 반응
+                </th>
+                <tr>
+                    <td>
+                        ◽인체의 면역체계는 단백질 항원을 이물질로 인식하여 면역반응을 일으키게 되고, 코로나19 바이러스에 대항하는 면역을 획득
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+
+            <h3 class="bold">🧬바이러스벡터 백신🧬</h3>
+            <table>
+                <th>
+                    💉설명
+                </th>
+                <tr>
+                    <td>
+                        ◽코로나19 바이러스 특이 단백질(주로 스파이크 단백질)의 유전 물질을 포함한 바이러스로 만들어 짐.<br>
+                        ◽코로나19 바이러스와는 다른 바이러스로, 약독화된 바이러스를 사용하므로 인체에는 무해<br>
+                    </td>
+                </tr>
+                <th>
+                    💉백신 반응
+                </th>
+                <tr>
+                    <td>
+                        ◽특이 단백질의 유전물질을 포함한 벡터 바이러스가 인체에 들어오면, 코로나19 바이러스 특이 단백질인 스파이크 단백질이 생성.<br>
+                        ◽우리 몸은 단백질을 이물질로 인식해서 면역반응을 일으키게 되고, 코로나19 바이러스에 대항하는 면역을 획득<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br><br>
+
+    <h1 class="title">💡우리나라의 백신 허가완료 제품 정보💡</h1>
+    <div class="text">
+        <h2>📍아스트라제네카📍</h2>
+        <div class="table">
+            <table>
+                <th>
+                    🔔흔한 증상🔔
+                </th>
+                <tr>
+                    <td>
+                        ▪주사부위 통증, 압통, 멍, 온감, 발적, 피로, 두통, 근육통, 권태, 열감이었으며,<br> 증상은 대부분 경증에서 중간 정도 수준으로 백신 접종 후 며칠 내에
+                        소실
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <th>
+                    ❗이상 반응❗
+                </th>
+                <tr>
+                    <td>
+                        ▪백신 투여 후 과민반응으로 나타날 수 있는 아나필락시스반응과 코로나 증상 악화 등의 이상사례는 나타나지 않음
+                        <br> ▪65세 이상 고령자의 경우에도 약물과 관련된 중대한 이상사례는 발생하지 않았으며,<br> 예측되거나 예측되지 않은 이상사례 발생률은 성인군과 비교했을 때
+                        유사하거나 낮은
+                        수준
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <h2>📍화이자📍</h2>
+        <div class="table">
+            <table>
+                <th>
+                    🔔흔한 증상🔔
+                </th>
+                <tr>
+                    <td>
+                        ▪주사부위 통증, 발열, 피로, 오한, 두통, 근육통 등이었으며,<br> 증상은 대부분 경증에서 중간 정도 수준으로 백신 접종 후 며칠 내에 회복
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <th>
+                    ❗이상 반응❗
+                </th>
+                <tr>
+                    <td>
+                        백신 투여 후 약물 관련 과민반응(두드러기)은 1건 발생하였으며<br> 약물 관련 아나필락시스* 반응은 임상시험 기간 중 보고되지 않음
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>📍얀센📍</h2>
+        <div class="table">
+            <table>
+                <th>
+                    🔔흔한 증상🔔
+                </th>
+                <tr>
+                    <td>
+                        ▪주사부위 통증, 두통, 피로, 근육통 등이었으며, <br>증상은 대부분 경증에서 중간 정도 수준으로 백신 접종 후 2~3일 이내에 회복
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <th>
+                    ❗이상 반응❗
+                </th>
+                <tr>
+                    <td>
+                        임상시험의 모든 등록대상자 4만 3,783명 중 백신군 0.4%(83명), 대조군 0.4%(96명)에서 ‘중대한 이상사례’가 보고됐으며, <br>
+                        이 중 백신 투여와 관련성을 배제할 수 없는 ‘중대한 약물이상반응’은 상완신경근염 등 7건*이었으며,<br> 임상시험 자료 제출시점에는 대부분 회복중
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <h2>📍모더나📍</h2>
+        <div class="table">
+            <table>
+                <th>
+                    🔔흔한 증상🔔
+                </th>
+                <tr>
+                    <td>
+                        ▪주사부위 통증, 피로, 두통, 근육통, 관절통, 오한, 메스꺼움/구토, 림프절병증, 발열, 주사부위 부종, 홍조 등이었으며, 증상은 대부분 경증에서 중간 정도
+                        수준으로 백신 접종 후 며칠내에 소실
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <th>
+                    ❗이상 반응❗
+                </th>
+                <tr>
+                    <td>
+                        ▪임상시험의 모든 등록대상자 3만 351명 중 백신군 1.0%(147명), 대조군 1.0%(153명)에서 ‘중대한 이상사례’가 보고되었고,<br> 백신 투여와 관련성을
+                        배제할 수 없는 ‘중대한
+                        약물이상반응’은 얼굴 부종 등 9건이었으며, <br>임상시험 자료 제출시점에는 대부분 회복중. <br>또한 얼굴 부종은 사용상의 주의사항에 반영
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>
+{% endblock %}

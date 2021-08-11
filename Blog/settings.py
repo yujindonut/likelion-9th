@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'crawling.apps.CrawlingConfig',
     'vaccine.apps.VaccineConfig',
     'address.apps.AddressConfig',
-
+    'crispy_forms',
 
     # allauth
     'allauth',
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     # provider 구글. 페북.카톡.깃헙
     'allauth.socialaccount.providers.google',
 ]
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
