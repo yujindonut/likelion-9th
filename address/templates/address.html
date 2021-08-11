@@ -1,23 +1,82 @@
 {%extends 'base.html'%}
 
 {%block content%}
-   
-    {% load static %}
-    <style>
-        #unit{
-            margin:auto;
-            margin-bottom: 70px;
-            margin-top: 30px;
-            border:1px solid  rgb(179, 108, 108);
-            width:400px;
-            height: 100px;
-            padding-top:40px;
-        }
-    </style>
-    <h1>
-     관련,공공기관 연락처들 넣어주세요!! ex-보건소, 구청,병원<br>
-      vaccine앱과 마찬가지로 아직 모델도 안만들었어요 <br>
-     자유롭게 ㄱㄱ 모델 만들어서 내용 넣어도 되고 뭐든 내용 채우기<br><br><br>
 
-     공공기관 사이트들 로고 따와서 하이퍼링크 걸어줘도 좋을듯
-    {%endblock%}
+{% load static %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Noto+Sans+KR&display=swap');
+
+    #unit {
+        margin: auto;
+        margin-bottom: 70px;
+        margin-top: 30px;
+        border: 3px solid rgb(179, 108, 108);
+        width: 400px;
+        height: 100px;
+        padding-top: 40px;
+    }
+
+    h2 {
+        border: 3px solid rgb(86, 163, 108);
+        border-radius: 30px;
+        margin: 3% 15%;
+        padding: 2% 5%;
+    }
+
+    h3 {
+        color: rgb(211, 59, 59);
+    }
+
+    #link {
+        font-size: 19px;
+        font-family: 'Nanum Gothic Coding', monospace;
+        background-color: rgb(224, 224, 224);
+        margin: 3% 15%;
+        padding: 3% 5%;
+        border-radius: 30px;
+    }
+
+    #title {
+        font-weight: bold;
+    }
+</style>
+
+<body>
+    <br>
+    <h1>🏥관련기관🏥</h1>
+    <h3>※글자 클릭 시 해당페이지로 이동합니다※</h3>
+
+    <h2><img src="{% static 'icon1.png' %}" alt="WHO" width="20">선별진료소<img src="{% static 'icon1.png' %}" alt="WHO"
+            width="20"></h2>
+    <div id="link">
+        <a href="https://www.mohw.go.kr/react/popup_200128_3.html" id="title">💉코로나 19선별진료소</a>
+    </div>
+
+    <h2><img src="{% static 'icon1.png' %}" alt="WHO" width="20">예방접종 사전예약<img src="{% static 'icon1.png' %}" alt="WHO" width="20"></h2>
+    <div id="link">
+        <a href="https://ncvr2.kdca.go.kr/" id="title">💉코로나19 예방접종 사전예약 시스템</a>
+    </div>
+    <h2> <img src="{% static 'icon2.png' %}" alt="WHO" width="25">WHO<img src="{% static 'icon2.png' %}" alt="WHO"
+            width="25"></h2>
+    <div id="link">
+        <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" id="title">✔예방수칙, 의료 기술적 가이드라인, 최신 레포트
+            등 제공</a><br><br>
+        <a href="https://www.who.int/health-topics/coronavirus" id="title">✔코로나바이러스감염증-19 현황</a><br><br>
+        <a href="https://www.who.int/news-room/q-a-detail/q-a-coronaviruses" id="title">✔코로나바이러스감염증-19 Q&A</a><br>
+    </div>
+    <h2>정부 및 공공 기관 제공</h2>
+    <div id="link">
+        <a href="http://ncov.mohw.go.kr/" id="title">🔸한국 보건복지부 제공 코로나바이러스 19 보건 정보</a><br><br>
+        <a href="http://gcid.or.kr/04_occur/occur05_preview.htm" id="title">🔸서울대학교 글로벌감염병센터 코로나바이러스 19 관련
+            정보</a><br><br>
+        <a href="https://covid19.nih.gov/" id="title">🔸미국 국립보건원 제공 코로나바이러스 19 관련 정보</a><br><br>
+        <a href="https://www.ncbi.nlm.nih.gov/research/coronavirus/" id="title">🔸미국 국립의학도서관 제공 코로나바이러스 19 학술 정보
+            [LITCOVID]</a><br><br>
+        <a href="coronavirus.gov" id="title">🔸미국 질병통제센터 제공 코로나바이러스 19 보건 정보</a><br><br>
+        <a href="https://www.worldbank.org/en/who-we-are/news/coronavirus-covid19" id="title">세계 은행 제공 코로나바이러스 19 관련
+            뉴스</a><br><br>
+        <a href="https://www.ecdc.europa.eu/en/covid-19" id="title">🔸유럽질병예방통제센터 코로나비이러스 19 관련 보건 정보</a><br>
+    </div>
+    <br><br>
+</body>
+{%endblock%}
