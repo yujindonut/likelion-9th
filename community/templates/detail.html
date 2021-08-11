@@ -1,179 +1,253 @@
 {%extends 'base.html'%}
-
+{% load crispy_forms_tags %}
 {%block content%}
-   
-    {% load static %}
-    <style>
-        table,td,tr,th{
-            border:1px solid chocolate;
-            border-collapse: collapse;
-            padding: 10px;
-        }
-      /*  #left{
-            float: left;
-            width: 400px;
-        }
-        #comment{
-            width: 800px;
-        }*/
-        </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#addReComment").click(function() {
-                $(".re_comment").slideToggle("slow");
-            });
+
+{% load static %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Sans+KR:wght@700&family=Ultra&display=swap');
+
+    .whole {
+        font-family: 'Noto Sans KR', cursive, sans-serif;
+    }
+
+    table {
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+        width: 70%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    td:nth-child(1) {
+        width: 300px;
+    }
+
+    text {
+        font-weight: bold;
+        font-size: 20px;
+        color: rgb(2, 95, 7);
+        font-weight: bold;
+        margin: auto;
+    }
+
+    .header {
+        border-bottom: 1px solid green;
+    }
+
+    .detailTable {
+        background-color: rgb(235, 235, 235);
+        color: rgb(65, 65, 65);
+        border: 1px solid green;
+    }
+
+    .writer {
+        background-color: rgb(190, 253, 214);
+        color: rgb(65, 65, 65);
+    }
+
+    .text_body {
+        word-break: break-all;
+        padding: 30px;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#addReComment").click(function () {
+            $(".re_comment").slideToggle("slow");
         });
-        function OnMouseIn(elem) 
-          {
-              elem.style.color = "olive";
-          }
-      function OnMouseOut(elem) 
-          {
-              elem.style.color= "rgb(179, 108, 108)";
-          }
+    });
+    function OnMouseIn(elem) {
+        elem.style.color = "olive";
+    }
+    function OnMouseOut(elem) {
+        elem.style.color = "rgb(179, 108, 108)";
+    }
 
-        function authComment(){
-             alert("댓글/대댓글 작성은 로그인 하신 뒤 이용가능한 서비스 입니다");
-                  }
+    function authComment() {
+        alert("댓글/대댓글 작성은 로그인 하신 뒤 이용가능한 서비스 입니다");
+    }
 
-        function deletePost(){
-             var ret = confirm("게시물을 삭제합니다.");
-             return ret;
-        }
-        function deleteComment(){
-             var ret = confirm("댓글/대댓글을 삭제합니다.");
-             return ret;
-        }
-        </script>
-        {%csrf_token%}
-        <br>
-        <div id="left">
+    function deletePost() {
+        var ret = confirm("게시물을 삭제합니다.");
+        return ret;
+    }
+    function deleteComment() {
+        var ret = confirm("댓글/대댓글을 삭제합니다.");
+        return ret;
+    }
+</script>
+{%csrf_token%}
+<br>
+<div class="whole">
+
+    <div id="left">
         <table class="detailTable">
-            
-            <tr><td colspan="2">
-                {% if postContents.image %}
-                <img src= {{postContents.image.url}} alt='image' height="300px">
-                {% else %}
-              <br> 첨부사진없음<br><br>
-                {% endif %}
-            </td></tr>
-           <!-- <tr><th>카테고리</th><td> {{postContents.category}}</td></tr>-->
-            <tr><th>제목</th><td> {{postContents.title}}</td></tr>
-            <tr><th>작성자</th> <td>  
-                {% if postContents.hideName == False %}
-                    {{postContents.writer}}
-                      <!--if unit.hideName == False and unit.writer == user.username and user.is_staff%}
-                    {{unit.writer}}(관리자)--> 
-                {% else %} 
-                      익명
-                {% endif %} </td></tr>
-            <tr><th>본문</th><td height="200px"> {{postContents.body}}</textarea></td></tr>
-        </table>    
-        {{postContents.pub_date}}<br>
-        {% if user == postContents.writer %}
-                    <a class="toNext" href="{% url 'editPost' postContents.id%}" onclick="return deletePost()">수정하기</a>
-                    <a class="toNext" href="{% url 'deletePost' postContents.id%}"  onclick="return deletePost()">삭제하기</a>
-                    {% elif user.is_staff%}
-                    <a class="toNext" href="{% url 'deletePost' postContents.id%}"  onclick="return deletePost()">삭제하기</a>
-                    {%endif%}
 
+            <tr class="header">
+                <td colspan="2">
+                    {% if postContents.image %}
+                    <img src={{postContents.image.url}} alt='image' height="300px">
+                    {% else %}
+                    <br> 첨부사진없음<br><br>
+                    {% endif %}
+                </td>
+            </tr>
+            <!-- <tr><th>카테고리</th><td> {{postContents.category}}</td></tr>-->
+            <tr class="header">
+                <td>💊제목💊</td>
+                <td class="text_body"> {{postContents.title}}</td>
+            </tr>
+            <tr class="header">
+                <td>✏작성자✏</td>
+                <td class="text_body"> {% if postContents.hideName == False %}
+                    {{postContents.writer}}
+                    <!--if unit.hideName == False and unit.writer == user.username and user.is_staff%}
+                    {{unit.writer}}(관리자)-->
+                    {% else %}
+                    익명
+                    {% endif %}
+                </td>
+            </tr>
+            <tr class="header">
+                <td>📝본문📝</td>
+                <td class="text_body"> {{postContents.body}}</textarea></td>
+            </tr>
+        </table>
+        {{postContents.pub_date}}<br>
+        {% if user.username == postContents.writer %}
+        <a class="toNext" href="{% url 'editPost' postContents.id%}" onclick="return deletePost()">수정하기</a>
+        <a class="toNext" href="{% url 'deletePost' postContents.id%}" onclick="return deletePost()">삭제하기</a>
+        {% elif user.is_staff%}
+        <a class="toNext" href="{% url 'deletePost' postContents.id%}" onclick="return deletePost()">삭제하기</a>
+        {%endif%}
+
+    </div>
+    <div id="comment"><br><br>
+
+        {% if user.is_authenticated %}
+        <form method="POST" action="{%url 'create_comment' postContents.id  %}" enctype="multipart/form-data">
+            {%csrf_token%}
+            ✏댓글 작성 <br>
+            {{ commentForms | crispy }}
+            <input type="submit">
+        </form>
+        {%else%}
+        <form method="POST" onclick="authComment()" action="{%url 'create_comment' postContents.id  %}"
+            enctype="multipart/form-data">
+            {%csrf_token%}
+            ✏댓글 작성 <br>
+            {{ commentForms | crispy }}
+            <input type="submit">
+        </form>
+        {%endif%}
+        <hr>
+        <h2>🖋댓글🖋</h2>
+        <b id="addReComment" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">답글 숨기기</b><br><br>
+        {% for comment in comments %}
+        <br>
+        <table id="cc">
+            <tr class="writer">
+                <td><b>
+
+                        {% if comment.hideName == True and postContents.writer == comment.writer%}
+                        🐨익명<who>(글쓴이)</who>
+                        {% elif comment.hideName == False and postContents.writer == comment.writer %}
+                        🐨{{comment.writer}}<who>(글쓴이)</who>
+                        {% elif comment.hideName == False %}
+                        🐨{{comment.writer}}
+
+                        {% else %}
+                        🐨익명
+                        {% endif %}
+                    </b>| </td>
+                <td> {{comment.body}}</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <date> {{comment.pub_date}}</date>
+
+                    {% if user.username == comment.writer %}
+                    <a class="toNext" href="{% url 'update_review' postContents.id comment.id%}">수정하기</a>
+                    <a class="toNext" href="{% url 'deleteComment' postContents.id comment.id%}"
+                        onclick="return deleteComment()">삭제하기</a>
+                    {% elif user.is_staff%}
+                    <a class="toNext" href="{% url 'deleteComment' postContents.id comment.id%}"
+                        onclick="return deleteComment()">삭제하기</a>
+                    {%endif%}
+                </td>
+            </tr>
+        </table>
+        <br><br>
+        <div class="re_comment">
+            {% if user.is_authenticated %}
+            <form method="POST" action="{%url 'create_re_comment'  postContents.id comment.id %}"
+                enctype="multipart/form-data">
+                {%csrf_token%}
+                <who>✏대댓글 작성</who><br>
+                {{ commentForms | crispy }}
+                <input type="submit">
+            </form>
+            {%else%}
+            <form method="POST" onclick="authComment()"
+                action="{%url 'create_re_comment'  postContents.id comment.id %}" enctype="multipart/form-data">
+                {%csrf_token%}
+                <who>✏대댓글 작성</who><br>
+                {{ commentForms | crispy }}
+                <input type="submit">
+            </form>
+            {%endif%}
+            {% for re_comment in re_comments %}
+            {% if comment == re_comment.comment_id %}
+            <table id="recomment">
+                <tr class="writer">
+                    <td><b>
+                            {% if re_comment.hideName == True and postContents.writer == re_comment.writer%}
+                            ㄴ익명<who>(글쓴이)</who>
+                            {% elif re_comment.hideName == False and postContents.writer == re_comment.writer %}
+                            ㄴ{{re_comment.writer}}<who>(글쓴이)</who>
+                            {% elif re_comment.hideName == False %}
+                            ㄴ{{re_comment.writer}}
+                            {% else %}
+                            ㄴ익명
+                            {% endif %}
+
+                        </b>| </td>
+                    <td>{{re_comment.body}} </td>
+
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <date> {{comment.pub_date}}</date> {% if user.username == re_comment.writer %}
+                        <a class="toNext" href="{% url 'update_review' postContents.id  re_comment.id%}">수정하기</a>
+                        <a class="toNext" href="{% url 'deleteComment' postContents.id  re_comment.id%}"
+                            onclick="return deleteComment()">삭제하기</a>
+                        {% elif user.is_staff%}
+                        <a class="toNext" href="{% url 'deleteComment' postContents.id  re_comment.id%}"
+                            onclick="return deleteComment()">삭제하기</a>
+                        {%endif%}
+                    </td>
+                </tr>
+            </table>
+
+            <br>
+            {% endif %}
+            {% endfor %}
         </div>
-                    <div id="comment"><br><br>
-                        
-                        {% if user.is_authenticated %}
-                            <form method="POST"  action="{%url 'create_comment' postContents.id  %}" enctype="multipart/form-data">
-                                {%csrf_token%}
-                            댓글 작성  {{commentForms}}
-                                <input type="submit">
-                            </form>
-                        {%else%}
-                            <form method="POST" onclick="authComment()" action="{%url 'create_comment' postContents.id  %}" enctype="multipart/form-data">
-                                {%csrf_token%}
-                            댓글 작성  {{commentForms}}
-                                <input type="submit">
-                            </form>
-                        {%endif%}
-                        <hr><h2>댓글</h2>
-                        <b id="addReComment" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">답글 숨기기</b><br><br>
-                    {% for comment in comments %}
-                        <br>
-                        <table id="cc">
-                            <tr>
-                                <td class="writer"><b>
-                                    
-                                {% if comment.hideName == True and postContents.writer == comment.writer%}
-                                    익명<who>(글쓴이)</who>
-                                {% elif comment.hideName == False and postContents.writer == comment.writer %}
-                                {{comment.writer}}<who>(글쓴이)</who>
-                                {% elif comment.hideName == False %}
-                                {{comment.writer}}
-                                
-                                {% else %} 
-                                    익명
-                                {% endif %}
-                                </b>| </td><td> {{comment.body}}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"> <date> {{comment.pub_date}}</date> 
-                                   
-                                    {% if user == comment.writer %}
-                                        <a class="toNext" href="{% url 'update_review' postContents.id comment.id%}">수정하기</a>
-                                        <a class="toNext" href="{% url 'deleteComment' postContents.id comment.id%}" onclick="return deleteComment()">삭제하기</a>
-                                    {% elif user.is_staff%}
-                                        <a class="toNext" href="{% url 'deleteComment' postContents.id comment.id%}" onclick="return deleteComment()">삭제하기</a>
-                                    {%endif%}</td>
-                                    
-                            </tr>
-                        </table>
-                    <div class="re_comment">
-                        {% if user.is_authenticated %}
-                            <form method="POST"  action="{%url 'create_re_comment'  postContents.id comment.id %}" enctype="multipart/form-data">
-                                {%csrf_token%}
-                                <who>대댓글 작성</who> {{commentForms}}
-                                <input type="submit">
-                            </form>
-                        {%else%}
-                            <form method="POST" onclick="authComment()" action="{%url 'create_re_comment'  postContents.id comment.id %}" enctype="multipart/form-data">
-                                {%csrf_token%}
-                                <who>대댓글 작성</who> {{commentForms}}
-                                <input type="submit">
-                            </form>
-                        {%endif%}
-                                {% for re_comment in re_comments %}
-                                    {% if comment == re_comment.comment_id %}
-                                    <table id="recomment">
-                                        <tr>
-                                            <td class="writer"><b>
-                                                {% if re_comment.hideName ==  True and postContents.writer == re_comment.writer%}
-                                                    ㄴ익명<who>(글쓴이)</who>
-                                                {% elif re_comment.hideName == False and postContents.writer == re_comment.writer %}
-                                                    ㄴ{{re_comment.writer}}<who>(글쓴이)</who>
-                                                {% elif re_comment.hideName == False %}
-                                                ㄴ{{re_comment.writer}}
-                                                {% else %} 
-                                                    ㄴ익명
-                                                {% endif %}
-                                                
-                                                </b>| </td><td>{{re_comment.body}} </td>
-                                            
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2"> <date> {{comment.pub_date}}</date> {% if user == re_comment.writer %}
-                                                    <a class="toNext" href="{% url 'update_review' postContents.id  re_comment.id%}">수정하기</a>
-                                                    <a class="toNext" href="{% url 'deleteComment' postContents.id  re_comment.id%}" onclick="return deleteComment()">삭제하기</a>
-                                                    {% elif user.is_staff%}
-                                                    <a class="toNext" href="{% url 'deleteComment' postContents.id  re_comment.id%}" onclick="return deleteComment()">삭제하기</a>
-                                                    {%endif%}</td>
-                                            </tr>
-                                        </table>
-                                    
-                                        <br>
-                                        {% endif %}
-                                    {% endfor %}</div>
-                            {% endfor %}
-                                    <br> <br>
-                    </div> 
-                </div>
-            </div>
-        {%endblock%}
+        {% endfor %}
+        <br> <br>
+    </div>
+</div>
+</div>
+</div>
+{%endblock%}

@@ -5,8 +5,8 @@ from django.utils import timezone
 from .forms import  *
 from django.views.generic.edit import FormView
 from django.db.models import Q
-
 from django.core.paginator import Paginator
+
 # Create your views here.
 def index(request):
     post_list = Blog.objects.all().order_by('-id')
@@ -20,38 +20,52 @@ def index(request):
     News = paginatorNews.get_page(page)
     Comments = paginatorComment.get_page(page)
     return render(request,"index.html",{'postList':Posts,'newsList':News,'commentList':Comments})
+
 def allPost(request):
-    posts=Blog.objects.all().order_by('-id')
-    return render(request,"allPost.html",{'blogContents':posts})
+    allPost=Blog.objects.all().order_by('-id')
+    paginatorPost = Paginator(allPost, 5)
+    #request된 페이지가 뭔지를 알아내고 (request페이지를 변수에 담아내고)
+    page = request.GET.get('page')
+    #request된 페이지를 얻어온 뒤 return 해준다
+    posts = paginatorPost.get_page(page)
+    return render(request,"allPost.html",{'blogContents':allPost, 'posts': posts})
 #게시판 카테고리 10개
+
 def pre10(request):
     posts=Blog.objects.filter( category = ['0']).order_by('-id')
     age=0
     return render(request,"allPost.html",{'blogContents':posts,'age':age})
+
 def y10(request):
     posts=Blog.objects.filter( category = ['1']).order_by('-id')
     age=1
     return render(request,"allPost.html",{'blogContents':posts,'age':age})
+
 def y20(request):
     posts=Blog.objects.filter( category = ['2']).order_by('-id')
     age=2
     return render(request,"allPost.html",{'blogContents':posts,'age':age})
+
 def y30_40(request):
     posts=Blog.objects.filter( category = ['3']).order_by('-id')
     age=3
     return render(request,"allPost.html",{'blogContents':posts,'age':age})
+
 def y50_60(request):
     posts=Blog.objects.filter( category = ['4']).order_by('-id')
     age=4
     return render(request,"allPost.html",{'blogContents':posts,'age':age})
+
 def over70(request):
     posts=Blog.objects.filter( category = ['5']).order_by('-id')
     age=5
     return render(request,"allPost.html",{'blogContents':posts,'age':age})
+
 def moderna(request):
     posts=Blog.objects.filter( category = ['6']).order_by('-id')
     age=6
     return render(request,"allPost.html",{'blogContents':posts,'age':age})
+
 def pfizer(request):#화이자백신 카테고리
     posts=Blog.objects.filter( category = ['7']).order_by('-id')
     age=7
