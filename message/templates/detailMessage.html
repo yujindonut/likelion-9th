@@ -25,6 +25,12 @@
         #message_body {
             padding: 30px;
         }
+
+        .message_body_2 {
+            width: 300px;
+            word-break:break-all;
+
+        }
     </style>
 
     <h1>쪽지</h1>
@@ -33,7 +39,12 @@
         <table class="detailTable">
             <tr><th>받는이</th><td> {{message.to}}</td></tr>
             <tr><th>보낸이</th> <td>  {{message.writer}} </td></tr>
-            <tr><th>내용</th><td id="message_body" height="200px" width ="300px"> {{message.body}}</td></tr>
+            <tr>
+                <th>내용</th> 
+                <td id="message_body" height="200px" width ="300px"> 
+                    <div class="message_body_2">{{message.body}}</div>
+                </td>
+            </tr>        
         </table> 
         <br>
         {{message.pub_date}}
