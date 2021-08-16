@@ -56,7 +56,7 @@ def delete(request,id) :
 def search(request):
     blogs = WebtoonModel.objects.all().order_by('-id')
 
-    find = request.POST.get('find', "")
+    find = request.POST.get('find')
 
     if find:
         blogs = blogs.filter(webtoon_name__icontains=find)
