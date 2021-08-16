@@ -1,0 +1,54 @@
+{% extends 'base.html' %}  
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Sans+KR:wght@700&family=Ultra&display=swap');
+
+    .text {
+        border-radius: 20px;
+        font-family: 'Alfa Slab One', 'Noto Sans KR', cursive, sans-serif;
+        position: relative;
+        margin: 3% 20%;
+        z-index: 2;
+        padding: 40px;
+        background-color: rgb(236, 228, 182);
+        color: rgb(65, 65, 65);
+    }
+
+</style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mail</title>
+</head>
+<body>
+    <div class="text">
+        <form action="" method="POST" class="contact-form">
+            {% csrf_token %}
+            <div>
+                <div>Full Name</div>
+                <input type="text" name="full-name">
+            </div>
+            <div>
+                <div>Email</div>
+                <input type="text" name="email">
+            </div>
+            <div>
+                <div>Subject</div>
+                <input type="text" name="subject">
+            </div>
+            <div>
+                <div>Messaage</div>
+                <textarea name="message" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-outline-danger">Send Message</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

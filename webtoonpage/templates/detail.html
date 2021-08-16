@@ -1,0 +1,97 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Sans+KR:wght@700&family=Ultra&display=swap');
+
+    table {
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+        width: 70%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    td:nth-child(1) {
+        width: 300px;
+    }
+
+    .col {
+        color: rgb(0, 0, 0);
+    }
+
+    .webtoonTitle {
+        font-size: 40px;
+        color: rgb(10, 25, 158);
+        text-shadow: 4px 4px 0px #1565C0, 8px 8px 0px #42A5F5, 12px 12px 0px #E3F2FD;
+    }
+
+    .header {
+        border-bottom: 1px solid green;
+    }
+
+    .subject {
+        font-size: 20px;
+    }
+
+    .detailTable {
+        background-color: rgb(235, 235, 235);
+        color: rgb(65, 65, 65);
+        border: 1px solid green;
+    }
+
+    .blog {
+        border-radius: 20px;
+        font-family: 'Noto Sans KR', cursive, sans-serif;
+        position: relative;
+        margin: 3% 20%;
+        z-index: 2;
+        padding: 40px;
+        background-color: rgb(34, 158, 100);
+        color: rgb(65, 65, 65);
+    }
+</style>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="blog">
+    <table class="detailTable">
+        {% if blog_info.image %}
+        <tr class="header">
+            <td colspan="2">
+                <img src={{blog_info.image.url}} alt='image' height="300px">
+
+            </td>
+        </tr>
+        {% endif %}
+        <!-- <tr><th>카테고리</th><td> {{postContents.category}}</td></tr>-->
+        <tr class="header">
+            <td>🎨제목🎨</td>
+            <td> {{blog_info.webtoon_name}}</td>
+        </tr>
+        <tr class="header">
+            <td>📍장르📍</td>
+            <td>{{blog_info.genre}}</td>
+            </td>
+        </tr>
+        <tr class="header">
+            <td>✏글 작성자✏</td>
+            <td>{{blog_info.writer}}</td>
+        </tr>
+        <tr class="header">
+            <td>📝웹툰정보📝</td>
+            <td class="text_body "> {{blog_info.text}}</textarea></td>
+        </tr>
+    </table>
+    {{blog_info.date}}<br>
+    {% if user.username == blog_info.writer %} 
+    <!-- user와 작성자의 이름이 같을 경우 삭제할 수 있게 -->
+    <a href="{% url 'edit' blog_info.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
+        aria-disabled="true">Edit</a>
+    <a href="{% url 'delete' blog_info.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
+        aria-disabled="true">Delete</a>
+    {%endif%}
+
+</div>
+{% endblock %}

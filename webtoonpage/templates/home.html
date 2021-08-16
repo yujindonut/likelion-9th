@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Sans+KR:wght@700&family=Ultra&display=swap');
+
+  .col {
+    color: rgb(0, 0, 0);
+  }
+
+  h5 {
+    color: rgb(207, 169, 43);
+  }
+
+  .content {
+    border-radius: 20px;
+    font-family: 'Alfa Slab One', 'Noto Sans KR', cursive, sans-serif;
+    position: relative;
+    margin: 3% 20%;
+    z-index: 2;
+    padding: 40px;
+    background-color: rgb(34, 158, 100);
+    color: rgb(65, 65, 65);
+  }
+</style>
+<div class="content">
+  <h5>🔔 새로 올라온 글 🔔</h5>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for blog in posts %}
+    <div class="col">
+      <div class="card h-100">
+        {%if blog.image %}
+        <!--image가 있을 때-->
+        <img src="{{blog.image_thumbnail.url}}">
+        {% else %}
+        <img src="{% static 'noImage.png' %}">
+        {%endif%}
+        <div class="card-body">
+          <h2 class="card-title">{{blog.webtoon_name}}</h2>
+          <p class="card-text">{{blog.genre}}
+          <div class="more"><a href="{% url 'detail' blog.id %}"> 👉find out more</a></div>
+          </td>
+          </p>
+          <h4 class="card-text"><small class="text-muted">{{blog.date}}</small></h4>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <br><br>
+  {% if posts.has_previous %}
+  <!--이전페이지가 있다면-->
+  <a href="?page=1">1</a> <!-- url을 그냥 써주면 됨-->
+  <a href="?page={{posts.previous_page_number}}">👈</a>
+  {% endif %}
+
+  <span>{{posts.number}}</span>
+  <span>of</span>
+  <span>{{posts.paginator.num_pages}}</span>
+
+  {% if posts.has_next %}
+  <!--다음페이지가 있다면-->
+  <a href="?page={{posts.next_page_number}}">👉</a>
+  <a href="?page={{posts.paginator.num_pages}}">{{posts.paginator.num_pages}}</a>
+  {% endif %}
+
+</div>
+{% endblock %}
