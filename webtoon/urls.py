@@ -24,6 +24,6 @@ urlpatterns = [
     path('', welcome, name='welcome'),
     path('webtoonpage/', include('webtoonpage.urls')),
     path('account/',include('account.urls')),
-    # path('chatting/', include('chatting.urls')),
-    # path('mail/',include('mail.urls')),
+    path('chatting/', include('chatting.urls')),
+    path('mail/',include('mail.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
