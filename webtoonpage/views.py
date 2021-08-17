@@ -30,6 +30,7 @@ def new(request):
         form = WebtoonForm(request.POST, request.FILES)
         if form.is_valid():
             new_blog = form.save(commit = False)
+            new_blog.writer = request.user
             new_blog.date = timezone.now()
             new_blog.save()
             return redirect('detail', new_blog.id)
@@ -44,6 +45,7 @@ def edit(request,id):
         form = WebtoonForm(request.POST, request.FILES, instance = update_blog)
         if form.is_valid():
             update_blog = form.save(commit = False)
+            update_blog.writer = request.user
             update_blog.date = timezone.now()
             update_blog.save()
             return redirect('/fanclubpage/detail/' + str(id))
@@ -77,6 +79,7 @@ def create_comment(request, post_id):
             comment = comment_form.save(commit=False)
             comment.post_id = WebtoonModel.objects.get(pk = post_id)
             comment.pub_date = timezone.now()
+            comment.writer = request.user
             comment.save()
     return redirect('/webtoonpage/detail/'+str(post_id))          
 
@@ -88,6 +91,7 @@ def create_re_comment(request, post_id, comment_id):
             comment = form.save(commit=False)
             comment.post_id = WebtoonModel.objects.get(pk = post_id)
             comment.comment_id = Comment.objects.get(pk = comment_id)
+            comment.writer = request.user
             comment.pub_date = timezone.now()
             comment.save()
     return redirect('/webtoonpage/detail/'+str(post_id))
