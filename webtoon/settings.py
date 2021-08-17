@@ -20,12 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6^bk902gm6=3+8c10i9yke3v5+5@i18xh80o8gl6=p!u$9wg-0'
+# SECRET_KEY = 'django-insecure-6^bk902gm6=3+8c10i9yke3v5+5@i18xh80o8gl6=p!u$9wg-0'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-6^bk902gm6=3+8c10i9yke3v5+5@i18xh80o8gl6=p!u$9wg-0')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.environ.get('DEBUG', 'True') != 'False')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'account.CustomUser'
 # Application definition
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -152,3 +154,19 @@ EMAIL_HOST_USER = 'yeonlimj@gmail.com'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+# Heroku 배포
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+# 'AKIAZRRXQQ2DINOZEDNU'
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRETE_ACCESS_KEY')
+# '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'
+AWS_STORAGE_BUCKET_NAME = 'likelion-django-webtoonproject'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_DEFAULT_REGION = 'ap-northeast-2'
+# AWS_S3_CUSTIM_DOMAIN = 'd37gx43o3lntin.cloudfront.net'
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)

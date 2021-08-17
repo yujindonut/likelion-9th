@@ -1,0 +1,1 @@
+web: gunicorn webtoon.wsgi --log-file -
