@@ -45,10 +45,9 @@ def edit(request,id):
         form = WebtoonForm(request.POST, request.FILES, instance = update_blog)
         if form.is_valid():
             update_blog = form.save(commit = False)
-            update_blog.writer = request.user
             update_blog.date = timezone.now()
             update_blog.save()
-            return redirect('/fanclubpage/detail/' + str(id))
+            return redirect('/webtoonpage/detail/' + str(id))
         return redirect('home') 
     else: #Get방식
         form = WebtoonForm(instance = update_blog)

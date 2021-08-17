@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
@@ -14,7 +15,7 @@ class WebtoonModel(models.Model):
     ('호러/스릴러','호러/스릴러'),
     )
     genre = models.TextField(choices=genre_Choices) #장르
-    writer = models.CharField(max_length = 100) #작성자
+    writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) #작성자
     text = models.TextField() #웹툰 정보
     date = models.DateTimeField() #날짜
     image = models.ImageField(upload_to = "webtoonpage/", blank = True, null = True)
@@ -30,7 +31,7 @@ class WebtoonModel(models.Model):
 class Comment(models.Model):
     post_id = models.ForeignKey("WebtoonModel",on_delete=models.CASCADE,db_column="post_id")
     comment_id = models.ForeignKey("self",on_delete=models.CASCADE,blank=True,null=True)
-    writer = models.CharField(max_length=10)
+    writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     body = models.TextField('댓글')
     pub_date=models.DateTimeField()
        
