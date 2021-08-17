@@ -155,16 +155,6 @@
         </table>
         <br><br>
         <div class="re_comment">
-            <div class="form">
-                {% if user.is_authenticated %}
-                <form method="POST" action="{%url 'create_re_comment'  blog.id comment.id %}" enctype="multipart/form-data">
-                    {%csrf_token%}
-                    ✏대댓글 작성
-                    {{ commentForms | crispy }}
-                    <input type="submit">
-                </form>
-                {%endif%}
-            </div>
             {% for re_comment in re_comments %}
             {% if comment == re_comment.comment_id %}
             <table id="recomment_table">
@@ -184,6 +174,16 @@
                     </td>
                 </tr>
             </table>
+            <div class="form">
+                {% if user.is_authenticated %}
+                <form method="POST" action="{%url 'create_re_comment'  blog.id comment.id %}" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    ✏대댓글 작성
+                    {{ commentForms | crispy }}
+                    <input type="submit">
+                </form>
+                {%endif%}
+            </div>
 
             <br>
             {% endif %}
