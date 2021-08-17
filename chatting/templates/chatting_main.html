@@ -51,6 +51,7 @@
     <br> 
     <a id="write" href="{%url 'chatting_send'%}">✉sent chatting✉</a>
     <br> 
+    <h2 style="padding: 0%; color: black;"><받은 쪽지></h2>
     {% for unit in message %}
     <div id="unit">
        <div class="message">
@@ -61,7 +62,6 @@
     </div>
     {% endfor %}
     <br>
-    <h2 style="padding: 0%; color: black;"><받은 쪽지></h2>
     <div class="page">
         {% if message.has_previous %}
         <a href="?page=1">1</a>
