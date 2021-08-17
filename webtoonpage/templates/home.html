@@ -40,7 +40,7 @@
           <div class="more"><a href="{% url 'detail' blog.id %}"> 👉find out more</a></div>
           </td>
           </p>
-          <h4 class="card-text"><small class="text-muted">{{blog.date}}</small></h4>
+          <h4 class="card-text"><small class="text-muted">{{blog.date|date:'Y-m-d H:i'}}</small></h4>
         </div>
       </div>
     </div>

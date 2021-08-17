@@ -110,7 +110,7 @@
                 <td class="text_body "> {{blog.text}}</textarea></td>
             </tr>
         </table>
-        {{blog.date}}<br> <br>
+        {{blog.date|date:'Y-m-d H:i'}}<br> <br>
         {% if user == blog.writer %}
         <!-- user와 작성자의 이름이 같을 경우 삭제할 수 있게 -->
         <a href="{% url 'edit' blog.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
@@ -141,7 +141,7 @@
             <tr>
                 <td>
                     🌝{{comment.writer}}<br>
-                    {{comment.pub_date}}
+                    {{comment.pub_date|date:'Y-m-d H:i'}}
                 </td>
                 <td> {{comment.body}}
                 </td>
@@ -172,7 +172,7 @@
                     <td>
                             ㄴ🌚{{re_comment.writer}}
                         <br>
-                        {{comment.pub_date}}
+                        {{comment.pub_date|date:'Y-m-d H:i'}}
                     </td>
                     <td class="re_comment_body">{{re_comment.body}} 
                     </td>
