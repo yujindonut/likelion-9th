@@ -165,7 +165,7 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRETE_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'likelion-django-webtoonproject'
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_DEFAULT_REGION = 'ap-northeast-2'
-# AWS_S3_CUSTIM_DOMAIN = 'd37gx43o3lntin.cloudfront.net'
+AWS_S3_CUSTIM_DOMAIN = 'd37gx43o3lntin.cloudfront.net'
 
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
