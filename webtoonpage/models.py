@@ -4,7 +4,16 @@ from imagekit.processors import ResizeToFill
 
 class WebtoonModel(models.Model):
     webtoon_name = models.CharField(max_length=100) #웹툰 이름
-    genre = models.CharField(max_length = 100) #장르
+    genre_Choices = (
+    ('일상','일상'),
+    ('개그','개그'),
+    ('판타지','판타지'),
+    ('액션','액션'),
+    ('드라마/순정/감성','드라마/순정/감성'),
+    ('시대극','시대극'),
+    ('호러/스릴러','호러/스릴러'),
+    )
+    genre = models.TextField(choices=genre_Choices) #장르
     writer = models.CharField(max_length = 100) #작성자
     text = models.TextField() #웹툰 정보
     date = models.DateTimeField() #날짜
@@ -12,9 +21,17 @@ class WebtoonModel(models.Model):
     image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(200,200)],
                                            options={'quality': 100})
 
-    def __str__(self): #객체가 호출이 될때 글의 제목이 볼 수 있게끔한다.
-        return self.name #/admin/의 페이지에서 제목으로 이름이 보인다.
+    def __str__(self):
+        return self.name 
 
     def summary(self):
-        return self.textBody[:100] #100번째 index까지 문자열을 잘라줌
+        return self.textBody[:50] 
+
+class Comment(models.Model):
+    post_id = models.ForeignKey("WebtoonModel",on_delete=models.CASCADE,db_column="post_id")
+    comment_id = models.ForeignKey("self",on_delete=models.CASCADE,blank=True,null=True)
+    writer = models.ForeignKey('account.CustomUser', on_delete=models.CASCADE, null=False)
+    body = models.TextField('댓글')
+    pub_date=models.DateTimeField()
+       
 
