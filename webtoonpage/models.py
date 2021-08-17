@@ -21,6 +21,7 @@ class WebtoonModel(models.Model):
     image = models.ImageField(upload_to = "webtoonpage/", blank = True, null = True)
     image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(200,200)],
                                            options={'quality': 100})
+    like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like", blank=True)
 
     def __str__(self):
         return self.name 
@@ -28,6 +29,9 @@ class WebtoonModel(models.Model):
     def summary(self):
         return self.textBody[:50] 
 
+class Meta:
+    ordering = ['-created']
+    
 class Comment(models.Model):
     post_id = models.ForeignKey("WebtoonModel",on_delete=models.CASCADE,db_column="post_id")
     comment_id = models.ForeignKey("self",on_delete=models.CASCADE,blank=True,null=True)
