@@ -7,6 +7,7 @@ git init
 python -m venv myvenv
 
 source myvenv/Scripts/activate
+
 cd webtoon
 
 pip install django
