@@ -12,6 +12,7 @@ urlpatterns = [
     path('edit/<str:id>', edit, name="edit"),
     path('delete/<str:id>', delete, name="delete"),
     path('search', search, name='search'),
+    path('like/', post_likes, name="post_likes"),
 
     #댓글
     path('delete_comment/<str:post_id>/<str:comment_id>',

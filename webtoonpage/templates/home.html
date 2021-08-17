@@ -37,6 +37,23 @@
         <div class="card-body">
           <h2 class="card-title">{{blog.webtoon_name}}</h2>
           <p class="card-text">{{blog.genre}}
+          <br>
+          {% if user.is_authenticated %}
+          <button id="{{blog.id}}" onclick="post_like(this.id)">
+              {%if request.user in blog.like.all%}
+              <!-- 로그인 한 유저가 좋아요를 누른 유저일때  -->
+              <img class="heart" id="heart{{blog.id}}" src="{% static 'heart.png' %}" alt="full_heart" width="30px" height="30px">
+              {%else%}
+              <!-- 로그인 한 유저가 좋아요를 누른 유저가 아닐 때  -->
+              <img class="heart" id="heart{{blog.id}}" src="{% static 'empty_heart.png' %}" alt="empty_heart" width="30px" height="30px">
+              {%endif%}
+          </button>
+          {% else %}
+          <button id="{{blog.id}}" onclick="alert('로그인이 필요합니다')">
+            <img class="heart" id="heart{{blog.id}}" src="{% static 'empty_heart.png' %}" alt="empty_heart" width="30px" height="30px">
+          </button>
+          {% endif %}
+          <span id="like_count{{blog.id}}">{{blog.like.count}}</span>
           <div class="more"><a href="{% url 'detail' blog.id %}"> 👉find out more</a></div>
           </td>
           </p>
@@ -64,4 +81,28 @@
   {% endif %}
 
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  function post_like(p_id) {
+    $.ajax({
+      type: "GET",
+      url: "{% url 'post_likes' %}", 
+      data: {
+        'blog_id': p_id
+      },
+      dataType: "json",
+      success: function (response) { 
+        $('#like_count'+p_id).html(response.like_count) 
+          if (response.message == "좋아요")
+        {
+          $('#heart'+p_id).attr("src", "{% static 'heart.png' %}")
+        } else if (response.message == "좋아요 취소")
+        {
+          $('#heart'+p_id).attr("src", "{% static 'empty_heart.png' %}")
+        }
+      }
+    })
+  }
+  </script>
 {% endblock %}
