@@ -30,7 +30,7 @@ class WebtoonModel(models.Model):
 class Comment(models.Model):
     post_id = models.ForeignKey("WebtoonModel",on_delete=models.CASCADE,db_column="post_id")
     comment_id = models.ForeignKey("self",on_delete=models.CASCADE,blank=True,null=True)
-    writer = models.ForeignKey('account.CustomUser', on_delete=models.CASCADE, null=False)
+    writer = models.CharField(max_length=10)
     body = models.TextField('댓글')
     pub_date=models.DateTimeField()
        

@@ -76,7 +76,6 @@ def create_comment(request, post_id):
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.post_id = WebtoonModel.objects.get(pk = post_id)
-            comment.writer = request.user
             comment.pub_date = timezone.now()
             comment.save()
     return redirect('/webtoonpage/detail/'+str(post_id))          
@@ -88,7 +87,6 @@ def create_re_comment(request, post_id, comment_id):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post_id = WebtoonModel.objects.get(pk = post_id)
-            comment.writer = request.user
             comment.comment_id = Comment.objects.get(pk = comment_id)
             comment.pub_date = timezone.now()
             comment.save()
