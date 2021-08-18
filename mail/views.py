@@ -19,6 +19,6 @@ def mail(request):
         body= '''
         New Mail :{}
         From : {}'''.format(data['body'],data['email'])
-        send_mail(data['subject'],body,'',['yolllllim@gmail.com'])
+        send_mail(data['subject'],body,'',['dbfla87723@gmail.com'])
         return HttpResponse('Thank you for sending the mail.')
     return render(request,'mail.html')
