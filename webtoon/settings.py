@@ -156,7 +156,7 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
 # Heroku 배포
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 # 'AKIAZRRXQQ2DINOZEDNU'
