@@ -8,19 +8,19 @@ python -m venv myvenv
 
 source myvenv/Scripts/activate
 
-cd webtoon
-
 pip install django
 
-python -m pip install --upgrade pip (업그레이드 안되어있다고 떠있을 시!!)
+cd webtoon
 
-python manage.py collectstatic
+python -m pip install --upgrade pip (업그레이드 안되어있다고 떠있을 시!!)
 
 pip install django-crispy-forms
 
 pip install pillow
 
 pip install django-imagekit
+
+python manage.py collectstatic
 
 python manage.py makemigrations 
 
