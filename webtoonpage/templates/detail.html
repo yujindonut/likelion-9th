@@ -146,7 +146,7 @@
                 <td> {{comment.body}}
                 </td>
                 <td>
-                    {% if blog.writer == comment.writer %}
+                    {% if user == comment.writer %}
                     <a href="{% url 'delete_comment' blog.id comment.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
                         aria-disabled="true">삭제하기</a>
                     {%endif%}
@@ -167,7 +167,7 @@
                     <td class="re_comment_body">{{re_comment.body}} 
                     </td>
                     <td>
-                        {% if blog.writer == comment.writer %}
+                        {% if user == comment.writer %}
                             <a href="{% url 'delete_comment' blog.id re_comment.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
                             aria-disabled="true">삭제하기</a>
                         {%endif%}

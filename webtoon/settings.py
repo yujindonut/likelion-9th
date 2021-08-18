@@ -150,13 +150,13 @@ LOGIN_REDIRECT_URL = '/webtoonpage/'
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'yeonlimj@gmail.com'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = 'dbfla87723j@gmail.com'
+EMAIL_HOST_PASSWORD = 'dbfla6069@'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
 # Heroku 배포
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 # 'AKIAZRRXQQ2DINOZEDNU'
