@@ -159,9 +159,7 @@ EMAIL_USE_SSL = False
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-# 'AKIAZRRXQQ2DINOZEDNU'
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRETE_ACCESS_KEY')
-# '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'
 AWS_STORAGE_BUCKET_NAME = 'likelion-django-webtoonproject'
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_DEFAULT_REGION = 'ap-northeast-2'
