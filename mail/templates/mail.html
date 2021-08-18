@@ -40,7 +40,7 @@
             {% csrf_token %}
             <div>
                 <div>보내는 사람</div>
-                <input type="text" name="name">
+                <input type="text" name="name" value="{{user.username}}" disabled>
             </div>
             <div>
                 <div>보내는 사람 이메일 주소</div>

@@ -55,11 +55,6 @@
         font-family: 'Noto Sans KR', cursive, sans-serif;
     }
 
-    .re_comment_table {
-        margin-left: 150px;
-        width: 60%;
-    }
-
     table .comment_table {
         background-color: rgb(235, 235, 235);
         color: rgb(65, 65, 65);
@@ -158,17 +153,6 @@
         </table>
         <br><br>
         <div class="re_comment">
-            <div class="form">
-                {% if user.is_authenticated %}
-                <form method="POST" action="{%url 'create_re_comment'  blog.id comment.id %}"
-                    enctype="multipart/form-data">
-                    {%csrf_token%}
-                    ✏대댓글 작성
-                    {{ commentForms | crispy }}
-                    <input type="submit">
-                </form>
-                {%endif%}
-            </div>
             {% for re_comment in re_comments %}
             {% if comment == re_comment.comment_id %}
             <table id="recomment_table">
@@ -192,6 +176,17 @@
             <br>
             {% endif %}
             {% endfor %}
+            <div class="form">
+                {% if user.is_authenticated %}
+                <form method="POST" action="{%url 'create_re_comment'  blog.id comment.id %}"
+                    enctype="multipart/form-data">
+                    {%csrf_token%}
+                    ✏대댓글 작성
+                    {{ commentForms | crispy }}
+                    <input type="submit">
+                </form>
+                {%endif%}
+            </div>
         </div>
         {% endfor %}
         <br> <br>

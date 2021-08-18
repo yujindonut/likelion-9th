@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 def chatting(request):
-    messages = Message.objects.filter(to=request.user).filter( ~Q(writer=request.user)).order_by('-id')
+    messages = Message.objects.filter(to=request.user).order_by('-id')
     paginator = Paginator(messages, 5)
     page = request.GET.get('page')
     message = paginator.get_page(page)
