@@ -1,0 +1,64 @@
+{% extends 'base.html' %}  
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Sans+KR:wght@700&family=Ultra&display=swap');
+
+    .text {
+        border-radius: 20px;
+        font-family: 'Alfa Slab One', sans-serif;
+        position: relative;
+        margin: 3% 20%;
+        z-index: 2;
+        padding: 40px;
+        border:3px solid black;
+    }
+
+    h2 {
+        font-family: 'Alfa Slab One', sans-serif;
+    }
+
+    h5 {
+        color:rgb(156, 55, 55);
+    }
+
+</style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mail</title>
+</head>
+<body>
+    <br>
+    <h2>Mail</h2>
+    <h5>※페이지 관리자에게 메일을 보낼 수 있습니다.</h5>
+    <div class="text">
+        <form method="POST" class="contact-form">
+            {% csrf_token %}
+            <div>
+                <div>보내는 사람</div>
+                <input type="text" name="name" value="{{user.username}}" disabled>
+            </div>
+            <div>
+                <div>보내는 사람 이메일 주소</div>
+                <input type="text" name="email">
+            </div>
+            <div>
+                <div>제목</div>
+                <input type="text" name="subject">
+            </div>
+            <div>
+                <div>내용</div>
+                <textarea name="body" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-outline-danger">Send Message</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

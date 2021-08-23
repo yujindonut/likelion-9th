@@ -1,0 +1,59 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700;900&display=swap');
+    .col {
+        color: rgb(0, 0, 0);
+    }
+
+    h5 {
+        color: rgb(207, 169, 43);
+    }
+
+    .content {
+        border-radius: 20px;
+        font-family: 'Noto Sans KR', sans-serif;
+        position: relative;
+        margin: 3% 20%;
+        z-index: 2;
+        padding: 40px;
+        background-color: rgb(34, 158, 100);
+        color: rgb(65, 65, 65);
+    }
+</style>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content">
+    {% if not blogs %}
+    <h1>검색 결과가 없습니다</h1>
+    {% else %}
+    {% for blog in blogs.all %}
+    <center>
+
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    {%if blog.image %}
+                    <!--image가 있을 때-->
+                    <img src="{{blog.image_thumbnail.url}}" class="img-fluid rounded-start">
+                    {% else %}
+                    <img src="{% static 'webtoon_logo.png' %}" class="img-fluid rounded-start">
+                    {%endif%}
+                    <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h2 class="card-title">{{blog.webtoon_name}}</h2>
+                        <p class="card-text">{{blog.genre}}
+                        <div class="more"><a href="{% url 'detail' blog.id %}">👉find out more</a></div>
+                        </td>
+                        </p>
+                        <h4 class="card-text"><small class="text-muted">{{blog.date|date:'Y-m-d H:i'}}</small></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </center>
+</div>
+{% endblock %}
