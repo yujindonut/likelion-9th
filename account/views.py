@@ -1,7 +1,11 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect, get_object_or_404 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegisterForm
+from .forms import SignUpForm
+from tripinfo.models import *
+from .forms import *
 
 def login_view(request):
     if request.method == 'POST':
@@ -21,13 +25,46 @@ def logout_view(request):
     logout(request)
     return redirect("home")
 
-def register_view(request):
+def signup(request):
     if request.method == "POST":
-        form = RegisterForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
         return redirect("home")
+    
     else:
-        form = RegisterForm()
-        return render( request, 'signup.html', {'form':form} )
+        signup_form = SignUpForm()
+        return render(request, 'signup.html', {'signup_form':signup_form})
+
+def mypage(request):
+    
+    comments=Comment.objects.filter( writer = request.user).order_by('-id')
+    
+    paginatorComment = Paginator(comments, 5)
+    page = request.GET.get('page')
+    
+    Comments = paginatorComment.get_page(page)
+    return render(request, 'mypage.html', {'commentList': Comments})
+
+# def followers(request):
+
+#     followings = request.user.followings.all()
+#     posts = WriteInfoModel.objects.filter(writer__in = followings).order_by('id')
+#     page = request.GET.get('page')
+    
+#     paginator = Paginator(posts, 5)
+#     posts = paginator.get_page(page)
+
+#     return render(request, 'followers.html', {'posts': posts})
+
+def follow(request, pk):
+    User = get_user_model()
+    # 팔로우 당하는 사람
+    user = get_object_or_404(User, id=pk)
+    # if user.followers.filter(pk=request.user.pk).exists():
+    if request.user in user.followers.all():
+        user.followers.remove(request.user)
+    else:
+        user.followers.add(request.user)
+    return redirect("home")

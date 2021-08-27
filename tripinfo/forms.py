@@ -4,7 +4,7 @@ from .models import *
 class InfoForm(forms.ModelForm):
     class Meta:
         model = WriteInfoModel
-        fields = ['webtoon_name', 'genre', 'text', 'image']
+        fields = ['title', 'location', 'text', 'image']
 
 #댓글
 class CommentForm(forms.ModelForm):

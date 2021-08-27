@@ -18,16 +18,24 @@ class WriteInfoModel(models.Model):
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) #작성자
     text = models.TextField() #빵투어 정보
     date = models.DateTimeField() #날짜
-    image = models.ImageField(upload_to = "webtoonpage/", blank = True, null = True)
+    # latitude = models.TextField() #위도
+    # longitude = models.TextField() #경도
+    image = models.ImageField(upload_to = "tripinfo/", blank = True, null = True)
     image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(200,200)],
                                            options={'quality': 100})
     like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like", blank=True)
+    post_hit = models.PositiveIntegerField(default=0, verbose_name='조회수')
 
     def __str__(self):
-        return self.name 
+        return self.title 
 
     def summary(self):
         return self.textBody[:50] 
+
+    def update_counter(self):
+        self.post_hit = self.post_hit + 1
+        self.save()
+        
 
 class Meta:
     ordering = ['-created']
@@ -39,4 +47,6 @@ class Comment(models.Model):
     body = models.TextField('댓글')
     pub_date=models.DateTimeField()
        
+    def summary(self):
+        return self.body[:10]    
 

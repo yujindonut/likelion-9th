@@ -1,0 +1,73 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+{% load static %}
+<style>
+    #unit {
+        font-family: 'Noto Sans KR', sans-serif;
+        text-align: center;
+        border: 1px solid rgb(219, 219, 219);
+        box-shadow: 2px 2px 2px rgb(219, 219, 219);
+        border-radius: 20px;
+        width: 50%;
+        padding: 20px;
+        margin: 20px auto;
+        background-color: white;
+    }
+
+    .container {
+        text-align: left;
+        margin-left: 205px;
+    }
+
+    .myPost {
+        display: none;
+    }
+
+    .myComment {
+        display: none;
+    }
+
+    hr {
+        margin: auto;
+    }
+
+    .newNews_list {
+        text-align: center;
+        font-family: 'Noto Sans KR', sans-serif;
+        border: 1px solid rgb(219, 219, 219);
+        box-shadow: 2px 2px 2px rgb(219, 219, 219);
+        border-radius: 20px;
+        width: 50%;
+        margin: 20px auto;
+        float: center;
+        padding: 20px;
+        margin-top: 30px;
+        background-color: white;
+    }
+</style>
+{% if request.user == user %}
+<div id="unit">
+    <h2>내 정보</h2><hr>
+    <div class="container">
+        이름| {{user.username}}<br>
+        성별 | {{user.age}}<br>
+        나이 | {{user.gender}}<br><br>
+    </div>
+</div>
+{% endif %}
+<hr>
+<br>
+<div class="newNews_list">
+    <h5 class="title">👩‍👧‍👦 좋아요한 글 목록 👨‍👧‍👧</h5>
+    <hr>
+    {% for blog in user.like.all %}
+    <a href="{% url 'detail' blog.id %}">
+        <p>{{ blog.title }}</p>
+    </a>
+    {% endfor %}
+</div>
+
+<br>
+{%endblock%}
