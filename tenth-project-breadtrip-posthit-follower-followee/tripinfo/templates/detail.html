@@ -1,0 +1,242 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script type="text/javascript"
+        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=f7e810p52q"></script>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Sans+KR:wght@700&family=Ultra&display=swap');
+
+    table {
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+        width: 60%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    td:nth-child(1) {
+        width: 300px;
+    }
+
+    .col {
+        color: rgb(0, 0, 0);
+    }
+
+    .webtoonTitle {
+        font-size: 40px;
+        color: rgb(10, 25, 158);
+        text-shadow: 4px 4px 0px #1565C0, 8px 8px 0px #42A5F5, 12px 12px 0px #E3F2FD;
+    }
+
+    .header {
+        border-bottom: 1px solid rgb(128, 73, 0);
+    }
+
+    .subject {
+        font-size: 20px;
+    }
+
+    .detailTable {
+        background-color: rgb(235, 235, 235);
+        color: rgb(65, 65, 65);
+        border: 1px solid rgb(128, 62, 0);
+    }
+
+    .blog {
+        border-radius: 20px;
+        position: relative;
+        margin: 3% 20%;
+        z-index: 2;
+        padding: 40px;
+        background-color: rgb(224, 160, 86);
+        color: rgb(65, 65, 65);
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .all {
+        font-family: 'Noto Sans KR', cursive, sans-serif;
+    }
+
+    table .comment_table {
+        background-color: rgb(235, 235, 235);
+        color: rgb(65, 65, 65);
+        border: 1px solid rgb(128, 62, 0);
+        width: 60%;
+    }
+
+    .form {
+        border-radius: 20px;
+        font-family: 'Noto Sans KR', sans-serif;
+        position: relative;
+        margin: 3% 20%;
+        z-index: 2;
+        padding: 40px;
+        width: 60%;
+        background-color: rgb(255, 244, 244);
+        color: rgb(65, 65, 65);
+    }
+</style>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="hidden">
+    {{blog.update_counter}}
+</div>
+<div class="all">
+    <div class="blog">
+        <table class="detailTable">
+            {% if blog.image %}
+            <tr class="header">
+                <td colspan="2">
+                    <img src={{blog.image.url}} alt='image' height="300px">
+
+                </td>
+            </tr>
+            {% endif %}
+            <!-- <tr><th>카테고리</th><td> {{postContents.category}}</td></tr>-->
+            <tr class="header">
+                <td>🎨제목🎨</td>
+                <td> {{blog.title}}</td>
+            </tr>
+            <tr class="header">
+                <td>📍장소📍</td>
+                <td>{{blog.location}}</td>
+                </td>
+            </tr>
+            <tr class="header">
+                <td>✏글 작성자✏</td>
+                <td>{{blog.writer}}</td>
+            </tr>
+            <tr class="header">
+                <td>📝빵투어정보📝</td>
+                <td class="text_body "> {{blog.text}}</textarea></td>
+            </tr>
+            <tr class="header">
+                <td>{{blog.date|date:'Y-m-d H:i'}}</td>
+                <td> 조회수 : {{blog.post_hit}}</td>
+            </tr>
+        </table>
+        <br>
+        {% if user.is_authenticated %}
+        {% if request.user == blog.writer %}
+        <!-- user와 작성자의 이름이 같을 경우 삭제할 수 있게 -->
+        <a href="{% url 'edit' blog.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
+            aria-disabled="true">Edit</a>
+        <a href="{% url 'delete' blog.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
+            aria-disabled="true">Delete</a>
+        {% else %}
+        <hr>
+        {% if user in blog.writer.followers.all %}
+        <a href="{% url 'follow' blog.writer.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
+            aria-disabled="true">Unfollow</a>
+        {% else %}
+        <a href="{% url 'follow' blog.writer.id %}" class="btn btn-outline-success" tabindex="-1" role="button"
+            aria-disabled="true">Follow</a>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        <!-- 지도정보 -->
+        <br><br>
+        <p>📍위치📍</p>
+        <center>
+            <div id="map" style="width:70%;height:400px;"></div>
+        </center>
+        <!-- 이부분이 지도를 띄워주는 부분 -->
+
+        <script>
+            var mapOptions = {
+                // 위도와 경도 : 처음에 default는 네이버 주소
+                center: new naver.maps.LatLng(37.5670466, 126.9220804),
+                zoom: 18
+                // 처음에 지도를 띄울때 얼만큼 줌 할건지
+                // 줌을 땡기고 싶으면 숫자 up, 줌을 멀리하고 싶으면 숫자 down
+            };
+
+            var map = new naver.maps.Map('map', mapOptions);
+        </script>
+    </div>
+    <br><br><br>
+    <div id="comment">
+        <!-- 댓글작성 -->
+        <div class="form">
+            {% if user.is_authenticated %}
+            <form method="POST" action="{%url 'create_comment' blog.id  %}" enctype="multipart/form-data">
+                {%csrf_token%}
+                ✏댓글 작성
+                {{ commentForms | crispy }}
+                <input type="submit">
+            </form>
+            {%endif%}
+        </div>
+        <hr>
+        <h2>🖋댓글🖋</h2>
+        {% for comment in comments %}
+        <br>
+        <table id="comment_table">
+            <tr>
+                <td>
+                    🥨{{comment.writer}}<br>
+                    {{comment.pub_date|date:'Y-m-d H:i'}}
+                </td>
+                <td> {{comment.body}}
+                </td>
+                <td>
+                    {% if user == comment.writer %}
+                    <a href="{% url 'delete_comment' blog.id comment.id %}" class="btn btn-outline-danger" tabindex="-1"
+                        role="button" aria-disabled="true">삭제하기</a>
+                    {%endif%}
+                </td>
+            </tr>
+        </table>
+        <br><br>
+        <div class="re_comment">
+            {% for re_comment in re_comments %}
+            {% if comment == re_comment.comment_id %}
+            <table id="recomment_table">
+                <tr class="re_writer">
+                    <td>
+                        ㄴ🍰{{re_comment.writer}}
+                        <br>
+                        {{comment.pub_date|date:'Y-m-d H:i'}}
+                    </td>
+                    <td class="re_comment_body">{{re_comment.body}}
+                    </td>
+                    <td>
+                        {% if user == comment.writer %}
+                        <a href="{% url 'delete_comment' blog.id re_comment.id %}" class="btn btn-outline-danger"
+                            tabindex="-1" role="button" aria-disabled="true">삭제하기</a>
+                        {%endif%}
+                    </td>
+                </tr>
+            </table>
+
+            <br>
+            {% endif %}
+            {% endfor %}
+            <div class="form">
+                {% if user.is_authenticated %}
+                <form method="POST" action="{%url 'create_re_comment'  blog.id comment.id %}"
+                    enctype="multipart/form-data">
+                    {%csrf_token%}
+                    ✏대댓글 작성
+                    {{ commentForms | crispy }}
+                    <input type="submit">
+                </form>
+                {%endif%}
+            </div>
+        </div>
+        {% endfor %}
+        <br> <br>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700;900&display=swap');
+
+    .text {
+        border-radius: 20px;
+        font-family: 'Noto Sans KR', sans-serif;
+        position: relative;
+        margin: 3% 20%;
+        z-index: 2;
+        padding: 40px;
+        background-color: rgb(236, 228, 182);
+        color: rgb(65, 65, 65);
+    }
+
+    h2, .message, #write, .page {
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    h2{
+        color: rgb(194, 89, 3);
+    }
+    .message {
+        margin:2% 30%;
+        padding:3% 10%;
+        border-radius: 30px;
+        border: 3px solid black;
+    }
+
+    #write {
+
+        color:rgb(88, 160, 55);
+        font-size: 18px;
+    }
+
+   
+</style>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatting</title>
+</head>
+
+<body>
+    <br>
+    <h2>Sent Chatting</h2>
+    <br> 
+    {% for unit in message %}
+    <div id="unit">
+       <div class="message">
+        To. {{unit.to}}  <br>
+          {{unit.summary}}
+           
+        </div>
+            
+    </div>
+    {% endfor %}
+    <br>
+    <div class="page">
+        {% if message.has_previous %}
+        <a href="?page=1">1</a>
+        <a href="?page={{message.previous_page_number}}">◀ </a>
+        {% endif %}
+
+        <span>{{message.number}}</span>
+        <span>of</span>
+        <span>{{message.paginator.num_pages}}</span>
+
+        {%if message.has_next%}
+        <a href="?page={{message.next_page_number}}"> ▶</a>
+        <a href="?page={{message.paginator.num_pages}}">{{message.paginator.num_pages}}</a>
+        {% endif %}
+    </div>
+    <br>
+
+</body>
+
+</html>
+{% endblock %}

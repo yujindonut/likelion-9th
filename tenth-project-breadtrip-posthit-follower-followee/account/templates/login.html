@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Sans+KR:wght@700&family=Ultra&display=swap');
+
+    .text {
+        border-radius: 20px;
+        font-family: 'Alfa Slab One', 'Noto Sans KR', cursive, sans-serif;
+        position: relative;
+        margin: 3% 20%;
+        z-index: 2;
+        padding: 40px;
+        background-color: rgb(236, 228, 182);
+        color: rgb(65, 65, 65);
+    }
+</style>
+<h1>Login</h1>
+<div class="text">
+    <form action="{%url 'login'%}" method="post">
+        <!-- url의 login이 views.py의 loginView로 전달 -->
+        {%csrf_token%}
+        {{ form | crispy }}
+        <br>
+        <button type="submit" class="btn btn-outline-warning">submit</button>
+    </form>
+</div>
+{% endblock %}

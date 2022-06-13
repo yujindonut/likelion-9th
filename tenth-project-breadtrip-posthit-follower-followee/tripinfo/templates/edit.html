@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700;900&display=swap');
+    .text {
+        border-radius: 20px;
+        font-family: 'Noto Sans KR', sans-serif;
+        position: relative;
+        margin: 3% 20%;
+        z-index: 2;
+        padding: 40px;
+        background-color: rgb(218, 155, 83);
+        color: rgb(65, 65, 65);
+    }
+
+    .title {
+        font-size: 30px;
+        color: rgb(255, 255, 255);
+    }
+</style>
+<div class="text">
+    <div class="title">
+        <p>Update</p>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        {{ form | crispy }}
+        <br>
+        <button type="submit" class="btn btn-outline-warning">Update</button>
+    </form>
+</div>
+{% endblock %}
