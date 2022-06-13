@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Sans+KR:wght@700&family=Ultra&display=swap');
+
+    .col {
+        color: rgb(0, 0, 0);
+    }
+
+    .title {
+        font-size: 40px;
+        color: rgb(10, 25, 158);
+        text-shadow: 4px 4px 0px #1565C0, 8px 8px 0px #42A5F5, 12px 12px 0px #E3F2FD;
+    }
+    .message {
+        border-radius: 20px;
+        font-family: 'Alfa Slab One', 'Noto Sans KR', cursive, sans-serif;
+        position: relative;
+        margin: 3% 20%;
+        z-index: 2;
+        padding: 40px;
+        background-color: rgb(34, 158, 100);
+        color: rgb(65, 65, 65);
+    }
+</style>
+<div class="message">
+    <div class="title">
+        <p>받은 메세지함</p>
+    </div>
+    <hr>
+    {% for chat in chats %}
+    <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h2 class="card-title">보낸이 : {{chat.sender}}</h2>
+            <p class="card-text">받는이 : {{chat.receiver}}</p>
+            <p class="card-text">내용 : {{chat.text}}</p>
+              <div class="more"><a href="{% url 'detail_message' chat.id %}"> ▷detail..</a></div></td>
+            </p>
+            <h4 class="card-text"><small class="text-muted">날짜 : {{chat.date}}</small></h4>
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

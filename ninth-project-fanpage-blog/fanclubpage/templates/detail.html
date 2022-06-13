@@ -1,0 +1,53 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Sans+KR:wght@700&family=Ultra&display=swap');
+  
+    .col{
+      color: rgb(0, 0, 0);
+    }
+    .foodInfo {
+        font-size: 40px;
+        color:rgb(10, 25, 158);
+        text-shadow: 4px 4px 0px #1565C0, 8px 8px 0px #42A5F5, 12px 12px 0px #E3F2FD;
+    }
+    .subject{
+        font-size: 20px;
+    }
+    .blog {
+      border-radius: 20px;
+      font-family: 'Alfa Slab One', 'Noto Sans KR', cursive, sans-serif;
+      position: relative;
+      margin: 3% 20%;
+      z-index: 2;
+      padding: 40px;
+      background-color: rgb(34, 158, 100);
+      color: rgb(65, 65, 65);
+    }
+  </style>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="blog">
+    <div class="foodInfo">
+        <p>{{blog_info.foodInfo}}</p>
+    </div>
+    <hr>
+    <!-- 블로그에 이미지가 없을 경우 오류 처리 -->
+    {% if blog_info.image %}
+    <p><img src="{{blog_info.image.url}}" alt="" width="360" height="480"></p>
+    {% endif %}
+    <br>
+    <div class="subject">
+        <p>FoodInformation : {{blog_info.foodInfo}}</p> <br>
+    </div>
+    <p>food type : {{blog_info.subject}}</p>
+    <br>
+    <p>{{blog_info.text}}</p>
+    <br>
+    <p>Date : {{blog_info.date}}</p>
+    <br>
+    <a href="{% url 'edit' blog_info.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
+        aria-disabled="true">Edit</a>
+    <a href="{% url 'delete' blog_info.id %}" class="btn btn-outline-danger" tabindex="-1" role="button"
+        aria-disabled="true">Delete</a>
+</div>
+{% endblock %}
