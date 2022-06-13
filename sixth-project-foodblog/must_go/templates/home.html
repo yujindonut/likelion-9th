@@ -1,0 +1,50 @@
+{% extends 'base.html' %}  
+{% load static %}
+{% block content %}
+<style>
+  .col{
+    color: rgb(0, 0, 0);
+  }
+</style>
+<div class="foodBlog">
+    <h1>Recommend Your Favorites</h1>  
+    {% if user.is_authenticated %} 
+    <p>{{user.favorite_food}}을 좋아하시는 {{user.username}}님 안녕하세요!</p>
+    {% endif %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for blog in posts %}
+        <div class="col">
+            <div class="card h-100">
+              {%if blog.image %} <!--image가 있을 때-->
+                <img src="{{blog.image_thumbnail.url}}">
+              {% else %}
+                <img src="{% static 'noImage.png' %}">
+              {%endif%}
+              <div class="card-body">
+                <h2 class="card-title">{{blog.restaurant}}</h2>
+                <p class="card-text">{{blog.rate}}
+                  <div class="more"><a href="{% url 'detail' blog.id %}">...more</a></div></td>
+                </p>
+                <h4 class="card-text"><small class="text-muted">{{blog.date}}</small></h4>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- First Previous -->
+    {% if posts.has_previous %} <!--이전페이지가 있다면-->
+    <a href="?page=1">First</a> <!-- url을 그냥 써주면 됨-->
+    <a href="?page={{posts.previous_page_number}}">Previous</a>
+    {% endif %}
+    <!-- 3of4 -->
+    <span>{{posts.number}}</span>
+    <span>of</span>
+    <span>{{posts.paginator.num_pages}}</span>
+    <!-- Next Last -->
+    {% if posts.has_next %} <!--다음페이지가 있다면-->
+    <a href="?page={{posts.next_page_number}}">Next</a>
+    <a href="?page={{posts.paginator.num_pages}}">Last</a>
+    {% endif %}
+
+</div>
+{% endblock %}
