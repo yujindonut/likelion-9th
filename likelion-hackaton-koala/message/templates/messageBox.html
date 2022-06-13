@@ -1,0 +1,13 @@
+{%extends 'base.html'%}
+
+{%block content%}
+   
+    {% load static %}
+    <a href="{% url 'newMessage' %}">쪽지쓰기</a>
+    <a href="{% url 'messageReception' %}">받은 쪽지함</a>
+    <a href="{% url 'sendMessage' %}">보낸 쪽지함</a>
+
+    
+    
+
+    {%endblock%}

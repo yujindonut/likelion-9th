@@ -1,0 +1,62 @@
+{%extends 'base.html'%}
+
+{%block content%}
+   
+    {% load static %}
+    <style>
+        #unit{
+            margin: auto;
+        }
+
+        .detailTable {
+            margin: auto;
+
+        }
+
+        table {   
+            border: 1px solid rgb(219, 219, 219);
+            box-shadow: 2px 2px 2px rgb(219, 219, 219);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+        }
+
+        #message_body {
+            padding: 30px;
+        }
+
+        .message_body_2 {
+            width: 300px;
+            word-break:break-all;
+
+        }
+    </style>
+
+    <h1>쪽지</h1>
+
+    <div id="unit">  
+        <table class="detailTable">
+            <tr><th>받는이</th><td> {{message.to}}</td></tr>
+            <tr><th>보낸이</th> <td>  {{message.writer}} </td></tr>
+            <tr>
+                <th>내용</th> 
+                <td id="message_body" height="200px" width ="300px"> 
+                    <div class="message_body_2">{{message.body}}</div>
+                </td>
+            </tr>        
+        </table> 
+        <br>
+        {{message.pub_date}}
+        <br><br>
+        <a  href="{% url 'deleteMessage' message.id%}"><button onclick="return deleteM()">메세지 삭제</button></a> 
+    </div> 
+        <script>
+            function deleteM(){
+                 var ret = confirm("상대가 받은/보낸 메세지 함에서도 삭제됩니다 정말 삭제하시겠습니까?");
+                 return ret;
+            }
+        </script>
+        {%endblock%}
+
+       

@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+{% load crispy_forms_tags %}
+{%block content%}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700;900&display=swap');
+
+    .text {
+        border-radius: 20px;
+        font-family: 'Noto Sans KR', sans-serif;
+        position: relative;
+        margin: 3% 20%;
+        padding: 40px;
+        background-color: rgb(199, 228, 211);
+        color: rgb(65, 65, 65);
+    }
+</style>
+<form method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    <table>
+        {{ categoryform | crispy }}
+        {{edit_post | crispy }}
+    </table>
+    <button type="submit">올리기</button>
+</form>
+{%endblock%}

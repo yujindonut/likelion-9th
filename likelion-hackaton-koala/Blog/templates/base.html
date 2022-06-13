@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+    <style>
+      body{
+        width : 1200px;
+        margin: auto;
+        text-align: center;
+        background-color: #fafafa;
+      }
+      
+      a{
+          text-decoration: none;
+          color: rgb(70, 70, 70);
+          font-weight: 500;
+        }
+
+        a:hover{
+            text-decoration: none;
+            color: rgb(0, 87, 128) ;
+            font-weight: 900;
+        }
+
+        a:visited{
+            text-decoration: none;
+        }
+
+        logo{
+          font-weight: 900;
+          font-size: 50px;
+        }
+
+        table{
+        margin: auto;
+        }
+
+    button{
+        background-color:  rgb(219, 219, 219);
+    }
+
+    .hi{
+      text-align: right;
+      position: relative;
+      right:30px;
+    } 
+    
+    li {
+        list-style: none;
+    }
+    #nav:after { content: ""; display: block; clear: both; }
+
+    .main { 
+      margin: 0px; 
+    }
+
+    #nav {
+      border: 1px solid rgb(219, 219, 219);
+      box-shadow: 2px 2px 2px rgb(219, 219, 219);
+      border-radius: 20px;
+      height: 50px;
+      background-color: white;
+
+    }
+   
+    .main > li { 
+      padding: 10px;
+      position: relative; 
+      float: left; 
+      width:215px; 
+      height: 30px;
+      box-sizing: border-box; 
+      line-height: 30px; 
+      text-align: center; 
+      background: white; 
+    } 
+
+      .main > li a { 
+        display: block; 
+        transition: all 0.3s; 
+      } 
+
+      .main > li a:hover { 
+        background: rgb(219, 219, 219);
+        color: rgb(9, 114, 18); 
+      } 
+
+      .sub { 
+        display: none; 
+        position: absolute; 
+        text-align: center;
+        top: 40px; 
+        left: 0; 
+        z-index: 1; 
+        width: 175px; 
+        background: #eee;
+        opacity: 0.9; }
+        
+        footer{
+          clear: both;
+        }
+
+        .logo_image {
+          margin-left: 0px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() { 
+        $(".main>li").mouseover(function() { 
+          $(this).children(".sub").stop().slideDown(); 
+        });
+        $(".main>li").mouseleave(function() { 
+             $(this).children(".sub").stop().slideUp(); 
+        });
+      });
+
+    </script>
+</head>
+<body>
+    {% load static %}
+    <br><br>
+    <div class="hi">
+      {% if user.is_authenticated %}
+        {% if user.is_staff %}
+            <strong>{{user.username}}</strong> 관리자 계정입니다.
+            <br><a href=" {% url 'mypage'%}"> 마이페이지 </a>|
+        {% else %}
+            <strong>{{user.username}}</strong>님 안녕하세요!
+            <br>
+            <a href=" {% url 'mypage'%}"> 마이페이지 </a>|
+        {%endif%} 
+        {%endif%}
+      <a href="{% url 'search' %}">검색하기 </a>|
+      {% if user.is_authenticated %}
+      <a href="{% url 'logout'%}">로그아웃</a> 
+       {% else %}
+        <a href=" {% url 'login'%}"> 로그인</a>  
+         {%endif%}
+
+    </div>
+    
+      <a href="{% url 'index' %}">
+        <img class="logo_image" src="{% static 'logo1.png' %}" alt="Koala logo" width="200" >
+        <!--<logo>코알라</logo>-->
+      </a><br><br><br>
+   
+      <div id="nav">
+          <ul class="main">
+            <li> <a href="{% url 'vaccine' %}">코로나 백신이란?</a></li>
+              <li><a href="#">게시판</a>
+                <ul class="sub">
+                  {% if user.is_authenticated %}
+                    <li><a href="{% url 'newPost' %}">글 작성하기</a></li>
+                  {%else%}
+                    <li><a href=#  onclick="authPost()">글 작성하기</a></li>
+                  {%endif%}
+                  <li> <a href="{% url 'allPost' %}">전체게시판</a></li>
+                  <li> <a href="{% url 'pre10' %}">10살미만</a></li>
+                  <li> <a href="{% url 'y10' %}">10대</a></li>
+                  <li> <a href="{% url 'y20' %}">20대</a></li>
+                  <li> <a href="{% url 'y30_40' %}">30-40대</a></li>
+                  <li> <a href="{% url 'y50_60' %}">50-60대</a></li>
+                  <li> <a href="{% url 'over70' %}">70세 이상</a></li>
+                  <li> <a href="{% url 'moderna' %}">모더나</a></li>
+                  <li> <a href="{% url 'pfizer' %}">화이자</a></li>
+                  <li> <a href="{% url 'az' %}">아스트라제네카</a></li>
+                  <li> <a href="{% url 'janssen' %}">얀센</a></li>
+                  <li> <a href="{% url 'free' %}">자유게시판</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#" >쪽지</a>
+                <script>
+                  function authMessage(){
+                       alert("쪽지는 로그인 하신 뒤 이용가능한 서비스 입니다");
+                  }
+                  function authPost(){
+                       alert("글쓰기는 로그인 하신 뒤 이용가능한 서비스 입니다");
+                  }
+                  </script>
+                <ul class="sub">
+                  {% if user.is_authenticated %}
+                  <li> <a href="{% url 'newMessage' %}" >쪽지쓰기</a></li>
+                  <li> <a href="{% url 'newMessageToMe' %}">내게 쪽지쓰기</a></li>
+                  <li> <a href="{% url 'messageReception' %}">받은 쪽지함</a></li>
+                  <li><a href="{% url 'sendToMe' %}">내게 쓴 쪽지함</a></li>
+                  <li><a href="{% url 'sendMessage' %}">보낸 쪽지함</a></li>
+                  {% else %}<!--로그인 안했는데 쪽지 누르면 경고창 뜸-->
+                  <li> <a href="#" onclick="authMessage()">쪽지쓰기</a></li>
+                  <li> <a href="#" onclick="authMessage()">내게 쪽지쓰기</a></li>
+                  <li> <a href="#" onclick="authMessage()">받은 쪽지함</a></li>
+                  <li><a href="#"onclick="authMessage()">내게 쓴 쪽지함</a></li>
+                  <li><a href="#" onclick="authMessage()">보낸 쪽지함</a></li>
+                  {%endif%}
+                  
+                </ul>
+              </li>
+      
+               <li><a href="{% url 'news'%}">뉴스</a></li>
+              
+               <li><a href="{% url 'address'%}">관련기관</a></li>
+          </ul>
+      </div>
+   
+  {% block content %}
+  {% endblock %}
+  <footer>
+    <br>
+    <hr>
+    <br>
+    🐨<strong>코알라</strong>🐨<br><a href="https://www.dongduk.ac.kr/kor/main.do">동덕여대</a> <a href="https://www.likelion.net/?utm_source=classlion_online_offline&utm_medium=naver_brand_sa&utm_campaign=naver_bsa_210705&NaPm=ct%3Dks7goaog%7Cci%3D0uzp002EK1bvr1Kpq11p%7Ctr%3Dbrnd%7Chk%3Db1f55dbc4b8c64c115d175f3e82ca02ddb6d29a0"> 멋쟁이 사자처럼  </a>
+    9기 <br> 개발자 <strong> 전혜인 정연림 정은영 한유진</strong>
+  </footer>
+  <br>
+  <br>
+</body>
+</html>

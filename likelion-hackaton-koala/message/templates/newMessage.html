@@ -1,0 +1,85 @@
+{%extends 'base.html'%}
+
+{%block content%}
+   
+    {% load static %}
+    <style>
+        #userList{
+            /*display: none;*/
+            border: 1px solid black;
+            width : 100px;
+            height: 250px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            position: absolute;
+            left: 510px;
+        }
+        .user{
+            position: relative;
+            left: 320px;
+            top: 11px;
+        }
+        .leftForm{
+            position: relative;
+            margin-top: -40px;
+            margin-bottom: 20px;
+        }
+        button{
+            background-color: rgb(104, 104, 104);
+        }
+        .container {     
+            border: 1px solid rgb(219, 219, 219);
+            box-shadow: 2px 2px 2px rgb(219, 219, 219);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+        }
+
+        #table {
+            padding: 10px;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+          $(document).ready(function() {
+              $("#showUserList").click(function() {
+                  $("#userList").slideToggle("slow");
+              });
+          });
+          function OnMouseIn(elem) 
+            {
+                elem.style.color = "olive";
+            }
+        function OnMouseOut(elem) 
+            {
+                elem.style.color= "rgb(179, 108, 108)";
+            }
+    </script>
+
+    <h2> 쪽지 쓰기 </h2>
+
+    <div class="container">
+    <div class="user">
+        <h3><button id="showUserList" onmouseover="OnMouseIn(this)" onmouseout="OnMouseOut (this)">user목록 보기</button></h3>
+
+        <div id="userList">
+            {% for user in users %}
+                {{user.username}}<br>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="leftForm">
+            <form  method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+                <table>
+                    <tr><th id="table">받는사람</th><td> {{form.to}}</td></tr>
+                    <tr><th id="table">보내는 사람</th><td > {{user.username}}</td></tr>
+                    <tr><th id="table">내용</th><td colspan="2">{{form.body}}</td></tr>
+                </table>
+                <br><button type="submit">올리기</button>
+            </form>
+    </div>
+    </div>
+    {%endblock%}

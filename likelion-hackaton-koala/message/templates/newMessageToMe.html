@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+
+{%block content%}
+   
+    {% load static %}
+
+    <style>
+        .container {     
+            border: 1px solid rgb(219, 219, 219);
+            box-shadow: 2px 2px 2px rgb(219, 219, 219);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+        }
+        
+        #table {
+            padding: 10px;
+            margin: 20px;
+        }
+
+    </style>
+
+    <h2>내게 쪽지 쓰기</h2>
+    <div class="container">
+    <form  method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <table>
+            <tr><th id="table">받는사람</th><td colspan="2"> {{user.username}}</td></tr>
+            <tr><th id="table">보내는 사람</th><td colspan="2"> {{user.username}}</td></tr>
+            <tr><th id="table">내용</th><td colspan="3">{{form.body}}</td></tr>
+        </table>
+        <br><button type="submit">올리기</button>
+    </form>
+    </div>
+    {%endblock%}

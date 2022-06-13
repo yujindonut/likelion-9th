@@ -1,0 +1,64 @@
+{%extends 'base.html'%}
+
+{%block content%}
+{% load static %}
+{% load socialaccount %} 
+{% providers_media_js %}
+<style>
+    #socialLogin{
+        text-align: center;
+        border: 1px solid rgb(219, 219, 219);
+        box-shadow: 2px 2px 2px rgb(219, 219, 219);
+        border-radius: 20px;
+        width: 20%;
+        padding: 20px;
+        margin: 20px auto;
+        background-color: white;
+    }
+    .signup{
+        font-size: 30px;
+    }
+    
+    a:hover{
+            text-decoration: none;
+            color: rgb(0, 60, 128);
+            font-weight: 900;
+        }
+
+    .container {
+        text-align: center;
+        border: 1px solid rgb(219, 219, 219);
+        box-shadow: 2px 2px 2px rgb(219, 219, 219);
+        border-radius: 20px;
+        width: 50%;
+        padding: 20px;
+        margin: 20px auto;
+        background-color: white;
+    }
+    
+    </style>
+
+    <form  action="{% url 'login'%} " method="post" >
+        <h1 >Login</h1>
+        <div class="container">
+        {%csrf_token%}
+        <table>
+        {{form.as_table}}
+        </table>
+        <br>
+        <button  type="submit">로그인</button>
+        </div>
+    </form>
+
+    <div id="socialLogin">
+        <a href="{% provider_login_url 'google' %}"> 
+            <img src="{% static '구글로고.png' %}" alt="소셜로그인" height="30"> 계정으로 로그인
+        </a> 
+    </div>
+    <br>
+    계정이 없다면 
+    <span class="signup">
+        <a href="{% url 'signUp'%}">회원가입 </a> 
+    </span>
+    하세요!
+{%endblock%}
