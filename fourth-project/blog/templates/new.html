@@ -1,0 +1,19 @@
+{% extends 'base.html' %}  
+
+{% block content %}
+    <h1>Write New</h1>
+
+    <form action="{%url 'createMine'%}" method="post">
+        <!-- 메소드 post를 사용할 때는 csrf토큰을 보내줌
+        csrf공격이 아니라는 것을 알려주는 token -->
+        {%csrf_token%}
+        <table>
+            <tr><td>제목 : <input type = "text" name = "titleName"></td></tr> <!--title-->
+            <tr><td>작성자 : <input type = "text" name = "writerName"></td></tr> <!--writer-->
+            <tr><td>본문 :
+            <textarea name = "bodyContent" id = "" cols = "30" rows = "10"></textarea></td></tr> <!--body-->
+        </table>
+        <br>
+        <button type = "submit">submit</button>
+    </form>
+{% endblock %}

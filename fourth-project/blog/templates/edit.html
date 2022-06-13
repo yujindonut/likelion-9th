@@ -1,0 +1,41 @@
+{% extends 'base.html' %}  
+
+{% block content %}
+    <h1>Update</h1>
+<!-- 
+    Get메소드
+    : 데이터를 얻기 위한 요청 / 데이터가 url에 보인다
+    : 보안에 안좋다
+    Post 메소드
+    : 데이터를 생성하기 위한 요청 / 데이터 url안보인다 / Csrf(사이트 간 요청 위조)공격 방지
+    : 데이터베이스에 접근할 수 있는 데이터 생성 기능은 post방식을 사용한다
+-->
+<!--updateMine의 url부분에 pathcoverter를 사용했기 때문에 id를 꼭 보내줘야한다. -->
+
+
+<form action="{%url 'updateMine' blog.id %}" method="post">
+
+    <!-- 메소드 post를 사용할 때는 csrf토큰을 보내줌
+
+        csrf공격이 아니라는 것을 알려주는 token -->
+
+    {%csrf_token%}
+    <table>
+        <!-- 처음부터 다시 적게 할 수 없으니 value에 edit함수에서 받은 edit_blog객체를 가지고 온다 -->
+    <tr><!--title-->
+        <td>제목 : <input type = "text" name = "titleName" value = "{{blog.subject}}"></td>
+    </tr>
+    <tr>
+        <td>작성자 : <input type = "text" name = "writerName" value = "{{blog.drafter}}"></td> <!--writer-->
+    </tr>
+    <tr>
+        <td> 본문 :
+            <textarea name = "bodyContent" id = "" cols = "30" rows = "10">{{blog.textBody}}</textarea> <!--body-->
+        </td>    
+    </tr>     
+</table>
+    <br>
+    <button type = "submit">submit</button>
+</form>
+
+{% endblock %}

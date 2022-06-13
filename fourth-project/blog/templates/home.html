@@ -1,0 +1,23 @@
+{% extends 'base.html' %}  
+
+<!-- base.html안에 있는 body안으로 이 block이 들어가게됨 -->
+{% block content %}
+    <h1>Blog Project</h1>
+    <!-- url의 path에 request를 보낼 링크를 home.html에 만든다. -->
+    <h3><a href="{%url 'new'%}">write blog</a></h3>
+    <br><br>
+    <table>
+        <div class="blog">
+            {% for blog in blogInfo %}
+                <tr>
+                    <td width='15%'><h2>{{blog.subject}}</h2></td>
+                    <td><h5 width='15%'>{{blog.drafter}}</h5></td>
+                    <!-- detail이라는 이름의 url에 요청을 보낼 때, blog.id를 같이 보내준다 (Path converter)-->
+                    <td width='70%'>{{blog.summary}} 
+                    <div class="more"><a href="{% url 'detail' blog.id %}">...more</a></div></td>
+                    <!-- {{blog.id}} -->
+                </tr>
+            {% endfor %}
+        </div>
+    </table>
+{% endblock %}

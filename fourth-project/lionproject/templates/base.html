@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- 공통된 css style도 다 포함 -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BLOG</title>
+        <!--예제 bootstrap 자리-->
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600&display=swap');
+        a{
+            color:#cef102;
+        }
+        a:link {
+            color:rgb(129, 9, 9)
+            gb(0, 0, 224);
+            text-decoration: none;
+        }
+        /* 방문했던 링크 */
+        a:visited {
+            color: rgb(251, 255, 0);
+            text-decoration: none;
+        }
+        /* 마우스가 올려진 링크 */
+        a:hover {
+            color:rgb(3, 48, 10);
+            text-decoration: underline;
+        }
+        /* 클릭하는 순간의 링크 */
+        a:active {
+            color:rgb(52, 68, 36);
+            background-color: rgb(230, 137, 183);
+        }
+        .more a{
+            font-size : 15px;
+            font-weight: lighter;
+            color :rgb(229, 255, 0)
+        }
+        body{
+            text-align: center;
+            background-color: #1fa562;
+            font-family: 'Noto Serif KR', serif;
+            color: rgb(255, 255, 255);
+            /* background : url('dongdukLion.png') no-repeat; */
+        }
+        .blog{
+        /* 단의 최소 가로 크기 : 150px, 단의 최대수 : 3개 */
+            columns :  3;
+            column-gap: 50px;
+            column-rule: 2px solid rgb(253, 255, 150);
+        }
+        p{
+            color:rgb(255, 255, 255)
+        }
+        h1{
+            color: rgb(255, 255, 255);
+        }
+        table {
+            width: 100%;
+            border-top: 1px solid #e4fd56;
+            border-collapse: collapse;
+        }
+        th, td {
+            border-bottom: 1px solid #e4fd56;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
