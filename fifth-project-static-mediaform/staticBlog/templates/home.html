@@ -1,0 +1,25 @@
+{% extends 'base.html' %}  
+
+<!-- base.html안에 있는 body안으로 이 block이 들어가게됨 -->
+{% block content %}
+<div class="staticBlog">
+    <h1>static Blog Project</h1>
+    <!-- url의 path에 request를 보낼 링크를 home.html에 만든다. -->
+    <h3><a href="{%url 'new'%}">Write static blog</a></h3>
+    <br><br>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for blog in blogInfo %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                <h1 class="card-title">{{blog.subject}}</h1>
+                <h3 class="card-subtitle mb-2 text-muted">{{blog.drafter}}</h3>
+                <p class="card-text">{{blog.summary}} </p>
+                <a href="{% url 'detail' blog.id %}" class="card-link">...more</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

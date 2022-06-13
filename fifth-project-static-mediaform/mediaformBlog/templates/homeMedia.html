@@ -1,0 +1,28 @@
+{% extends 'base.html' %}  
+
+<!-- base.html안에 있는 body안으로 이 block이 들어가게됨 -->
+{% block content %}
+<div class="mediaBlog">
+    <h1>Media Blog Project</h1>
+    <!-- url의 path에 request를 보낼 링크를 home.html에 만든다. -->
+    <h3><a href="{%url 'newMedia'%}">Write Media blog</a></h3>
+    <br><br>
+ 
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for blog in blogInfo %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{{blog.imageThumbnail.url}}">
+                <div class="card-body">
+                  <h3 class="card-title">{{blog.subject}}</h3>
+                  <p class="card-text">{{blog.summary}}
+                    <div class="more"><a href="{% url 'detailMedia' blog.id %}">...more</a></div></td>
+                  </p>
+                  <h4 class="card-text"><small class="text-muted">{{blog.drafter}}</small></h4>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
