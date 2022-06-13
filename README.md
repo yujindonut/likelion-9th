@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/badge/Django-092E20?style=flat-square&logo=Django&logoColor=white"/>&nbsp;
 <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=Python&logoColor=white"/>
 
-## ❤️‍🔥주요 프로젝트❤️‍
+#### ❤️‍🔥주요 프로젝트❤️‍🔥
 
 ## 빵소담
 ### 🌝주요기능
