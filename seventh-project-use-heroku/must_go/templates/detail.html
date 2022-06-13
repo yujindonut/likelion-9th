@@ -1,0 +1,21 @@
+{% extends 'base.html' %}  
+
+{% block content %}
+    <h1>{{blog_info.restaurant}}</h1>
+    <hr>
+    <!-- 블로그에 이미지가 없을 경우 오류 처리 -->
+    {% if blog_info.image %}
+    <p><img src="{{blog_info.image.url}}" alt="" width="360" height="480"></p>
+    {% endif %}
+    <br>
+    <div class="blog">
+        <p>추천 이유: {{blog_info.text}}</p> <!--추천이유-->
+    </div>
+    <br>
+    <h3>별점 : {{blog_info.rate}}</h3>
+    <br>
+    <h5>날짜 : {{blog_info.date}}</h5>
+    <br>
+    <a href="{% url 'edit' blog_info.id %}" class="btn btn-outline-light" tabindex="-1" role="button" aria-disabled="true">수정하기</a>
+    <a href="{% url 'delete' blog_info.id %}" class="btn btn-outline-light" tabindex="-1" role="button" aria-disabled="true">삭제하기</a>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}  
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>New Recommend</h1>
+
+    <!-- 인코딩 타입을 추가해서 form-data의 형태로 사진을 서버에 넘겨줄 수 있게 된다 -->
+    <form action="{%url 'new'%}" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        
+        <!-- django form함수로 생성한 객체들을 template에서 밑에처럼 사용하면 기본 스타일로 랜더링-->
+        <!-- form 객체를 다루기 용이하도록 도와주는 것 -
+            {%load static%} (base.html안에 씀) 뒤에 써줘야함-->
+            {{ form | crispy }}
+        <br>
+        <button type="submit" class="btn btn-outline-warning">submit</button>
+    </form>
+{% endblock %}
